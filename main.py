@@ -2,21 +2,13 @@ from amaranth import *
 from amaranth.back import verilog
 from VGATiming import VGATiming
 from XADCModule import XADCModule
+from VGADisplay import VGADisplay
 from RAM import RAM
 class VGADemo(Elaboratable):
-    """
-    基础 VGA 显示 Demo：
-    - 左侧红色
-    - 中间绿色
-    - 右侧蓝色
-    - 每 64 像素画一条白色网格线
-    """
-
     def __init__(self):
         self.vga_hsync = Signal()
         self.vga_vsync = Signal()
 
-        # 假设 VGA DAC 每个颜色 4 bit
         self.vga_r = Signal(4)
         self.vga_g = Signal(4)
         self.vga_b = Signal(4)
@@ -28,6 +20,8 @@ class VGADemo(Elaboratable):
 
     def elaborate(self, platform):
         m = Module()
+
+        # 25Mhz 像素时钟
 
         clk_25m = Signal()
 
@@ -50,9 +44,9 @@ class VGADemo(Elaboratable):
             ResetSignal("sync").eq(~self.rst),
         ]
 
-        timing = VGATiming()
-        m.submodules.timing = timing
 
+        timing = VGATiming(self.vga_hsync, self.vga_vsync)
+        m.submodules.timing = timing
 
         xadc = XADCModule(clk = self.clk, vauxp1 = self.vauxp1, vauxn1 = self.vauxn1)
         m.submodules.xadc = xadc
@@ -60,71 +54,8 @@ class VGADemo(Elaboratable):
         my_ram = RAM(xadc_value = xadc.adc_value, vga_x = timing.x, r_en = timing.visible)
         m.submodules.my_ram = my_ram
 
-
-        r = Signal(4)
-        g = Signal(4)
-        b = Signal(4)
-
-        # 网格线：每 64 像素一条
-        grid = Signal()
-        m.d.comb += grid.eq((timing.x[0:6] == 0) | (timing.y[0:6] == 0))
-
-        # 默认黑屏
-        m.d.comb += [
-            r.eq(0),
-            g.eq(0),
-            b.eq(0),
-        ]
-
-        with m.If(timing.visible):
-            with m.If(timing.x == my_ram.w_addr):
-                m.d.comb += [
-                    r.eq(0),
-                    g.eq(0xF),
-                    b.eq(0),
-                ]
-            with m.Elif(grid):
-                m.d.comb += [
-                    r.eq(0xF),
-                    g.eq(0xF),
-                    b.eq(0xF),
-                ]
-            with m.Elif(timing.y == my_ram.r_data):
-                m.d.comb += [
-                    r.eq(0xF),
-                    g.eq(0xF),
-                    b.eq(0x0),
-                ]
-            # RGB 三色竖条
-            # with m.Elif(timing.x < 213):
-            #     m.d.comb += [
-            #         r.eq(0xF),
-            #         g.eq(0x0),
-            #         b.eq(0x0),
-            #     ]
-            #
-            # with m.Elif(timing.x < 426):
-            #     m.d.comb += [
-            #         r.eq(0x0),
-            #         g.eq(0xF),
-            #         b.eq(0x0),
-            #     ]
-            #
-            # with m.Else():
-            #     m.d.comb += [
-            #         r.eq(0x0),
-            #         g.eq(0x0),
-            #         b.eq(0xF),
-            #     ]
-
-        # 输出端口
-        m.d.comb += [
-            self.vga_hsync.eq(timing.hsync),
-            self.vga_vsync.eq(timing.vsync),
-            self.vga_r.eq(r),
-            self.vga_g.eq(g),
-            self.vga_b.eq(b),
-        ]
+        vga_display = VGADisplay(timing = timing, ram = my_ram, vga_r = self.vga_r, vga_g = self.vga_g, vga_b = self.vga_b)
+        m.submodules.vga_display = vga_display
 
         return m
 
@@ -147,7 +78,7 @@ if __name__ == "__main__":
         ]
     )
 
-    output_path = r"D:\Code\python\Vivado\top.v"
+    output_path = r"top.v"
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(verilog_code)

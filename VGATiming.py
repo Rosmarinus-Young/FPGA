@@ -12,7 +12,7 @@ class VGATiming(Elaboratable):
         y       : 当前像素纵坐标，0~479
     """
 
-    def __init__(self):
+    def __init__(self, vga_hsync, vga_vsync):
         # 640x480@60Hz timing
         self.H_VISIBLE = 640
         self.H_FRONT   = 16
@@ -26,8 +26,9 @@ class VGATiming(Elaboratable):
         self.V_BACK    = 33
         self.V_TOTAL   = self.V_VISIBLE + self.V_FRONT + self.V_SYNC + self.V_BACK
 
-        self.hsync   = Signal(reset=1)
-        self.vsync   = Signal(reset=1)
+        self.vga_hsync = vga_hsync
+        self.vga_vsync = vga_vsync
+
         self.visible = Signal()
 
         self.x = Signal(range(self.H_TOTAL))
@@ -35,6 +36,9 @@ class VGATiming(Elaboratable):
 
     def elaborate(self, platform):
         m = Module()
+
+        hsync = Signal(reset = 1)
+        vsync = Signal(reset = 1)
 
         h_cnt = Signal(range(self.H_TOTAL))
         v_cnt = Signal(range(self.V_TOTAL))
@@ -69,8 +73,13 @@ class VGATiming(Elaboratable):
         vsync_end   = self.V_VISIBLE + self.V_FRONT + self.V_SYNC
 
         m.d.comb += [
-            self.hsync.eq(~((h_cnt >= hsync_start) & (h_cnt < hsync_end))),
-            self.vsync.eq(~((v_cnt >= vsync_start) & (v_cnt < vsync_end))),
+            hsync.eq(~((h_cnt >= hsync_start) & (h_cnt < hsync_end))),
+            vsync.eq(~((v_cnt >= vsync_start) & (v_cnt < vsync_end))),
         ]
 
+        m.d.comb += [
+            self.vga_hsync.eq(hsync),
+            self.vga_vsync.eq(vsync),
+        ]
+        
         return m

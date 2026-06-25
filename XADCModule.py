@@ -7,6 +7,7 @@ class XADCModule(Elaboratable):
         self.vauxp1 = vauxp1
         self.vauxn1 = vauxn1
         self.adc_value = Signal(12)
+        self.adc_ready = Signal()
 
     def elaborate(self, platform):
         m = Module()
@@ -37,6 +38,12 @@ class XADCModule(Elaboratable):
         )
 
         with m.If(drdy):
-            m.d.sync += self.adc_value.eq(xadc_data[4:16])
+            m.d.sync += [
+                self.adc_value.eq(xadc_data[4:16]),
+                self.adc_ready.eq(1),
+            ]
+        
+        with m.Else():
+            m.d.sync += self.adc_ready.eq(0)
 
         return m
