@@ -1,9 +1,9 @@
 from amaranth import *
 
 class VGADisplay(Elaboratable):
-    def __init__(self, timing, ram, vga_r, vga_g, vga_b):
+    def __init__(self, timing, vga_r, vga_g, vga_b, r_data):
         self.timing = timing
-        self.ram = ram
+        self.r_data = r_data
 
         self.vga_r = vga_r
         self.vga_g = vga_g
@@ -28,19 +28,13 @@ class VGADisplay(Elaboratable):
         ]
 
         with m.If(self.timing.visible):
-            with m.If(self.timing.x == self.ram.w_addr):
-                m.d.comb += [
-                    r.eq(0),
-                    g.eq(0xF),
-                    b.eq(0),
-                ]
-            with m.Elif(grid):
+            with m.If(grid):
                 m.d.comb += [
                     r.eq(0xF),
                     g.eq(0xF),
                     b.eq(0xF),
                 ]
-            with m.Elif(self.timing.y == self.ram.r_data):
+            with m.Elif(self.timing.y == self.r_data):
                 m.d.comb += [
                     r.eq(0xF),
                     g.eq(0xF),

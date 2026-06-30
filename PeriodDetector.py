@@ -6,8 +6,8 @@ class PeriodDetector(Elaboratable):
         self.adc_ready = adc_ready
         self.button = auto_button
         self.average = Signal(32)
-        self.period = Signal(32)
-
+        self.period = Signal(32, init = 1000000)
+        self.get_period_over = Signal(1, init = 0)
     def elaborate(self, platform):
         m = Module()
 
@@ -58,7 +58,6 @@ class PeriodDetector(Elaboratable):
                     with m.If(self.value < mid_low):
                         m.next = "get_period_mid"
                 
-
             with m.State("get_period_mid"):
                 with m.If(self.adc_ready):
                     with m.If(self.value > mid):
@@ -69,6 +68,7 @@ class PeriodDetector(Elaboratable):
                         with m.Else():
                             m.d.sync += [
                                 self.period.eq(period_sum >> 4),
+                                self.get_period_over.eq(1),
                                 get_period_ready.eq(0),
                                 period_cnt.eq(0),
                                 self.average.eq(mid),
@@ -79,4 +79,8 @@ class PeriodDetector(Elaboratable):
                 with m.If(self.adc_ready):
                     with m.If(self.value > mid_high):
                         m.next = "get_period_down"
+
+        with m.If(self.get_period_over):
+            m.d.sync += self.get_period_over.eq(0)
+
         return m

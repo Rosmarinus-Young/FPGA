@@ -4,6 +4,9 @@ from VGATiming import VGATiming
 from XADCModule import XADCModule
 from VGADisplay import VGADisplay
 from PeriodDetector import PeriodDetector
+from ButtonControl import ButtonControl
+from WaveControl import WaveControl
+from KnobControl import KnobControl
 from RAM import RAM
 class VGADemo(Elaboratable):
     def __init__(self):
@@ -20,6 +23,9 @@ class VGADemo(Elaboratable):
         self.vauxn1 = Signal()
 
         self.auto_button = Signal()
+
+        self.sample_period_control_knob_A = Signal()
+        self.sample_period_control_knob_B = Signal()
 
     def elaborate(self, platform):
         m = Module()
@@ -54,14 +60,29 @@ class VGADemo(Elaboratable):
         xadc = XADCModule(clk = self.clk, vauxp1 = self.vauxp1, vauxn1 = self.vauxn1)
         m.submodules.xadc = xadc
 
-        my_ram = RAM(xadc_value = xadc.adc_value, vga_x = timing.x, r_en = timing.visible)
-        m.submodules.my_ram = my_ram
+        auto_button = ButtonControl(button = self.auto_button)
+        m.submodules.auto_button = auto_button
 
-        vga_display = VGADisplay(timing = timing, ram = my_ram, vga_r = self.vga_r, vga_g = self.vga_g, vga_b = self.vga_b)
-        m.submodules.vga_display = vga_display
-
-        period_detector = PeriodDetector(adc_value = xadc.adc_value, adc_ready = xadc.adc_ready, auto_button = self.auto_button)
+        period_detector = PeriodDetector(adc_value = xadc.adc_value, 
+                                         adc_ready = xadc.adc_ready, auto_button = auto_button.out)
         m.submodules.period_detector = period_detector
+
+        sample_period_control_knob = KnobControl(A = self.sample_period_control_knob_A, 
+                                                 B = self.sample_period_control_knob_B)
+        m.submodules.sample_period_control_knob = sample_period_control_knob
+
+        wave_control = WaveControl(adc_value = xadc.adc_value, adc_ready = xadc.adc_ready, 
+                                   period = period_detector.period, 
+                                   get_period_over = period_detector.get_period_over,
+                                   sample_period_control_knob = sample_period_control_knob.out)
+        m.submodules.wave_control = wave_control
+
+        ram = RAM(r_addr = timing.x, r_en = 1, w_addr = wave_control.w_addr, 
+                  w_data = wave_control.w_data, w_en = wave_control.w_en)
+        m.submodules.ram = ram
+
+        vga_display = VGADisplay(timing = timing, vga_r = self.vga_r, vga_g = self.vga_g, vga_b = self.vga_b, r_data = ram.r_data)
+        m.submodules.vga_display = vga_display
 
         return m
 
@@ -82,6 +103,8 @@ if __name__ == "__main__":
             top.vauxp1,
             top.vauxn1,
             top.auto_button,
+            top.sample_period_control_knob_A,
+            top.sample_period_control_knob_B,
         ]
     )
 
