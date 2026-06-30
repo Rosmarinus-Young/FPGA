@@ -3,6 +3,7 @@ from amaranth.back import verilog
 from VGATiming import VGATiming
 from XADCModule import XADCModule
 from VGADisplay import VGADisplay
+from PeriodDetector import PeriodDetector
 from RAM import RAM
 class VGADemo(Elaboratable):
     def __init__(self):
@@ -17,6 +18,8 @@ class VGADemo(Elaboratable):
 
         self.vauxp1 = Signal()
         self.vauxn1 = Signal()
+
+        self.auto_button = Signal()
 
     def elaborate(self, platform):
         m = Module()
@@ -57,6 +60,9 @@ class VGADemo(Elaboratable):
         vga_display = VGADisplay(timing = timing, ram = my_ram, vga_r = self.vga_r, vga_g = self.vga_g, vga_b = self.vga_b)
         m.submodules.vga_display = vga_display
 
+        period_detector = PeriodDetector(adc_value = xadc.adc_value, adc_ready = xadc.adc_ready, auto_button = self.auto_button)
+        m.submodules.period_detector = period_detector
+
         return m
 
 
@@ -75,6 +81,7 @@ if __name__ == "__main__":
             top.vga_b,
             top.vauxp1,
             top.vauxn1,
+            top.auto_button,
         ]
     )
 
