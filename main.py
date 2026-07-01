@@ -64,7 +64,8 @@ class VGADemo(Elaboratable):
         m.submodules.auto_button = auto_button
 
         period_detector = PeriodDetector(adc_value = xadc.adc_value, 
-                                         adc_ready = xadc.adc_ready, auto_button = auto_button.out)
+                                         adc_ready = xadc.adc_ready,
+                                         auto_button = auto_button.out)
         m.submodules.period_detector = period_detector
 
         sample_period_control_knob = KnobControl(A = self.sample_period_control_knob_A, 
@@ -81,7 +82,9 @@ class VGADemo(Elaboratable):
                   w_data = wave_control.w_data, w_en = wave_control.w_en)
         m.submodules.ram = ram
 
-        vga_display = VGADisplay(timing = timing, vga_r = self.vga_r, vga_g = self.vga_g, vga_b = self.vga_b, r_data = ram.r_data)
+        vga_display = VGADisplay(timing = timing, vga_r = self.vga_r, 
+                                 vga_g = self.vga_g, vga_b = self.vga_b, 
+                                 r_data = ram.r_data)
         m.submodules.vga_display = vga_display
 
         return m
