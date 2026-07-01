@@ -27,18 +27,18 @@ class GainControl(Elaboratable):
             ]
             # 自动增益：根据信号峰峰值选择 gain，使波形约占 300 像素
             # 公式：(amp >> 3) * (gain >> 4) ≈ 300  =>  gain ≈ 38400 / amp
-            with m.If(amp > 3000):
-                m.d.sync += gain.eq(8)
-            with m.Elif(amp > 1500):
-                m.d.sync += gain.eq(16)
-            with m.Elif(amp > 750):
-                m.d.sync += gain.eq(32)
-            with m.Elif(amp > 375):
-                m.d.sync += gain.eq(64)
-            with m.Elif(amp > 187):
-                m.d.sync += gain.eq(128)
-            with m.Else():
-                m.d.sync += gain.eq(256)
+            # with m.If(amp > 3000):
+            #     m.d.sync += gain.eq(8)
+            # with m.Elif(amp > 1500):
+            #     m.d.sync += gain.eq(16)
+            # with m.Elif(amp > 750):
+            #     m.d.sync += gain.eq(32)
+            # with m.Elif(amp > 375):
+            #     m.d.sync += gain.eq(64)
+            # with m.Elif(amp > 187):
+            #     m.d.sync += gain.eq(128)
+            # with m.Else():
+            #     m.d.sync += gain.eq(256)
         
         # r_data 为12位adc原始数据
         m.d.comb += diff.eq(self.r_data - center)

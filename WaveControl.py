@@ -22,7 +22,7 @@ class WaveControl(Elaboratable):
 
         sample_clk = Signal(32, init = 0)
 
-        with m.If(period_cnt == self.period - 1):
+        with m.If(period_cnt >= self.period - 1):
             m.d.sync += [
                 period_cnt.eq(0),
                 period_overflow.eq(1)
@@ -33,7 +33,7 @@ class WaveControl(Elaboratable):
                 period_overflow.eq(0)
             ]
 
-        with m.If(sample_clk == self.sample_period - 1):
+        with m.If(sample_clk >= self.sample_period - 1):
             m.d.sync += [
                 sample_clk.eq(0),
                 self.w_addr.eq(self.w_addr + 1),
