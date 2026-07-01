@@ -7,6 +7,7 @@ from PeriodDetector import PeriodDetector
 from ButtonControl import ButtonControl
 from WaveControl import WaveControl
 from KnobControl import KnobControl
+from RangeSwitcher import RangeSwitcher
 from RAM import RAM
 
 class VGADemo(Elaboratable):
@@ -30,6 +31,9 @@ class VGADemo(Elaboratable):
 
         self.display_gain_control_knob_A = Signal()
         self.display_gain_control_knob_B = Signal()
+
+        self.KEYA1 = Signal(init = 1)
+        self.KEYA1 = Signal(init = 1)
 
     def elaborate(self, platform):
         m = Module()
@@ -71,6 +75,10 @@ class VGADemo(Elaboratable):
                                          adc_ready = xadc.adc_ready,
                                          auto_button = auto_button.out)
         m.submodules.period_detector = period_detector
+
+        range_switcher = RangeSwitcher(A0 = self.KEYA1, A1 = self.KEYA1, 
+                                       wave_range = period_detector.wave_range)
+        m.submodules.range_switcher = range_switcher
 
         sample_period_control_knob = KnobControl(A = self.sample_period_control_knob_A, 
                                                  B = self.sample_period_control_knob_B)
