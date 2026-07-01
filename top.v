@@ -237,9 +237,9 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
   input out;
   wire out;
   (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:7" *)
-  wire [1:0] \out$10 ;
+  wire [1:0] \out$11 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:7" *)
-  wire [1:0] \out$19 ;
+  wire [1:0] \out$20 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:9" *)
   wire [31:0] period;
   (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:10" *)
@@ -261,6 +261,8 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
   wire [11:0] w_data;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
   wire w_en;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:11" *)
+  wire [3:0] wave_range;
   (* src = "/home/yym/workspace/test_fpga/FPGA/VGATiming.py:34" *)
   input [9:0] x;
   wire [9:0] x;
@@ -269,7 +271,7 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .CH1_display_gain_control_knob_A(CH1_display_gain_control_knob_A),
     .CH1_display_gain_control_knob_B(CH1_display_gain_control_knob_B),
     .clk(clk),
-    .out(\out$19 ),
+    .out(\out$20 ),
     .rst(rst)
   );
   (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:67" *)
@@ -280,7 +282,7 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .maxn(maxn),
     .mid(mid),
     .minn(minn),
-    .out(\out$19 ),
+    .out(\out$20 ),
     .r_data(r_data),
     .rst(rst)
   );
@@ -295,7 +297,8 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .\minn$25 (minn),
     .out(out),
     .period(period),
-    .rst(rst)
+    .rst(rst),
+    .wave_range(wave_range)
   );
   (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:59" *)
   \top.Channal1.phase_getter  phase_getter (
@@ -325,14 +328,15 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .CH1_KEYA1(CH1_KEYA1),
     .CH1_KEYA2(CH1_KEYA2),
     .clk(clk),
-    .rst(rst)
+    .rst(rst),
+    .wave_range(wave_range)
   );
   (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:57" *)
   \top.Channal1.sample_period_control_knob  sample_period_control_knob (
     .CH1_sample_period_control_knob_A(CH1_sample_period_control_knob_A),
     .CH1_sample_period_control_knob_B(CH1_sample_period_control_knob_B),
     .clk(clk),
-    .out(\out$10 ),
+    .out(\out$11 ),
     .rst(rst)
   );
   (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:61" *)
@@ -341,7 +345,7 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .adc_ch0_value(adc_ch0_value),
     .clk(clk),
     .get_period_over(get_period_over),
-    .out(\out$10 ),
+    .out(\out$11 ),
     .period(period),
     .period_start(period_start),
     .rst(rst),
@@ -413,7 +417,7 @@ module \top.Channal1.display_gain_control_knob (CH1_display_gain_control_knob_A,
   assign \$3  = status != (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:25" *) last_status;
   assign \$4  = status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:29" *) last_status;
   assign \$5  = cnt + (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:30" *) 1'h1;
-  assign \$6  = cnt >= (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:34" *) 20'hf4240;
+  assign \$6  = cnt >= (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:34" *) 19'h7a120;
   assign \$7  = stable_status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:44" *) 1'h1;
   assign \$8  = stable_status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:46" *) 2'h2;
   assign \$9  = stable_status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:49" *) 2'h3;
@@ -707,7 +711,7 @@ endmodule
 
 (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:17" *)
 (* generator = "Amaranth" *)
-module \top.Channal1.period_detector (rst, adc_ch0_value, adc_ch0_ready, out, period, get_period_over, \maxn$24 , \minn$25 , \mid$26 , clk);
+module \top.Channal1.period_detector (rst, adc_ch0_value, adc_ch0_ready, out, wave_range, period, get_period_over, \maxn$24 , \minn$25 , \mid$26 , clk);
   reg \$auto$verilog_backend.cc:2355:dump_module$3  = 0;
   wire [32:0] \$1 ;
   wire \$10 ;
@@ -846,6 +850,7 @@ module \top.Channal1.period_detector (rst, adc_ch0_value, adc_ch0_ready, out, pe
   input rst;
   wire rst;
   (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:11" *)
+  output [3:0] wave_range;
   reg [3:0] wave_range = 4'h1;
   assign \$26  = maxn + (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:91" *) minn;
   assign \$28  = maxn + (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:92" *) maxn;
@@ -2336,7 +2341,7 @@ endmodule
 
 (* src = "/home/yym/workspace/test_fpga/FPGA/RangeSwitcher.py:10" *)
 (* generator = "Amaranth" *)
-module \top.Channal1.range_switcher (rst, CH1_KEYA1, CH1_KEYA2, clk);
+module \top.Channal1.range_switcher (rst, wave_range, CH1_KEYA1, CH1_KEYA2, clk);
   reg \$auto$verilog_backend.cc:2355:dump_module$5  = 0;
   reg \$1 ;
   reg \$2 ;
@@ -2352,6 +2357,9 @@ module \top.Channal1.range_switcher (rst, CH1_KEYA1, CH1_KEYA2, clk);
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:68" *)
   input rst;
   wire rst;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:11" *)
+  input [3:0] wave_range;
+  wire [3:0] wave_range;
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:36" *)
   always @(posedge clk)
     CH1_KEYA1 <= \$1 ;
@@ -2360,14 +2368,38 @@ module \top.Channal1.range_switcher (rst, CH1_KEYA1, CH1_KEYA2, clk);
     CH1_KEYA2 <= \$2 ;
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$5 ) begin end
-    \$1  = 1'h0;
+    (* full_case = 32'd1 *)
+    casez (wave_range)
+      4'h4:
+          \$1  = 1'h0;
+      4'h3:
+          \$1  = 1'h1;
+      4'h2:
+          \$1  = 1'h0;
+      4'h1:
+          \$1  = 1'h1;
+      default:
+          \$1  = 1'h1;
+    endcase
     if (rst) begin
       \$1  = 1'h1;
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$5 ) begin end
-    \$2  = 1'h1;
+    (* full_case = 32'd1 *)
+    casez (wave_range)
+      4'h4:
+          \$2  = 1'h0;
+      4'h3:
+          \$2  = 1'h0;
+      4'h2:
+          \$2  = 1'h1;
+      4'h1:
+          \$2  = 1'h1;
+      default:
+          \$2  = 1'h1;
+    endcase
     if (rst) begin
       \$2  = 1'h1;
     end
@@ -2436,7 +2468,7 @@ module \top.Channal1.sample_period_control_knob (CH1_sample_period_control_knob_
   assign \$3  = status != (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:25" *) last_status;
   assign \$4  = status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:29" *) last_status;
   assign \$5  = cnt + (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:30" *) 1'h1;
-  assign \$6  = cnt >= (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:34" *) 20'hf4240;
+  assign \$6  = cnt >= (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:34" *) 19'h7a120;
   assign \$7  = stable_status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:44" *) 1'h1;
   assign \$8  = stable_status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:46" *) 2'h2;
   assign \$9  = stable_status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:49" *) 2'h3;
@@ -2624,7 +2656,8 @@ module \top.Channal1.wave_control (rst, adc_ch0_value, adc_ch0_ready, period, ge
   reg [11:0] \$14 ;
   reg \$15 ;
   reg [11:0] \$16 ;
-  reg [31:0] \$17 ;
+  reg [11:0] \$17 ;
+  reg [31:0] \$18 ;
   wire \$2 ;
   wire [12:0] \$3 ;
   wire [32:0] \$4 ;
@@ -2657,7 +2690,7 @@ module \top.Channal1.wave_control (rst, adc_ch0_value, adc_ch0_ready, period, ge
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:68" *)
   input rst;
   wire rst;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:23" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:25" *)
   reg [31:0] sample_clk = 32'd0;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:14" *)
   reg [31:0] sample_period = 32'd100000;
@@ -2670,16 +2703,18 @@ module \top.Channal1.wave_control (rst, adc_ch0_value, adc_ch0_ready, period, ge
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
   output w_en;
   reg w_en = 1'h0;
-  assign \$1  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:26" *) 1'h1;
-  assign \$2  = $signed({ 1'h0, sample_clk }) >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:26" *) $signed(\$1 );
-  assign \$3  = w_addr + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:29" *) 1'h1;
-  assign \$4  = sample_clk + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:32" *) 1'h1;
-  assign \$5  = w_addr >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:34" *) 10'h280;
-  assign \$7  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:52" *) 1'h1;
-  assign \$8  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:54" *) 2'h2;
-  assign \$10  = sample_period + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:53" *) \$9 ;
-  assign \$12  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:55" *) \$11 ;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:23" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:21" *)
+  reg [11:0] w_last = 12'h000;
+  assign \$1  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:27" *) 1'h1;
+  assign \$2  = $signed({ 1'h0, sample_clk }) >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:27" *) $signed(\$1 );
+  assign \$3  = w_addr + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:30" *) 1'h1;
+  assign \$4  = sample_clk + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:33" *) 1'h1;
+  assign \$5  = w_addr >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:35" *) 10'h280;
+  assign \$7  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:60" *) 1'h1;
+  assign \$8  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:62" *) 2'h2;
+  assign \$10  = sample_period + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:61" *) \$9 ;
+  assign \$12  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:63" *) \$11 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:25" *)
   always @(posedge clk)
     sample_clk <= \$13 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
@@ -2691,9 +2726,12 @@ module \top.Channal1.wave_control (rst, adc_ch0_value, adc_ch0_ready, period, ge
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:13" *)
   always @(posedge clk)
     w_data <= \$16 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:21" *)
+  always @(posedge clk)
+    w_last <= \$17 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:14" *)
   always @(posedge clk)
-    sample_period <= \$17 ;
+    sample_period <= \$18 ;
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
     (* full_case = 32'd1 *)
@@ -2727,9 +2765,12 @@ module \top.Channal1.wave_control (rst, adc_ch0_value, adc_ch0_ready, period, ge
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
     \$15  = w_en;
+    (* full_case = 32'd1 *)
     if (\$5 ) begin
     end else if (adc_ch0_ready) begin
       \$15  = 1'h1;
+    end else begin
+      \$15  = 1'h0;
     end
     if (w_en) begin
       \$15  = 1'h0;
@@ -2741,9 +2782,12 @@ module \top.Channal1.wave_control (rst, adc_ch0_value, adc_ch0_ready, period, ge
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
     \$16  = w_data;
+    (* full_case = 32'd1 *)
     if (\$5 ) begin
     end else if (adc_ch0_ready) begin
       \$16  = adc_ch0_value;
+    end else begin
+      \$16  = w_last;
     end
     if (rst) begin
       \$16  = 12'h000;
@@ -2751,17 +2795,28 @@ module \top.Channal1.wave_control (rst, adc_ch0_value, adc_ch0_ready, period, ge
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
-    \$17  = sample_period;
-    if (get_period_over) begin
-      \$17  = \$6 ;
-    end
-    if (\$7 ) begin
-      \$17  = \$10 [31:0];
-    end else if (\$8 ) begin
-      \$17  = \$12 [31:0];
+    \$17  = w_last;
+    if (\$5 ) begin
+    end else if (adc_ch0_ready) begin
+      \$17  = adc_ch0_value;
     end
     if (rst) begin
-      \$17  = 32'd100000;
+      \$17  = 12'h000;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
+    \$18  = sample_period;
+    if (get_period_over) begin
+      \$18  = \$6 ;
+    end
+    if (\$7 ) begin
+      \$18  = \$10 [31:0];
+    end else if (\$8 ) begin
+      \$18  = \$12 [31:0];
+    end
+    if (rst) begin
+      \$18  = 32'd100000;
     end
   end
   assign \$6  = { 7'h00, period[31:7] };
@@ -2814,9 +2869,9 @@ module \top.Channal2 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
   input out;
   wire out;
   (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:7" *)
-  wire [1:0] \out$12 ;
+  wire [1:0] \out$13 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:7" *)
-  wire [1:0] \out$21 ;
+  wire [1:0] \out$22 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:9" *)
   wire [31:0] period;
   (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:10" *)
@@ -2838,6 +2893,8 @@ module \top.Channal2 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
   wire [11:0] w_data;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
   wire w_en;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:11" *)
+  wire [3:0] wave_range;
   (* src = "/home/yym/workspace/test_fpga/FPGA/VGATiming.py:34" *)
   input [9:0] x;
   wire [9:0] x;
@@ -2846,7 +2903,7 @@ module \top.Channal2 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .CH2_display_gain_control_knob_A(CH2_display_gain_control_knob_A),
     .CH2_display_gain_control_knob_B(CH2_display_gain_control_knob_B),
     .clk(clk),
-    .out(\out$21 ),
+    .out(\out$22 ),
     .rst(rst)
   );
   (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:67" *)
@@ -2857,7 +2914,7 @@ module \top.Channal2 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .maxn(maxn),
     .mid(mid),
     .minn(minn),
-    .out(\out$21 ),
+    .out(\out$22 ),
     .r_data(r_data),
     .rst(rst)
   );
@@ -2872,7 +2929,8 @@ module \top.Channal2 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .\minn$25 (minn),
     .out(out),
     .period(period),
-    .rst(rst)
+    .rst(rst),
+    .wave_range(wave_range)
   );
   (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:59" *)
   \top.Channal2.phase_getter  phase_getter (
@@ -2902,14 +2960,15 @@ module \top.Channal2 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .CH2_KEYA1(CH2_KEYA1),
     .CH2_KEYA2(CH2_KEYA2),
     .clk(clk),
-    .rst(rst)
+    .rst(rst),
+    .wave_range(wave_range)
   );
   (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:57" *)
   \top.Channal2.sample_period_control_knob  sample_period_control_knob (
     .CH1_sample_period_control_knob_A(CH1_sample_period_control_knob_A),
     .CH1_sample_period_control_knob_B(CH1_sample_period_control_knob_B),
     .clk(clk),
-    .out(\out$12 ),
+    .out(\out$13 ),
     .rst(rst)
   );
   (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:61" *)
@@ -2918,7 +2977,7 @@ module \top.Channal2 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .adc_ch1_value(adc_ch1_value),
     .clk(clk),
     .get_period_over(get_period_over),
-    .out(\out$12 ),
+    .out(\out$13 ),
     .period(period),
     .period_start(period_start),
     .rst(rst),
@@ -2990,7 +3049,7 @@ module \top.Channal2.display_gain_control_knob (CH2_display_gain_control_knob_A,
   assign \$3  = status != (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:25" *) last_status;
   assign \$4  = status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:29" *) last_status;
   assign \$5  = cnt + (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:30" *) 1'h1;
-  assign \$6  = cnt >= (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:34" *) 20'hf4240;
+  assign \$6  = cnt >= (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:34" *) 19'h7a120;
   assign \$7  = stable_status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:44" *) 1'h1;
   assign \$8  = stable_status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:46" *) 2'h2;
   assign \$9  = stable_status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:49" *) 2'h3;
@@ -3284,7 +3343,7 @@ endmodule
 
 (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:17" *)
 (* generator = "Amaranth" *)
-module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, period, get_period_over, \maxn$24 , \minn$25 , \mid$26 , clk);
+module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, wave_range, period, get_period_over, \maxn$24 , \minn$25 , \mid$26 , clk);
   reg \$auto$verilog_backend.cc:2355:dump_module$10  = 0;
   wire [32:0] \$1 ;
   wire \$10 ;
@@ -3423,6 +3482,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
   input rst;
   wire rst;
   (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:11" *)
+  output [3:0] wave_range;
   reg [3:0] wave_range = 4'h1;
   assign \$26  = maxn + (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:91" *) minn;
   assign \$28  = maxn + (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:92" *) maxn;
@@ -4913,7 +4973,7 @@ endmodule
 
 (* src = "/home/yym/workspace/test_fpga/FPGA/RangeSwitcher.py:10" *)
 (* generator = "Amaranth" *)
-module \top.Channal2.range_switcher (rst, CH2_KEYA1, CH2_KEYA2, clk);
+module \top.Channal2.range_switcher (rst, wave_range, CH2_KEYA1, CH2_KEYA2, clk);
   reg \$auto$verilog_backend.cc:2355:dump_module$12  = 0;
   reg \$1 ;
   reg \$2 ;
@@ -4929,6 +4989,9 @@ module \top.Channal2.range_switcher (rst, CH2_KEYA1, CH2_KEYA2, clk);
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:68" *)
   input rst;
   wire rst;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:11" *)
+  input [3:0] wave_range;
+  wire [3:0] wave_range;
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:45" *)
   always @(posedge clk)
     CH2_KEYA1 <= \$1 ;
@@ -4937,14 +5000,38 @@ module \top.Channal2.range_switcher (rst, CH2_KEYA1, CH2_KEYA2, clk);
     CH2_KEYA2 <= \$2 ;
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$12 ) begin end
-    \$1  = 1'h0;
+    (* full_case = 32'd1 *)
+    casez (wave_range)
+      4'h4:
+          \$1  = 1'h0;
+      4'h3:
+          \$1  = 1'h1;
+      4'h2:
+          \$1  = 1'h0;
+      4'h1:
+          \$1  = 1'h1;
+      default:
+          \$1  = 1'h1;
+    endcase
     if (rst) begin
       \$1  = 1'h1;
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$12 ) begin end
-    \$2  = 1'h1;
+    (* full_case = 32'd1 *)
+    casez (wave_range)
+      4'h4:
+          \$2  = 1'h0;
+      4'h3:
+          \$2  = 1'h0;
+      4'h2:
+          \$2  = 1'h1;
+      4'h1:
+          \$2  = 1'h1;
+      default:
+          \$2  = 1'h1;
+    endcase
     if (rst) begin
       \$2  = 1'h1;
     end
@@ -5013,7 +5100,7 @@ module \top.Channal2.sample_period_control_knob (CH1_sample_period_control_knob_
   assign \$3  = status != (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:25" *) last_status;
   assign \$4  = status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:29" *) last_status;
   assign \$5  = cnt + (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:30" *) 1'h1;
-  assign \$6  = cnt >= (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:34" *) 20'hf4240;
+  assign \$6  = cnt >= (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:34" *) 19'h7a120;
   assign \$7  = stable_status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:44" *) 1'h1;
   assign \$8  = stable_status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:46" *) 2'h2;
   assign \$9  = stable_status == (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:49" *) 2'h3;
@@ -5201,7 +5288,8 @@ module \top.Channal2.wave_control (rst, adc_ch1_value, adc_ch1_ready, period, ge
   reg [11:0] \$14 ;
   reg \$15 ;
   reg [11:0] \$16 ;
-  reg [31:0] \$17 ;
+  reg [11:0] \$17 ;
+  reg [31:0] \$18 ;
   wire \$2 ;
   wire [12:0] \$3 ;
   wire [32:0] \$4 ;
@@ -5234,7 +5322,7 @@ module \top.Channal2.wave_control (rst, adc_ch1_value, adc_ch1_ready, period, ge
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:68" *)
   input rst;
   wire rst;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:23" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:25" *)
   reg [31:0] sample_clk = 32'd0;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:14" *)
   reg [31:0] sample_period = 32'd100000;
@@ -5247,16 +5335,18 @@ module \top.Channal2.wave_control (rst, adc_ch1_value, adc_ch1_ready, period, ge
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
   output w_en;
   reg w_en = 1'h0;
-  assign \$1  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:26" *) 1'h1;
-  assign \$2  = $signed({ 1'h0, sample_clk }) >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:26" *) $signed(\$1 );
-  assign \$3  = w_addr + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:29" *) 1'h1;
-  assign \$4  = sample_clk + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:32" *) 1'h1;
-  assign \$5  = w_addr >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:34" *) 10'h280;
-  assign \$7  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:52" *) 1'h1;
-  assign \$8  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:54" *) 2'h2;
-  assign \$10  = sample_period + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:53" *) \$9 ;
-  assign \$12  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:55" *) \$11 ;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:23" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:21" *)
+  reg [11:0] w_last = 12'h000;
+  assign \$1  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:27" *) 1'h1;
+  assign \$2  = $signed({ 1'h0, sample_clk }) >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:27" *) $signed(\$1 );
+  assign \$3  = w_addr + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:30" *) 1'h1;
+  assign \$4  = sample_clk + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:33" *) 1'h1;
+  assign \$5  = w_addr >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:35" *) 10'h280;
+  assign \$7  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:60" *) 1'h1;
+  assign \$8  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:62" *) 2'h2;
+  assign \$10  = sample_period + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:61" *) \$9 ;
+  assign \$12  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:63" *) \$11 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:25" *)
   always @(posedge clk)
     sample_clk <= \$13 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
@@ -5268,9 +5358,12 @@ module \top.Channal2.wave_control (rst, adc_ch1_value, adc_ch1_ready, period, ge
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:13" *)
   always @(posedge clk)
     w_data <= \$16 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:21" *)
+  always @(posedge clk)
+    w_last <= \$17 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:14" *)
   always @(posedge clk)
-    sample_period <= \$17 ;
+    sample_period <= \$18 ;
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$14 ) begin end
     (* full_case = 32'd1 *)
@@ -5304,9 +5397,12 @@ module \top.Channal2.wave_control (rst, adc_ch1_value, adc_ch1_ready, period, ge
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$14 ) begin end
     \$15  = w_en;
+    (* full_case = 32'd1 *)
     if (\$5 ) begin
     end else if (adc_ch1_ready) begin
       \$15  = 1'h1;
+    end else begin
+      \$15  = 1'h0;
     end
     if (w_en) begin
       \$15  = 1'h0;
@@ -5318,9 +5414,12 @@ module \top.Channal2.wave_control (rst, adc_ch1_value, adc_ch1_ready, period, ge
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$14 ) begin end
     \$16  = w_data;
+    (* full_case = 32'd1 *)
     if (\$5 ) begin
     end else if (adc_ch1_ready) begin
       \$16  = adc_ch1_value;
+    end else begin
+      \$16  = w_last;
     end
     if (rst) begin
       \$16  = 12'h000;
@@ -5328,17 +5427,28 @@ module \top.Channal2.wave_control (rst, adc_ch1_value, adc_ch1_ready, period, ge
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$14 ) begin end
-    \$17  = sample_period;
-    if (get_period_over) begin
-      \$17  = \$6 ;
-    end
-    if (\$7 ) begin
-      \$17  = \$10 [31:0];
-    end else if (\$8 ) begin
-      \$17  = \$12 [31:0];
+    \$17  = w_last;
+    if (\$5 ) begin
+    end else if (adc_ch1_ready) begin
+      \$17  = adc_ch1_value;
     end
     if (rst) begin
-      \$17  = 32'd100000;
+      \$17  = 12'h000;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$14 ) begin end
+    \$18  = sample_period;
+    if (get_period_over) begin
+      \$18  = \$6 ;
+    end
+    if (\$7 ) begin
+      \$18  = \$10 [31:0];
+    end else if (\$8 ) begin
+      \$18  = \$12 [31:0];
+    end
+    if (rst) begin
+      \$18  = 32'd100000;
     end
   end
   assign \$6  = { 7'h00, period[31:7] };

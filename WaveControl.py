@@ -10,13 +10,15 @@ class WaveControl(Elaboratable):
         self.period_start = period_start
         self.w_en = Signal()
         self.w_addr = Signal(12, init = 0)
-        self.w_data = Signal(12)
+        self.w_data = Signal(12, init = 0)
         self.sample_period = Signal(32, init = 100000)
 
     def elaborate(self, platform):
         m = Module()
     
         x_limit = 640
+
+        w_last = Signal(12, init = 0)
 
         period_cnt = Signal(32, init = 0)
 
@@ -39,7 +41,14 @@ class WaveControl(Elaboratable):
         with m.Elif(self.adc_ready): # adc就绪，采样并储存
             m.d.sync += [
                 self.w_en.eq(1),
-                self.w_data.eq(self.adc_value)
+                self.w_data.eq(self.adc_value),
+                w_last.eq(self.adc_value)
+            ]
+
+        with m.Else():
+            m.d.sync += [
+                self.w_en.eq(0),
+                self.w_data.eq(w_last)
             ]
         
         with m.If(self.w_en):
