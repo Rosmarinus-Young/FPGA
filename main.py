@@ -36,6 +36,13 @@ class VGADemo(Elaboratable):
         self.KEYA1 = Signal(init = 1)
         self.KEYA1 = Signal(init = 1)
 
+        # SignalGenerator mode-select buttons (EGO1 S0–S4)
+        self.btn_sine     = Signal()   # S0 → WAVEFORM_SINE
+        self.btn_square   = Signal()   # S1 → WAVEFORM_SQUARE
+        self.btn_triangle = Signal()   # S2 → WAVEFORM_TRIANGLE
+        self.btn_am       = Signal()   # S3 → MODE_AM
+        self.btn_fm       = Signal()   # S4 → MODE_FM
+
         # SignalGenerator DAC0832 ports
         self.dac_data = Signal(8)
         self.dac_ile  = Signal()
@@ -126,12 +133,27 @@ class VGADemo(Elaboratable):
                                  gain_control_knob = display_gain_control_knob.out)
         m.submodules.vga_display = vga_display
 
+        # Tie unused VGA control inputs to 0 (physical buttons now used
+        # for SignalGenerator mode selection)
+        m.d.comb += [
+            self.auto_button.eq(0),
+            self.sample_period_control_knob_A.eq(0),
+            self.sample_period_control_knob_B.eq(0),
+            self.display_gain_control_knob_A.eq(0),
+            self.display_gain_control_knob_B.eq(0),
+        ]
+
         # DDS Signal Generator (DAC0832 output)
         sg = SignalGenerator(standalone=False)
         m.submodules.signal_gen = sg
         m.d.comb += [
             sg.clk.eq(self.clk),
             sg.rst.eq(~self.rst),  # active-low button -> active-high reset
+            sg.btn_sine.eq(self.btn_sine),
+            sg.btn_square.eq(self.btn_square),
+            sg.btn_triangle.eq(self.btn_triangle),
+            sg.btn_am.eq(self.btn_am),
+            sg.btn_fm.eq(self.btn_fm),
             self.dac_data.eq(sg.dac_data),
             self.dac_ile.eq(sg.dac_ile),
             self.dac_cs.eq(sg.dac_cs),
@@ -158,12 +180,14 @@ if __name__ == "__main__":
             top.vga_b,
             top.vauxp1,
             top.vauxn1,
-            top.auto_button,
-            top.sample_period_control_knob_A,
-            top.sample_period_control_knob_B,
-            top.display_gain_control_knob_A,
-            top.display_gain_control_knob_B,
-            
+
+            # SignalGenerator mode-select buttons (EGO1 S0–S4)
+            top.btn_sine,
+            top.btn_square,
+            top.btn_triangle,
+            top.btn_am,
+            top.btn_fm,
+
             # SignalGenerator DAC0832 ports
             top.dac_data,
             top.dac_ile,
@@ -218,19 +242,17 @@ set_property PACKAGE_PIN C4  [get_ports vga_vsync]
 set_property IOSTANDARD LVCMOS33 [get_ports vga_hsync]
 set_property IOSTANDARD LVCMOS33 [get_ports vga_vsync]
 
-# ---- Control buttons / knobs ----
-set_property PACKAGE_PIN R11 [get_ports auto_button]
-set_property IOSTANDARD LVCMOS33 [get_ports auto_button]
-
-set_property PACKAGE_PIN R17 [get_ports sample_period_control_knob_A]
-set_property PACKAGE_PIN R15 [get_ports sample_period_control_knob_B]
-set_property IOSTANDARD LVCMOS33 [get_ports sample_period_control_knob_A]
-set_property IOSTANDARD LVCMOS33 [get_ports sample_period_control_knob_B]
-
-set_property PACKAGE_PIN V1  [get_ports display_gain_control_knob_A]
-set_property PACKAGE_PIN U4  [get_ports display_gain_control_knob_B]
-set_property IOSTANDARD LVCMOS33 [get_ports display_gain_control_knob_A]
-set_property IOSTANDARD LVCMOS33 [get_ports display_gain_control_knob_B]
+# ---- SignalGenerator mode-select buttons (EGO1 S0–S4) ----
+set_property PACKAGE_PIN R11 [get_ports btn_sine]
+set_property PACKAGE_PIN R17 [get_ports btn_square]
+set_property PACKAGE_PIN R15 [get_ports btn_triangle]
+set_property PACKAGE_PIN V1  [get_ports btn_am]
+set_property PACKAGE_PIN U4  [get_ports btn_fm]
+set_property IOSTANDARD LVCMOS33 [get_ports btn_sine]
+set_property IOSTANDARD LVCMOS33 [get_ports btn_square]
+set_property IOSTANDARD LVCMOS33 [get_ports btn_triangle]
+set_property IOSTANDARD LVCMOS33 [get_ports btn_am]
+set_property IOSTANDARD LVCMOS33 [get_ports btn_fm]
 
 # ---- XADC analog input ----
 set_property PACKAGE_PIN K9  [get_ports vauxp1]
