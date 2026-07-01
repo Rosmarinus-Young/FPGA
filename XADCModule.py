@@ -16,25 +16,44 @@ class XADCModule(Elaboratable):
         drdy = Signal()
         eoc = Signal()
 
+        # Construct 16-bit VAUX buses — only channel 1 is used
+        vauxp = Cat(Const(0, 1), self.vauxp1, Const(0, 14))
+        vauxn = Cat(Const(0, 1), self.vauxn1, Const(0, 14))
+
         m.submodules.u_xadc = Instance(
-            "xadc_wiz_0",
+            "XADC",
+            # Sequencer: continuous mode, single channel (VAUX1), all cals
+            p_INIT_40=Const(0x0000, 16),
+            p_INIT_41=Const(0x20F0, 16),  # SEQ=0010 continuous, CAL=1111
+            p_INIT_42=Const(0x0400, 16),  # 16-sample averaging
+            p_INIT_48=Const(0x0002, 16),  # Enable VAUX1 in sequencer
+            p_INIT_49=Const(0x0000, 16),
 
-            i_daddr_in=Const(0x11, 7),
-            i_dclk_in=self.clk,
-            i_den_in=eoc,
-            i_di_in=Const(0, 16),
-            i_dwe_in=Const(0, 1),
-            i_reset_in=Const(0, 1),
+            i_DADDR=Const(0x11, 7),
+            i_DCLK=self.clk,
+            i_DEN=eoc,
+            i_DI=Const(0, 16),
+            i_DWE=Const(0),
+            i_RESET=Const(0),
 
-            i_vauxp1=self.vauxp1,
-            i_vauxn1=self.vauxn1,
+            i_VAUXP=vauxp,
+            i_VAUXN=vauxn,
 
-            o_do_out=xadc_data,
-            o_drdy_out=drdy,
-            o_eoc_out=eoc,
+            i_VP=Const(0),
+            i_VN=Const(0),
 
-            i_vp_in=Const(0, 1),
-            i_vn_in=Const(0, 1),
+            i_CONVST=Const(0),
+            i_CONVSTCLK=Const(0),
+
+            o_DO=xadc_data,
+            o_DRDY=drdy,
+            o_EOC=eoc,
+            o_ALM=Signal(8),
+            o_BUSY=Signal(),
+            o_CHANNEL=Signal(5),
+            o_EOS=Signal(),
+            o_OT=Signal(),
+            o_MUXADDR=Signal(5),
         )
 
         with m.If(drdy):

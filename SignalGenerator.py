@@ -55,7 +55,6 @@ Features:
   and respecting the 1 µs settling time.
 """
 from amaranth import *
-from amaranth.back import verilog
 import math
 
 
@@ -113,7 +112,7 @@ class SignalGenerator(Elaboratable):
 
     # Frequency resolution: Δf = F_DAC / 2^N ≈ 0.047 Hz  << 20 Hz ✓
 
-    def __init__(self):
+    def __init__(self, standalone=True):
         # DAC0832 data bus (8-bit)
         self.dac_data = Signal(self.D)
 
@@ -127,6 +126,8 @@ class SignalGenerator(Elaboratable):
         # Global signals
         self.clk = Signal()        # 100 MHz system clock
         self.rst = Signal()        # Active-high reset
+
+        self.standalone = standalone
 
     # ------------------------------------------------------------------
     # Waveform LUT generators (Python pre-computation)
@@ -194,11 +195,14 @@ class SignalGenerator(Elaboratable):
         # -- Tie sync domain clock and reset to top-level ports --
         # This prevents Amaranth from creating extra unnamed ports
         # (clk$8, rst$9) that would fail DRC in Vivado.
-        m.domains.sync = ClockDomain("sync")
-        m.d.comb += [
-            ClockSignal("sync").eq(self.clk),
-            ResetSignal("sync").eq(self.rst),   # RST: active-high
-        ]
+        # Only when used as standalone top-level; as a submodule the
+        # parent module owns the sync domain.
+        if self.standalone:
+            m.domains.sync = ClockDomain("sync")
+            m.d.comb += [
+                ClockSignal("sync").eq(self.clk),
+                ResetSignal("sync").eq(self.rst),   # RST: active-high
+            ]
 
         # -- Frequency tuning word (FTW) --
         # The phase accumulator is advanced only on dac_tick,
@@ -265,112 +269,3 @@ class SignalGenerator(Elaboratable):
             m.d.sync += self.dac_data.eq(lut[lut_addr])
 
         return m
-
-
-# ======================================================================
-# Main: generate Verilog and ancillary files
-# ======================================================================
-if __name__ == "__main__":
-    top = SignalGenerator()
-
-    # --- Generate Verilog ---
-    verilog_code = verilog.convert(
-        top,
-        name="SignalGenerator",
-        ports=[
-            top.clk,
-            top.rst,
-            top.dac_data,
-            top.dac_ile,
-            top.dac_cs,
-            top.dac_wr1,
-            top.dac_wr2,
-            top.dac_xfer,
-        ],
-        emit_src=True,
-    )
-
-    vlog_path = "SignalGenerator.v"
-    with open(vlog_path, "w", encoding="utf-8") as f:
-        f.write(verilog_code)
-
-    # --- Generate XDC constraints ---
-    xdc_content = """\
-# ================================================================
-# EGO1 SignalGenerator — XDC Pin Constraints
-# ================================================================
-
-# 100 MHz system clock
-set_property PACKAGE_PIN P17 [get_ports clk]
-set_property IOSTANDARD LVCMOS33 [get_ports clk]
-create_clock -period 10.000 -name sys_clk [get_ports clk]
-
-# Reset button (active high)
-set_property PACKAGE_PIN P15 [get_ports rst]
-set_property IOSTANDARD LVCMOS33 [get_ports rst]
-
-# DAC0832 data bus [DAC_D0 .. DAC_D7]
-set_property PACKAGE_PIN T8  [get_ports {dac_data[0]}]
-set_property PACKAGE_PIN R8  [get_ports {dac_data[1]}]
-set_property PACKAGE_PIN T6  [get_ports {dac_data[2]}]
-set_property PACKAGE_PIN R7  [get_ports {dac_data[3]}]
-set_property PACKAGE_PIN U6  [get_ports {dac_data[4]}]
-set_property PACKAGE_PIN U7  [get_ports {dac_data[5]}]
-set_property PACKAGE_PIN V9  [get_ports {dac_data[6]}]
-set_property PACKAGE_PIN U9  [get_ports {dac_data[7]}]
-
-set_property IOSTANDARD LVCMOS33 [get_ports {dac_data[*]}]
-
-# DAC0832 control signals
-set_property PACKAGE_PIN R5  [get_ports dac_ile]   ;# DAC_BYTE2
-set_property PACKAGE_PIN N6  [get_ports dac_cs]    ;# DAC_CS#
-set_property PACKAGE_PIN V6  [get_ports dac_wr1]   ;# DAC_WR1#
-set_property PACKAGE_PIN R6  [get_ports dac_wr2]   ;# DAC_WR2#
-set_property PACKAGE_PIN V7  [get_ports dac_xfer]  ;# DAC_XFER#
-
-set_property IOSTANDARD LVCMOS33 [get_ports dac_ile]
-set_property IOSTANDARD LVCMOS33 [get_ports dac_cs]
-set_property IOSTANDARD LVCMOS33 [get_ports dac_wr1]
-set_property IOSTANDARD LVCMOS33 [get_ports dac_wr2]
-set_property IOSTANDARD LVCMOS33 [get_ports dac_xfer]
-"""
-    xdc_path = "SignalGenerator.xdc"
-    with open(xdc_path, "w", encoding="utf-8") as f:
-        f.write(xdc_content)
-
-    # --- Report ---
-    wave_names = {
-        SignalGenerator.WAVEFORM_SINE:     "sine",
-        SignalGenerator.WAVEFORM_SQUARE:   "square",
-        SignalGenerator.WAVEFORM_TRIANGLE: "triangle",
-    }
-    freq_resolution = SignalGenerator.F_DAC / (1 << SignalGenerator.N)
-
-    wave_name = wave_names.get(SignalGenerator.WAVEFORM, "unknown")
-    ftw_val = int(SignalGenerator.FREQ_HZ
-                  * (1 << SignalGenerator.N)
-                  / SignalGenerator.F_DAC)
-    actual_freq = (ftw_val * SignalGenerator.F_DAC
-                   / (1 << SignalGenerator.N))
-
-    print("=" * 56)
-    print("  DDS Signal Generator — EGO1 + DAC0832")
-    print("=" * 56)
-    print(f"  Waveform          : {wave_name}")
-    print(f"  Target frequency  : {SignalGenerator.FREQ_HZ} Hz")
-    print(f"  Actual frequency  : {actual_freq:.2f} Hz")
-    print(f"  FTW               : {ftw_val} (0x{ftw_val:06X})")
-    print(f"  Frequency res.    : {freq_resolution:.2f} Hz")
-    print(f"  DAC update rate   : {SignalGenerator.F_DAC} Hz")
-    print(f"  Amplitude         : 2 Vpp (center 2.5 V)")
-    print(f"  DAC mode          : single buffer")
-    print("-" * 56)
-    print(f"  Verilog           : {vlog_path}")
-    print(f"  Constraints       : {xdc_path}")
-    print("=" * 56)
-
-    # Validate frequency range and resolution
-    if not (100 <= SignalGenerator.FREQ_HZ <= 10000):
-        print("  WARNING: Frequency outside specified 100–10000 Hz range!")
-    if freq_resolution > 20:
-        print(f"  WARNING: Resolution {freq_resolution:.2f} Hz > 20 Hz!")
