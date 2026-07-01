@@ -239,13 +239,37 @@ class SignalGenerator(Elaboratable):
         return lut
 
     def _build_square_lut(self):
-        """Build unipolar square wave LUT (50% duty cycle)."""
+        """Build unipolar square wave LUT with softened edges.
+
+        Each edge is spread over EDGE_SAMPLES transitional points to
+        form a small linear staircase ramp (~16 LSBs per step), replacing
+        the original single-sample 64↔192 jump that triggered severe
+        DAC0832 MSB glitch.  The tiny per-step code change keeps every
+        R-2R current-switch transition well below the glitch threshold.
+
+        With EDGE_SAMPLES = 7 at ~781 kHz DAC update rate, each edge
+        completes in ~9 µs — invisible at audio frequencies.
+        """
+        EDGE_SAMPLES = 7  # transitional samples per edge
+        STEP_COUNT   = EDGE_SAMPLES + 1           # 8 sub-steps
+        SWING        = 2 * self.AMP_PEAK          # 128 LSBs total swing
+
         lut = []
-        midpoint = (1 << self.A) // 2
-        for k in range(1 << self.A):
-            code = (self.AMP_CENTER + self.AMP_PEAK
-                    if k < midpoint
-                    else self.AMP_CENTER - self.AMP_PEAK)
+        midpoint = (1 << self.A) // 2              # 128
+        high = self.AMP_CENTER + self.AMP_PEAK     # 192
+        low  = self.AMP_CENTER - self.AMP_PEAK     #  64
+
+        for k in range(1 << self.A):               # 0 … 255
+            if k < midpoint - EDGE_SAMPLES:        # 0 … 120  → HIGH plateau
+                code = high
+            elif k < midpoint:                     # 121 … 127 → falling ramp
+                step = k - (midpoint - EDGE_SAMPLES) + 1   # 1 … 7
+                code = high - SWING * step // STEP_COUNT
+            elif k < (1 << self.A) - EDGE_SAMPLES: # 128 … 248 → LOW plateau
+                code = low
+            else:                                  # 249 … 255 → rising ramp
+                step = k - ((1 << self.A) - EDGE_SAMPLES) + 1  # 1 … 7
+                code = low + SWING * step // STEP_COUNT
             lut.append(self._clamp(code))
         return lut
 
@@ -742,11 +766,30 @@ class SignalGenerator(Elaboratable):
             (mod_index_fixed * mod_sin_spwm) >> 12)
 
         # Comparator: mod_scaled > tri_value → HIGH, else LOW
-        hi_code = self.AMP_CENTER + self.AMP_PEAK  # 192
-        lo_code = self.AMP_CENTER - self.AMP_PEAK  #  64
+        # Edge-softened with one mid-level tick per transition to
+        # suppress DAC0832 MSB glitch (64 LSB steps vs 128 LSB jump).
+        hi_code  = self.AMP_CENTER + self.AMP_PEAK  # 192
+        lo_code  = self.AMP_CENTER - self.AMP_PEAK  #  64
+        mid_code = self.AMP_CENTER                  # 128
+
+        # Registered comparator state (stable, sampled on dac_tick)
+        spwm_level = Signal()
+        with m.If(dac_tick):
+            m.d.sync += spwm_level.eq(mod_scaled_spwm > tri_val_spwm)
+
+        # One-cycle-delayed copy for edge detection
+        spwm_prev = Signal()
+        with m.If(dac_tick):
+            m.d.sync += spwm_prev.eq(spwm_level)
+
+        # Edge flag: asserted for one DAC tick when comparator flips
+        spwm_edge = Signal()
+        m.d.comb += spwm_edge.eq(spwm_level != spwm_prev)
 
         dac_spwm_comb = Signal(8)
-        with m.If(mod_scaled_spwm > tri_val_spwm):
+        with m.If(spwm_edge):
+            m.d.comb += dac_spwm_comb.eq(mid_code)
+        with m.Elif(spwm_level):
             m.d.comb += dac_spwm_comb.eq(hi_code)
         with m.Else():
             m.d.comb += dac_spwm_comb.eq(lo_code)

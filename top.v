@@ -214,7 +214,7 @@ module top(rst, vauxp1, vauxn1, btn_mode, btn_inc, btn_dec, vga_hsync, vga_vsync
     .clk(clk),
     .dac_data(dac_data),
     .rst(\rst$23 ),
-    .\rst$67 (\rst$30 )
+    .\rst$70 (\rst$30 )
   );
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\main.py:93" *)
   \top.timing  timing (
@@ -2278,9 +2278,9 @@ module \top.sample_period_control_knob (rst, out, clk);
   assign \$2  = 3'h0;
 endmodule
 
-(* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:357" *)
+(* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:381" *)
 (* generator = "Amaranth" *)
-module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk);
+module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$70 , dac_data, clk);
   reg \$auto$verilog_backend.cc:2445:dump_module$6  = 0;
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:218" *)
   input btn_mode;
@@ -2295,8 +2295,8 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   input rst;
   wire rst;
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:215" *)
-  input \rst$67 ;
-  wire \rst$67 ;
+  input \rst$70 ;
+  wire \rst$70 ;
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:204" *)
   output [7:0] dac_data;
   reg [7:0] dac_data = 8'h00;
@@ -2313,47 +2313,47 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   wire [19:0] \$16 ;
   wire [19:0] \$17 ;
   wire \$18 ;
-  wire \$19 ;
+  wire [20:0] \$19 ;
   wire \$2 ;
-  wire [20:0] \$20 ;
-  wire \$21 ;
-  wire [20:0] \$22 ;
-  wire \$23 ;
-  wire [20:0] \$24 ;
-  wire \$25 ;
-  wire [3:0] \$26 ;
+  wire \$20 ;
+  wire [20:0] \$21 ;
+  wire \$22 ;
+  wire [20:0] \$23 ;
+  wire \$24 ;
+  wire [3:0] \$25 ;
+  wire \$26 ;
   wire \$27 ;
   wire \$28 ;
   wire \$29 ;
   wire \$3 ;
-  wire \$30 ;
-  wire [24:0] \$31 ;
-  wire \$32 ;
-  wire [24:0] \$33 ;
-  wire [12:0] \$34 ;
-  wire \$35 ;
-  wire [12:0] \$36 ;
+  wire [24:0] \$30 ;
+  wire \$31 ;
+  wire [24:0] \$32 ;
+  wire [12:0] \$33 ;
+  wire \$34 ;
+  wire [12:0] \$35 ;
+  wire [13:0] \$36 ;
   wire [12:0] \$37 ;
-  wire [12:0] \$38 ;
-  wire \$39 ;
+  wire \$38 ;
+  wire [12:0] \$39 ;
   wire \$4 ;
-  wire [12:0] \$40 ;
+  wire \$40 ;
   wire \$41 ;
   wire \$42 ;
   wire \$43 ;
   wire \$44 ;
-  wire \$45 ;
-  wire [24:0] \$46 ;
-  wire \$47 ;
-  wire [12:0] \$48 ;
-  wire \$49 ;
+  wire [24:0] \$45 ;
+  wire \$46 ;
+  wire [12:0] \$47 ;
+  wire \$48 ;
+  wire [13:0] \$49 ;
   wire [19:0] \$5 ;
-  wire [12:0] \$50 ;
-  wire \$51 ;
-  wire [12:0] \$52 ;
+  wire \$50 ;
+  wire [12:0] \$51 ;
+  wire [7:0] \$52 ;
   wire [7:0] \$53 ;
-  wire [7:0] \$54 ;
-  wire \$55 ;
+  wire \$54 ;
+  wire [24:0] \$55 ;
   wire [24:0] \$56 ;
   wire [24:0] \$57 ;
   wire [24:0] \$58 ;
@@ -2361,7 +2361,7 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   wire [27:0] \$6 ;
   wire [24:0] \$60 ;
   wire [24:0] \$61 ;
-  wire [24:0] \$62 ;
+  wire \$62 ;
   reg [7:0] \$63 ;
   reg \$64 ;
   reg [19:0] \$65 ;
@@ -2385,51 +2385,53 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   reg [23:0] \$81 ;
   reg [23:0] \$82 ;
   reg [23:0] \$83 ;
-  reg [7:0] \$84 ;
+  reg \$84 ;
+  reg \$85 ;
+  reg [7:0] \$86 ;
   wire \$9 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:604" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:628" *)
   wire [8:0] am_signed;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:539" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:563" *)
   reg [7:0] basic_lut_mux;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:585" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:609" *)
   wire [7:0] carrier_addr_am;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:686" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:710" *)
   wire [7:0] carrier_addr_fm;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:724" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:748" *)
   wire [7:0] carrier_addr_spwm;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:567" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:591" *)
   wire [23:0] carrier_ftw_am;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:642" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:666" *)
   wire [23:0] carrier_ftw_fm;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:703" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:727" *)
   wire [23:0] carrier_ftw_spwm;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:574" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:598" *)
   reg [23:0] carrier_phase_am = 24'h000000;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:652" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:676" *)
   reg [23:0] carrier_phase_fm = 24'h000000;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:713" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:737" *)
   reg [23:0] carrier_phase_spwm = 24'h000000;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:592" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:616" *)
   reg [7:0] carrier_sin_am;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:485" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:509" *)
   reg [6:0] clk_div_cnt = 7'h00;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:615" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:639" *)
   reg [7:0] dac_am_comb;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:551" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:575" *)
   wire [7:0] dac_basic_comb;
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:208" *)
   wire dac_cs;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:480" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:504" *)
   wire [7:0] dac_div;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:689" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:713" *)
   reg [7:0] dac_fm_comb;
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:207" *)
   wire dac_ile;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:605" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:629" *)
   wire [9:0] dac_raw_am;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:748" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:789" *)
   reg [7:0] dac_spwm_comb;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:486" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:510" *)
   wire dac_tick;
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:209" *)
   wire dac_wr1;
@@ -2437,220 +2439,1269 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   wire dac_wr2;
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:211" *)
   wire dac_xfer;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:332" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:356" *)
   reg [19:0] dec_cnt = 20'h00000;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:344" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:368" *)
   reg dec_prev = 1'h0;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:347" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:371" *)
   wire dec_pulse;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:340" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:364" *)
   wire dec_stable;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:328" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:352" *)
   reg dec_sync = 1'h0;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:427" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:451" *)
   reg [23:0] ftw_basic = 24'h0053e2;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:674" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:698" *)
   wire [23:0] ftw_delta_fm;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:640" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:664" *)
   wire [31:0] ftw_dev_dynamic;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:675" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:699" *)
   wire [23:0] ftw_inst_fm;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:332" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:356" *)
   reg [19:0] inc_cnt = 20'h00000;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:344" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:368" *)
   reg inc_prev = 1'h0;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:347" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:371" *)
   wire inc_pulse;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:340" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:364" *)
   wire inc_stable;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:328" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:352" *)
   reg inc_sync = 1'h0;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:520" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:544" *)
   wire [7:0] lut_addr_basic;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:586" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:610" *)
   wire [7:0] mod_addr_am;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:662" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:686" *)
   wire [7:0] mod_addr_fm;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:725" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:749" *)
   wire [7:0] mod_addr_spwm;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:568" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:592" *)
   wire [23:0] mod_ftw_am;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:643" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:667" *)
   wire [23:0] mod_ftw_fm;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:704" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:728" *)
   wire [23:0] mod_ftw_spwm;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:429" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:453" *)
   reg [11:0] mod_index_fixed = 12'h800;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:575" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:599" *)
   reg [23:0] mod_phase_am = 24'h000000;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:653" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:677" *)
   reg [23:0] mod_phase_fm = 24'h000000;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:714" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:738" *)
   reg [23:0] mod_phase_spwm = 24'h000000;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:740" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:764" *)
   wire [7:0] mod_scaled_spwm;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:593" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:617" *)
   reg [7:0] mod_sin_am;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:663" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:687" *)
   reg [7:0] mod_sin_fm;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:732" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:756" *)
   reg [7:0] mod_sin_spwm;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:411" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:435" *)
   reg [2:0] mode = 3'h0;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:332" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:356" *)
   reg [19:0] mode_cnt = 20'h00000;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:344" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:368" *)
   reg mode_prev = 1'h0;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:347" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:371" *)
   wire mode_pulse;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:340" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:364" *)
   wire mode_stable;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:328" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:352" *)
   reg mode_sync = 1'h0;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:603" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:627" *)
   wire [15:0] modulated_am;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:514" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:538" *)
   reg [23:0] phase_acc_basic = 24'h000000;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:602" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:626" *)
   wire [31:0] product_am;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:529" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:553" *)
   reg [7:0] sine_lut_out;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:530" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:786" *)
+  wire spwm_edge;
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:776" *)
+  reg spwm_level = 1'h0;
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:781" *)
+  reg spwm_prev = 1'h0;
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:554" *)
   reg [7:0] square_lut_out;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:731" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:755" *)
   reg [7:0] tri_val_spwm;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:531" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:555" *)
   reg [7:0] triangle_lut_out;
-  assign \$5  = $signed({ 1'h0, mod_index_fixed }) * (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:608" *) $signed(mod_sin_am);
-  assign \$6  = $signed(\$5 ) * (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:608" *) $signed(carrier_sin_am);
-  assign \$8  = $signed(carrier_sin_am) + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:610" *) $signed(\$7 [15:0]);
-  assign dac_raw_am = $signed(9'h080) + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:611" *) $signed(\$8 [8:0]);
-  assign \$9  = $signed(dac_raw_am) > (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:616" *) $signed(9'h0ff);
-  assign \$10  = $signed(dac_raw_am) < (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:618" *) $signed(1'h0);
-  assign \$11  = mod_index_fixed * (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:671" *) 15'h53e2;
-  assign \$13  = $signed({ 1'h0, \$12  }) * (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:678" *) $signed(mod_sin_fm);
-  assign \$15  = $signed(19'h346dc) + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:679" *) $signed(\$14 [23:0]);
-  assign \$16  = $signed({ 1'h0, mod_index_fixed }) * (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:742" *) $signed(mod_sin_spwm);
-  assign \$18  = $signed(\$17 [7:0]) > (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:749" *) $signed(tri_val_spwm);
-  assign \$19  = mode_cnt < (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:334" *) 20'hf4240;
-  assign \$20  = mode_cnt + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:335" *) 1'h1;
-  assign \$21  = inc_cnt < (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:334" *) 20'hf4240;
-  assign \$22  = inc_cnt + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:335" *) 1'h1;
-  assign \$23  = dec_cnt < (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:334" *) 20'hf4240;
-  assign \$24  = dec_cnt + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:335" *) 1'h1;
-  assign \$25  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:414" *) 3'h5;
-  assign \$26  = mode + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:417" *) 1'h1;
-  assign \$27  = mode < (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:441" *) 2'h3;
-  assign \$28  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:444" *) 2'h3;
-  assign \$29  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:448" *) 3'h4;
-  assign \$30  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:451" *) 3'h5;
-  assign \$31  = ftw_basic + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:442" *) 9'h1ad;
-  assign \$32  = \$31  <= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:442" *) 18'h346dc;
-  assign \$33  = ftw_basic + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:443" *) 9'h1ad;
-  assign \$34  = mod_index_fixed + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:445" *) 8'hcd;
-  assign \$35  = \$34  <= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:445" *) 12'hfff;
-  assign \$36  = mod_index_fixed + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:447" *) 8'hcd;
-  assign \$37  = mod_index_fixed + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:450" *) 12'h800;
-  assign \$38  = mod_index_fixed + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:452" *) 8'hcd;
-  assign \$39  = \$38  <= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:452" *) 12'hfff;
-  assign \$40  = mod_index_fixed + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:454" *) 8'hcd;
-  assign \$41  = mode < (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:457" *) 2'h3;
-  assign \$42  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:460" *) 2'h3;
-  assign \$43  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:464" *) 3'h4;
-  assign \$44  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:468" *) 3'h5;
-  assign \$45  = ftw_basic >= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:458" *) 12'ha10;
-  assign \$46  = ftw_basic - (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:459" *) 9'h1ad;
-  assign \$47  = mod_index_fixed >= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:461" *) 8'hcd;
-  assign \$48  = mod_index_fixed - (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:463" *) 8'hcd;
-  assign \$49  = mod_index_fixed >= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:465" *) 12'h800;
-  assign \$50  = mod_index_fixed - (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:467" *) 12'h800;
-  assign \$51  = mod_index_fixed >= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:469" *) 8'hcd;
-  assign \$52  = mod_index_fixed - (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:471" *) 8'hcd;
-  assign \$53  = clk_div_cnt + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:491" *) 1'h1;
-  assign \$54  = clk_div_cnt + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:492" *) 1'h1;
-  assign \$55  = \$54  == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:492" *) dac_div;
-  assign \$56  = phase_acc_basic + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:518" *) ftw_basic;
-  assign \$57  = carrier_phase_am + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:581" *) 18'h346dc;
-  assign \$58  = mod_phase_am + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:582" *) 15'h53e2;
-  assign \$59  = mod_phase_fm + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:659" *) 15'h53e2;
-  assign \$60  = carrier_phase_fm + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:684" *) \$15 [23:0];
-  assign \$61  = carrier_phase_spwm + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:720" *) 18'h346dc;
-  assign \$62  = mod_phase_spwm + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:721" *) 15'h53e2;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:328" *)
+  assign \$5  = $signed({ 1'h0, mod_index_fixed }) * (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:632" *) $signed(mod_sin_am);
+  assign \$6  = $signed(\$5 ) * (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:632" *) $signed(carrier_sin_am);
+  assign \$8  = $signed(carrier_sin_am) + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:634" *) $signed(\$7 [15:0]);
+  assign dac_raw_am = $signed(9'h080) + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:635" *) $signed(\$8 [8:0]);
+  assign \$9  = $signed(dac_raw_am) > (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:640" *) $signed(9'h0ff);
+  assign \$10  = $signed(dac_raw_am) < (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:642" *) $signed(1'h0);
+  assign \$11  = mod_index_fixed * (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:695" *) 15'h53e2;
+  assign \$13  = $signed({ 1'h0, \$12  }) * (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:702" *) $signed(mod_sin_fm);
+  assign \$15  = $signed(19'h346dc) + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:703" *) $signed(\$14 [23:0]);
+  assign \$16  = $signed({ 1'h0, mod_index_fixed }) * (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:766" *) $signed(mod_sin_spwm);
+  assign spwm_edge = spwm_level != (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:787" *) spwm_prev;
+  assign \$18  = mode_cnt < (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:358" *) 20'hf4240;
+  assign \$19  = mode_cnt + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:359" *) 1'h1;
+  assign \$20  = inc_cnt < (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:358" *) 20'hf4240;
+  assign \$21  = inc_cnt + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:359" *) 1'h1;
+  assign \$22  = dec_cnt < (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:358" *) 20'hf4240;
+  assign \$23  = dec_cnt + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:359" *) 1'h1;
+  assign \$24  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:438" *) 3'h5;
+  assign \$25  = mode + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:441" *) 1'h1;
+  assign \$26  = mode < (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:465" *) 2'h3;
+  assign \$27  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:468" *) 2'h3;
+  assign \$28  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:472" *) 3'h4;
+  assign \$29  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:475" *) 3'h5;
+  assign \$30  = ftw_basic + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:466" *) 9'h1ad;
+  assign \$31  = \$30  <= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:466" *) 18'h346dc;
+  assign \$32  = ftw_basic + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:467" *) 9'h1ad;
+  assign \$33  = mod_index_fixed + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:469" *) 9'h19a;
+  assign \$34  = \$33  <= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:469" *) 12'hfff;
+  assign \$35  = mod_index_fixed + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:471" *) 9'h19a;
+  assign \$36  = mod_index_fixed + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:474" *) 13'h1000;
+  assign \$37  = mod_index_fixed + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:476" *) 9'h19a;
+  assign \$38  = \$37  <= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:476" *) 12'hfff;
+  assign \$39  = mod_index_fixed + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:478" *) 9'h19a;
+  assign \$40  = mode < (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:481" *) 2'h3;
+  assign \$41  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:484" *) 2'h3;
+  assign \$42  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:488" *) 3'h4;
+  assign \$43  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:492" *) 3'h5;
+  assign \$44  = ftw_basic >= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:482" *) 12'ha10;
+  assign \$45  = ftw_basic - (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:483" *) 9'h1ad;
+  assign \$46  = mod_index_fixed >= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:485" *) 9'h19a;
+  assign \$47  = mod_index_fixed - (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:487" *) 9'h19a;
+  assign \$48  = mod_index_fixed >= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:489" *) 13'h1000;
+  assign \$49  = mod_index_fixed - (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:491" *) 13'h1000;
+  assign \$50  = mod_index_fixed >= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:493" *) 9'h19a;
+  assign \$51  = mod_index_fixed - (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:495" *) 9'h19a;
+  assign \$52  = clk_div_cnt + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:515" *) 1'h1;
+  assign \$53  = clk_div_cnt + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:516" *) 1'h1;
+  assign \$54  = \$53  == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:516" *) dac_div;
+  assign \$55  = phase_acc_basic + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:542" *) ftw_basic;
+  assign \$56  = carrier_phase_am + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:605" *) 18'h346dc;
+  assign \$57  = mod_phase_am + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:606" *) 15'h53e2;
+  assign \$58  = mod_phase_fm + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:683" *) 15'h53e2;
+  assign \$59  = carrier_phase_fm + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:708" *) \$15 [23:0];
+  assign \$60  = carrier_phase_spwm + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:744" *) 18'h28f5c;
+  assign \$61  = mod_phase_spwm + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:745" *) 15'h4189;
+  assign \$62  = $signed(\$17 [7:0]) > (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:778" *) $signed(tri_val_spwm);
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:352" *)
   always @(posedge clk)
     mode_sync <= \$64 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:332" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:356" *)
   always @(posedge clk)
     mode_cnt <= \$65 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:344" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:368" *)
   always @(posedge clk)
     mode_prev <= \$66 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:328" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:352" *)
   always @(posedge clk)
     inc_sync <= \$67 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:332" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:356" *)
   always @(posedge clk)
     inc_cnt <= \$68 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:344" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:368" *)
   always @(posedge clk)
     inc_prev <= \$69 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:328" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:352" *)
   always @(posedge clk)
     dec_sync <= \$70 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:332" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:356" *)
   always @(posedge clk)
     dec_cnt <= \$71 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:344" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:368" *)
   always @(posedge clk)
     dec_prev <= \$72 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:411" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:435" *)
   always @(posedge clk)
     mode <= \$73 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:427" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:451" *)
   always @(posedge clk)
     ftw_basic <= \$74 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:429" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:453" *)
   always @(posedge clk)
     mod_index_fixed <= \$75 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:485" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:509" *)
   always @(posedge clk)
     clk_div_cnt <= \$76 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:514" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:538" *)
   always @(posedge clk)
     phase_acc_basic <= \$77 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:574" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:598" *)
   always @(posedge clk)
     carrier_phase_am <= \$78 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:575" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:599" *)
   always @(posedge clk)
     mod_phase_am <= \$79 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:652" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:676" *)
   always @(posedge clk)
     carrier_phase_fm <= \$80 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:653" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:677" *)
   always @(posedge clk)
     mod_phase_fm <= \$81 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:713" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:737" *)
   always @(posedge clk)
     carrier_phase_spwm <= \$82 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:714" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:738" *)
   always @(posedge clk)
     mod_phase_spwm <= \$83 ;
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:776" *)
+  always @(posedge clk)
+    spwm_level <= \$84 ;
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:781" *)
+  always @(posedge clk)
+    spwm_prev <= \$85 ;
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:204" *)
   always @(posedge clk)
-    dac_data <= \$84 ;
-  assign mode_stable = mode_cnt >= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:341" *) 20'hf4240;
-  assign \$1  = ~ (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:348" *) mode_prev;
-  assign mode_pulse = mode_stable & (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:348" *) \$1 ;
-  assign inc_stable = inc_cnt >= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:341" *) 20'hf4240;
-  assign \$2  = ~ (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:348" *) inc_prev;
-  assign inc_pulse = inc_stable & (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:348" *) \$2 ;
-  assign dec_stable = dec_cnt >= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:341" *) 20'hf4240;
-  assign \$3  = ~ (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:348" *) dec_prev;
-  assign dec_pulse = dec_stable & (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:348" *) \$3 ;
-  assign \$4  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:481" *) 3'h5;
-  assign dac_div = \$4  ? (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:481" *) 8'h64 : 8'h80;
-  assign dac_tick = ! (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:495" *) clk_div_cnt;
+    dac_data <= \$86 ;
+  assign mode_stable = mode_cnt >= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:365" *) 20'hf4240;
+  assign \$1  = ~ (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:372" *) mode_prev;
+  assign mode_pulse = mode_stable & (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:372" *) \$1 ;
+  assign inc_stable = inc_cnt >= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:365" *) 20'hf4240;
+  assign \$2  = ~ (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:372" *) inc_prev;
+  assign inc_pulse = inc_stable & (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:372" *) \$2 ;
+  assign dec_stable = dec_cnt >= (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:365" *) 20'hf4240;
+  assign \$3  = ~ (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:372" *) dec_prev;
+  assign dec_pulse = dec_stable & (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:372" *) \$3 ;
+  assign \$4  = mode == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:505" *) 3'h5;
+  assign dac_div = \$4  ? (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:505" *) 8'h64 : 8'h80;
+  assign dac_tick = ! (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:519" *) clk_div_cnt;
+  always @* begin
+    if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
+    (* full_case = 32'd1 *)
+    casez (phase_acc_basic[23:16])
+      8'h00:
+          square_lut_out = 8'hc0;
+      8'h01:
+          square_lut_out = 8'hc0;
+      8'h02:
+          square_lut_out = 8'hc0;
+      8'h03:
+          square_lut_out = 8'hc0;
+      8'h04:
+          square_lut_out = 8'hc0;
+      8'h05:
+          square_lut_out = 8'hc0;
+      8'h06:
+          square_lut_out = 8'hc0;
+      8'h07:
+          square_lut_out = 8'hc0;
+      8'h08:
+          square_lut_out = 8'hc0;
+      8'h09:
+          square_lut_out = 8'hc0;
+      8'h0a:
+          square_lut_out = 8'hc0;
+      8'h0b:
+          square_lut_out = 8'hc0;
+      8'h0c:
+          square_lut_out = 8'hc0;
+      8'h0d:
+          square_lut_out = 8'hc0;
+      8'h0e:
+          square_lut_out = 8'hc0;
+      8'h0f:
+          square_lut_out = 8'hc0;
+      8'h10:
+          square_lut_out = 8'hc0;
+      8'h11:
+          square_lut_out = 8'hc0;
+      8'h12:
+          square_lut_out = 8'hc0;
+      8'h13:
+          square_lut_out = 8'hc0;
+      8'h14:
+          square_lut_out = 8'hc0;
+      8'h15:
+          square_lut_out = 8'hc0;
+      8'h16:
+          square_lut_out = 8'hc0;
+      8'h17:
+          square_lut_out = 8'hc0;
+      8'h18:
+          square_lut_out = 8'hc0;
+      8'h19:
+          square_lut_out = 8'hc0;
+      8'h1a:
+          square_lut_out = 8'hc0;
+      8'h1b:
+          square_lut_out = 8'hc0;
+      8'h1c:
+          square_lut_out = 8'hc0;
+      8'h1d:
+          square_lut_out = 8'hc0;
+      8'h1e:
+          square_lut_out = 8'hc0;
+      8'h1f:
+          square_lut_out = 8'hc0;
+      8'h20:
+          square_lut_out = 8'hc0;
+      8'h21:
+          square_lut_out = 8'hc0;
+      8'h22:
+          square_lut_out = 8'hc0;
+      8'h23:
+          square_lut_out = 8'hc0;
+      8'h24:
+          square_lut_out = 8'hc0;
+      8'h25:
+          square_lut_out = 8'hc0;
+      8'h26:
+          square_lut_out = 8'hc0;
+      8'h27:
+          square_lut_out = 8'hc0;
+      8'h28:
+          square_lut_out = 8'hc0;
+      8'h29:
+          square_lut_out = 8'hc0;
+      8'h2a:
+          square_lut_out = 8'hc0;
+      8'h2b:
+          square_lut_out = 8'hc0;
+      8'h2c:
+          square_lut_out = 8'hc0;
+      8'h2d:
+          square_lut_out = 8'hc0;
+      8'h2e:
+          square_lut_out = 8'hc0;
+      8'h2f:
+          square_lut_out = 8'hc0;
+      8'h30:
+          square_lut_out = 8'hc0;
+      8'h31:
+          square_lut_out = 8'hc0;
+      8'h32:
+          square_lut_out = 8'hc0;
+      8'h33:
+          square_lut_out = 8'hc0;
+      8'h34:
+          square_lut_out = 8'hc0;
+      8'h35:
+          square_lut_out = 8'hc0;
+      8'h36:
+          square_lut_out = 8'hc0;
+      8'h37:
+          square_lut_out = 8'hc0;
+      8'h38:
+          square_lut_out = 8'hc0;
+      8'h39:
+          square_lut_out = 8'hc0;
+      8'h3a:
+          square_lut_out = 8'hc0;
+      8'h3b:
+          square_lut_out = 8'hc0;
+      8'h3c:
+          square_lut_out = 8'hc0;
+      8'h3d:
+          square_lut_out = 8'hc0;
+      8'h3e:
+          square_lut_out = 8'hc0;
+      8'h3f:
+          square_lut_out = 8'hc0;
+      8'h40:
+          square_lut_out = 8'hc0;
+      8'h41:
+          square_lut_out = 8'hc0;
+      8'h42:
+          square_lut_out = 8'hc0;
+      8'h43:
+          square_lut_out = 8'hc0;
+      8'h44:
+          square_lut_out = 8'hc0;
+      8'h45:
+          square_lut_out = 8'hc0;
+      8'h46:
+          square_lut_out = 8'hc0;
+      8'h47:
+          square_lut_out = 8'hc0;
+      8'h48:
+          square_lut_out = 8'hc0;
+      8'h49:
+          square_lut_out = 8'hc0;
+      8'h4a:
+          square_lut_out = 8'hc0;
+      8'h4b:
+          square_lut_out = 8'hc0;
+      8'h4c:
+          square_lut_out = 8'hc0;
+      8'h4d:
+          square_lut_out = 8'hc0;
+      8'h4e:
+          square_lut_out = 8'hc0;
+      8'h4f:
+          square_lut_out = 8'hc0;
+      8'h50:
+          square_lut_out = 8'hc0;
+      8'h51:
+          square_lut_out = 8'hc0;
+      8'h52:
+          square_lut_out = 8'hc0;
+      8'h53:
+          square_lut_out = 8'hc0;
+      8'h54:
+          square_lut_out = 8'hc0;
+      8'h55:
+          square_lut_out = 8'hc0;
+      8'h56:
+          square_lut_out = 8'hc0;
+      8'h57:
+          square_lut_out = 8'hc0;
+      8'h58:
+          square_lut_out = 8'hc0;
+      8'h59:
+          square_lut_out = 8'hc0;
+      8'h5a:
+          square_lut_out = 8'hc0;
+      8'h5b:
+          square_lut_out = 8'hc0;
+      8'h5c:
+          square_lut_out = 8'hc0;
+      8'h5d:
+          square_lut_out = 8'hc0;
+      8'h5e:
+          square_lut_out = 8'hc0;
+      8'h5f:
+          square_lut_out = 8'hc0;
+      8'h60:
+          square_lut_out = 8'hc0;
+      8'h61:
+          square_lut_out = 8'hc0;
+      8'h62:
+          square_lut_out = 8'hc0;
+      8'h63:
+          square_lut_out = 8'hc0;
+      8'h64:
+          square_lut_out = 8'hc0;
+      8'h65:
+          square_lut_out = 8'hc0;
+      8'h66:
+          square_lut_out = 8'hc0;
+      8'h67:
+          square_lut_out = 8'hc0;
+      8'h68:
+          square_lut_out = 8'hc0;
+      8'h69:
+          square_lut_out = 8'hc0;
+      8'h6a:
+          square_lut_out = 8'hc0;
+      8'h6b:
+          square_lut_out = 8'hc0;
+      8'h6c:
+          square_lut_out = 8'hc0;
+      8'h6d:
+          square_lut_out = 8'hc0;
+      8'h6e:
+          square_lut_out = 8'hc0;
+      8'h6f:
+          square_lut_out = 8'hc0;
+      8'h70:
+          square_lut_out = 8'hc0;
+      8'h71:
+          square_lut_out = 8'hc0;
+      8'h72:
+          square_lut_out = 8'hc0;
+      8'h73:
+          square_lut_out = 8'hc0;
+      8'h74:
+          square_lut_out = 8'hc0;
+      8'h75:
+          square_lut_out = 8'hc0;
+      8'h76:
+          square_lut_out = 8'hc0;
+      8'h77:
+          square_lut_out = 8'hc0;
+      8'h78:
+          square_lut_out = 8'hc0;
+      8'h79:
+          square_lut_out = 8'hb0;
+      8'h7a:
+          square_lut_out = 8'ha0;
+      8'h7b:
+          square_lut_out = 8'h90;
+      8'h7c:
+          square_lut_out = 8'h80;
+      8'h7d:
+          square_lut_out = 8'h70;
+      8'h7e:
+          square_lut_out = 8'h60;
+      8'h7f:
+          square_lut_out = 8'h50;
+      8'h80:
+          square_lut_out = 8'h40;
+      8'h81:
+          square_lut_out = 8'h40;
+      8'h82:
+          square_lut_out = 8'h40;
+      8'h83:
+          square_lut_out = 8'h40;
+      8'h84:
+          square_lut_out = 8'h40;
+      8'h85:
+          square_lut_out = 8'h40;
+      8'h86:
+          square_lut_out = 8'h40;
+      8'h87:
+          square_lut_out = 8'h40;
+      8'h88:
+          square_lut_out = 8'h40;
+      8'h89:
+          square_lut_out = 8'h40;
+      8'h8a:
+          square_lut_out = 8'h40;
+      8'h8b:
+          square_lut_out = 8'h40;
+      8'h8c:
+          square_lut_out = 8'h40;
+      8'h8d:
+          square_lut_out = 8'h40;
+      8'h8e:
+          square_lut_out = 8'h40;
+      8'h8f:
+          square_lut_out = 8'h40;
+      8'h90:
+          square_lut_out = 8'h40;
+      8'h91:
+          square_lut_out = 8'h40;
+      8'h92:
+          square_lut_out = 8'h40;
+      8'h93:
+          square_lut_out = 8'h40;
+      8'h94:
+          square_lut_out = 8'h40;
+      8'h95:
+          square_lut_out = 8'h40;
+      8'h96:
+          square_lut_out = 8'h40;
+      8'h97:
+          square_lut_out = 8'h40;
+      8'h98:
+          square_lut_out = 8'h40;
+      8'h99:
+          square_lut_out = 8'h40;
+      8'h9a:
+          square_lut_out = 8'h40;
+      8'h9b:
+          square_lut_out = 8'h40;
+      8'h9c:
+          square_lut_out = 8'h40;
+      8'h9d:
+          square_lut_out = 8'h40;
+      8'h9e:
+          square_lut_out = 8'h40;
+      8'h9f:
+          square_lut_out = 8'h40;
+      8'ha0:
+          square_lut_out = 8'h40;
+      8'ha1:
+          square_lut_out = 8'h40;
+      8'ha2:
+          square_lut_out = 8'h40;
+      8'ha3:
+          square_lut_out = 8'h40;
+      8'ha4:
+          square_lut_out = 8'h40;
+      8'ha5:
+          square_lut_out = 8'h40;
+      8'ha6:
+          square_lut_out = 8'h40;
+      8'ha7:
+          square_lut_out = 8'h40;
+      8'ha8:
+          square_lut_out = 8'h40;
+      8'ha9:
+          square_lut_out = 8'h40;
+      8'haa:
+          square_lut_out = 8'h40;
+      8'hab:
+          square_lut_out = 8'h40;
+      8'hac:
+          square_lut_out = 8'h40;
+      8'had:
+          square_lut_out = 8'h40;
+      8'hae:
+          square_lut_out = 8'h40;
+      8'haf:
+          square_lut_out = 8'h40;
+      8'hb0:
+          square_lut_out = 8'h40;
+      8'hb1:
+          square_lut_out = 8'h40;
+      8'hb2:
+          square_lut_out = 8'h40;
+      8'hb3:
+          square_lut_out = 8'h40;
+      8'hb4:
+          square_lut_out = 8'h40;
+      8'hb5:
+          square_lut_out = 8'h40;
+      8'hb6:
+          square_lut_out = 8'h40;
+      8'hb7:
+          square_lut_out = 8'h40;
+      8'hb8:
+          square_lut_out = 8'h40;
+      8'hb9:
+          square_lut_out = 8'h40;
+      8'hba:
+          square_lut_out = 8'h40;
+      8'hbb:
+          square_lut_out = 8'h40;
+      8'hbc:
+          square_lut_out = 8'h40;
+      8'hbd:
+          square_lut_out = 8'h40;
+      8'hbe:
+          square_lut_out = 8'h40;
+      8'hbf:
+          square_lut_out = 8'h40;
+      8'hc0:
+          square_lut_out = 8'h40;
+      8'hc1:
+          square_lut_out = 8'h40;
+      8'hc2:
+          square_lut_out = 8'h40;
+      8'hc3:
+          square_lut_out = 8'h40;
+      8'hc4:
+          square_lut_out = 8'h40;
+      8'hc5:
+          square_lut_out = 8'h40;
+      8'hc6:
+          square_lut_out = 8'h40;
+      8'hc7:
+          square_lut_out = 8'h40;
+      8'hc8:
+          square_lut_out = 8'h40;
+      8'hc9:
+          square_lut_out = 8'h40;
+      8'hca:
+          square_lut_out = 8'h40;
+      8'hcb:
+          square_lut_out = 8'h40;
+      8'hcc:
+          square_lut_out = 8'h40;
+      8'hcd:
+          square_lut_out = 8'h40;
+      8'hce:
+          square_lut_out = 8'h40;
+      8'hcf:
+          square_lut_out = 8'h40;
+      8'hd0:
+          square_lut_out = 8'h40;
+      8'hd1:
+          square_lut_out = 8'h40;
+      8'hd2:
+          square_lut_out = 8'h40;
+      8'hd3:
+          square_lut_out = 8'h40;
+      8'hd4:
+          square_lut_out = 8'h40;
+      8'hd5:
+          square_lut_out = 8'h40;
+      8'hd6:
+          square_lut_out = 8'h40;
+      8'hd7:
+          square_lut_out = 8'h40;
+      8'hd8:
+          square_lut_out = 8'h40;
+      8'hd9:
+          square_lut_out = 8'h40;
+      8'hda:
+          square_lut_out = 8'h40;
+      8'hdb:
+          square_lut_out = 8'h40;
+      8'hdc:
+          square_lut_out = 8'h40;
+      8'hdd:
+          square_lut_out = 8'h40;
+      8'hde:
+          square_lut_out = 8'h40;
+      8'hdf:
+          square_lut_out = 8'h40;
+      8'he0:
+          square_lut_out = 8'h40;
+      8'he1:
+          square_lut_out = 8'h40;
+      8'he2:
+          square_lut_out = 8'h40;
+      8'he3:
+          square_lut_out = 8'h40;
+      8'he4:
+          square_lut_out = 8'h40;
+      8'he5:
+          square_lut_out = 8'h40;
+      8'he6:
+          square_lut_out = 8'h40;
+      8'he7:
+          square_lut_out = 8'h40;
+      8'he8:
+          square_lut_out = 8'h40;
+      8'he9:
+          square_lut_out = 8'h40;
+      8'hea:
+          square_lut_out = 8'h40;
+      8'heb:
+          square_lut_out = 8'h40;
+      8'hec:
+          square_lut_out = 8'h40;
+      8'hed:
+          square_lut_out = 8'h40;
+      8'hee:
+          square_lut_out = 8'h40;
+      8'hef:
+          square_lut_out = 8'h40;
+      8'hf0:
+          square_lut_out = 8'h40;
+      8'hf1:
+          square_lut_out = 8'h40;
+      8'hf2:
+          square_lut_out = 8'h40;
+      8'hf3:
+          square_lut_out = 8'h40;
+      8'hf4:
+          square_lut_out = 8'h40;
+      8'hf5:
+          square_lut_out = 8'h40;
+      8'hf6:
+          square_lut_out = 8'h40;
+      8'hf7:
+          square_lut_out = 8'h40;
+      8'hf8:
+          square_lut_out = 8'h40;
+      8'hf9:
+          square_lut_out = 8'h50;
+      8'hfa:
+          square_lut_out = 8'h60;
+      8'hfb:
+          square_lut_out = 8'h70;
+      8'hfc:
+          square_lut_out = 8'h80;
+      8'hfd:
+          square_lut_out = 8'h90;
+      8'hfe:
+          square_lut_out = 8'ha0;
+      8'hff:
+          square_lut_out = 8'hb0;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
+    (* full_case = 32'd1 *)
+    casez (phase_acc_basic[23:16])
+      8'h00:
+          triangle_lut_out = 8'h80;
+      8'h01:
+          triangle_lut_out = 8'h81;
+      8'h02:
+          triangle_lut_out = 8'h82;
+      8'h03:
+          triangle_lut_out = 8'h83;
+      8'h04:
+          triangle_lut_out = 8'h84;
+      8'h05:
+          triangle_lut_out = 8'h85;
+      8'h06:
+          triangle_lut_out = 8'h86;
+      8'h07:
+          triangle_lut_out = 8'h87;
+      8'h08:
+          triangle_lut_out = 8'h88;
+      8'h09:
+          triangle_lut_out = 8'h89;
+      8'h0a:
+          triangle_lut_out = 8'h8a;
+      8'h0b:
+          triangle_lut_out = 8'h8b;
+      8'h0c:
+          triangle_lut_out = 8'h8c;
+      8'h0d:
+          triangle_lut_out = 8'h8d;
+      8'h0e:
+          triangle_lut_out = 8'h8e;
+      8'h0f:
+          triangle_lut_out = 8'h8f;
+      8'h10:
+          triangle_lut_out = 8'h90;
+      8'h11:
+          triangle_lut_out = 8'h91;
+      8'h12:
+          triangle_lut_out = 8'h92;
+      8'h13:
+          triangle_lut_out = 8'h93;
+      8'h14:
+          triangle_lut_out = 8'h94;
+      8'h15:
+          triangle_lut_out = 8'h95;
+      8'h16:
+          triangle_lut_out = 8'h96;
+      8'h17:
+          triangle_lut_out = 8'h97;
+      8'h18:
+          triangle_lut_out = 8'h98;
+      8'h19:
+          triangle_lut_out = 8'h99;
+      8'h1a:
+          triangle_lut_out = 8'h9a;
+      8'h1b:
+          triangle_lut_out = 8'h9b;
+      8'h1c:
+          triangle_lut_out = 8'h9c;
+      8'h1d:
+          triangle_lut_out = 8'h9d;
+      8'h1e:
+          triangle_lut_out = 8'h9e;
+      8'h1f:
+          triangle_lut_out = 8'h9f;
+      8'h20:
+          triangle_lut_out = 8'ha0;
+      8'h21:
+          triangle_lut_out = 8'ha1;
+      8'h22:
+          triangle_lut_out = 8'ha2;
+      8'h23:
+          triangle_lut_out = 8'ha3;
+      8'h24:
+          triangle_lut_out = 8'ha4;
+      8'h25:
+          triangle_lut_out = 8'ha5;
+      8'h26:
+          triangle_lut_out = 8'ha6;
+      8'h27:
+          triangle_lut_out = 8'ha7;
+      8'h28:
+          triangle_lut_out = 8'ha8;
+      8'h29:
+          triangle_lut_out = 8'ha9;
+      8'h2a:
+          triangle_lut_out = 8'haa;
+      8'h2b:
+          triangle_lut_out = 8'hab;
+      8'h2c:
+          triangle_lut_out = 8'hac;
+      8'h2d:
+          triangle_lut_out = 8'had;
+      8'h2e:
+          triangle_lut_out = 8'hae;
+      8'h2f:
+          triangle_lut_out = 8'haf;
+      8'h30:
+          triangle_lut_out = 8'hb0;
+      8'h31:
+          triangle_lut_out = 8'hb1;
+      8'h32:
+          triangle_lut_out = 8'hb2;
+      8'h33:
+          triangle_lut_out = 8'hb3;
+      8'h34:
+          triangle_lut_out = 8'hb4;
+      8'h35:
+          triangle_lut_out = 8'hb5;
+      8'h36:
+          triangle_lut_out = 8'hb6;
+      8'h37:
+          triangle_lut_out = 8'hb7;
+      8'h38:
+          triangle_lut_out = 8'hb8;
+      8'h39:
+          triangle_lut_out = 8'hb9;
+      8'h3a:
+          triangle_lut_out = 8'hba;
+      8'h3b:
+          triangle_lut_out = 8'hbb;
+      8'h3c:
+          triangle_lut_out = 8'hbc;
+      8'h3d:
+          triangle_lut_out = 8'hbd;
+      8'h3e:
+          triangle_lut_out = 8'hbe;
+      8'h3f:
+          triangle_lut_out = 8'hbf;
+      8'h40:
+          triangle_lut_out = 8'hc0;
+      8'h41:
+          triangle_lut_out = 8'hbf;
+      8'h42:
+          triangle_lut_out = 8'hbe;
+      8'h43:
+          triangle_lut_out = 8'hbd;
+      8'h44:
+          triangle_lut_out = 8'hbc;
+      8'h45:
+          triangle_lut_out = 8'hbb;
+      8'h46:
+          triangle_lut_out = 8'hba;
+      8'h47:
+          triangle_lut_out = 8'hb9;
+      8'h48:
+          triangle_lut_out = 8'hb8;
+      8'h49:
+          triangle_lut_out = 8'hb7;
+      8'h4a:
+          triangle_lut_out = 8'hb6;
+      8'h4b:
+          triangle_lut_out = 8'hb5;
+      8'h4c:
+          triangle_lut_out = 8'hb4;
+      8'h4d:
+          triangle_lut_out = 8'hb3;
+      8'h4e:
+          triangle_lut_out = 8'hb2;
+      8'h4f:
+          triangle_lut_out = 8'hb1;
+      8'h50:
+          triangle_lut_out = 8'hb0;
+      8'h51:
+          triangle_lut_out = 8'haf;
+      8'h52:
+          triangle_lut_out = 8'hae;
+      8'h53:
+          triangle_lut_out = 8'had;
+      8'h54:
+          triangle_lut_out = 8'hac;
+      8'h55:
+          triangle_lut_out = 8'hab;
+      8'h56:
+          triangle_lut_out = 8'haa;
+      8'h57:
+          triangle_lut_out = 8'ha9;
+      8'h58:
+          triangle_lut_out = 8'ha8;
+      8'h59:
+          triangle_lut_out = 8'ha7;
+      8'h5a:
+          triangle_lut_out = 8'ha6;
+      8'h5b:
+          triangle_lut_out = 8'ha5;
+      8'h5c:
+          triangle_lut_out = 8'ha4;
+      8'h5d:
+          triangle_lut_out = 8'ha3;
+      8'h5e:
+          triangle_lut_out = 8'ha2;
+      8'h5f:
+          triangle_lut_out = 8'ha1;
+      8'h60:
+          triangle_lut_out = 8'ha0;
+      8'h61:
+          triangle_lut_out = 8'h9f;
+      8'h62:
+          triangle_lut_out = 8'h9e;
+      8'h63:
+          triangle_lut_out = 8'h9d;
+      8'h64:
+          triangle_lut_out = 8'h9c;
+      8'h65:
+          triangle_lut_out = 8'h9b;
+      8'h66:
+          triangle_lut_out = 8'h9a;
+      8'h67:
+          triangle_lut_out = 8'h99;
+      8'h68:
+          triangle_lut_out = 8'h98;
+      8'h69:
+          triangle_lut_out = 8'h97;
+      8'h6a:
+          triangle_lut_out = 8'h96;
+      8'h6b:
+          triangle_lut_out = 8'h95;
+      8'h6c:
+          triangle_lut_out = 8'h94;
+      8'h6d:
+          triangle_lut_out = 8'h93;
+      8'h6e:
+          triangle_lut_out = 8'h92;
+      8'h6f:
+          triangle_lut_out = 8'h91;
+      8'h70:
+          triangle_lut_out = 8'h90;
+      8'h71:
+          triangle_lut_out = 8'h8f;
+      8'h72:
+          triangle_lut_out = 8'h8e;
+      8'h73:
+          triangle_lut_out = 8'h8d;
+      8'h74:
+          triangle_lut_out = 8'h8c;
+      8'h75:
+          triangle_lut_out = 8'h8b;
+      8'h76:
+          triangle_lut_out = 8'h8a;
+      8'h77:
+          triangle_lut_out = 8'h89;
+      8'h78:
+          triangle_lut_out = 8'h88;
+      8'h79:
+          triangle_lut_out = 8'h87;
+      8'h7a:
+          triangle_lut_out = 8'h86;
+      8'h7b:
+          triangle_lut_out = 8'h85;
+      8'h7c:
+          triangle_lut_out = 8'h84;
+      8'h7d:
+          triangle_lut_out = 8'h83;
+      8'h7e:
+          triangle_lut_out = 8'h82;
+      8'h7f:
+          triangle_lut_out = 8'h81;
+      8'h80:
+          triangle_lut_out = 8'h80;
+      8'h81:
+          triangle_lut_out = 8'h7f;
+      8'h82:
+          triangle_lut_out = 8'h7e;
+      8'h83:
+          triangle_lut_out = 8'h7d;
+      8'h84:
+          triangle_lut_out = 8'h7c;
+      8'h85:
+          triangle_lut_out = 8'h7b;
+      8'h86:
+          triangle_lut_out = 8'h7a;
+      8'h87:
+          triangle_lut_out = 8'h79;
+      8'h88:
+          triangle_lut_out = 8'h78;
+      8'h89:
+          triangle_lut_out = 8'h77;
+      8'h8a:
+          triangle_lut_out = 8'h76;
+      8'h8b:
+          triangle_lut_out = 8'h75;
+      8'h8c:
+          triangle_lut_out = 8'h74;
+      8'h8d:
+          triangle_lut_out = 8'h73;
+      8'h8e:
+          triangle_lut_out = 8'h72;
+      8'h8f:
+          triangle_lut_out = 8'h71;
+      8'h90:
+          triangle_lut_out = 8'h70;
+      8'h91:
+          triangle_lut_out = 8'h6f;
+      8'h92:
+          triangle_lut_out = 8'h6e;
+      8'h93:
+          triangle_lut_out = 8'h6d;
+      8'h94:
+          triangle_lut_out = 8'h6c;
+      8'h95:
+          triangle_lut_out = 8'h6b;
+      8'h96:
+          triangle_lut_out = 8'h6a;
+      8'h97:
+          triangle_lut_out = 8'h69;
+      8'h98:
+          triangle_lut_out = 8'h68;
+      8'h99:
+          triangle_lut_out = 8'h67;
+      8'h9a:
+          triangle_lut_out = 8'h66;
+      8'h9b:
+          triangle_lut_out = 8'h65;
+      8'h9c:
+          triangle_lut_out = 8'h64;
+      8'h9d:
+          triangle_lut_out = 8'h63;
+      8'h9e:
+          triangle_lut_out = 8'h62;
+      8'h9f:
+          triangle_lut_out = 8'h61;
+      8'ha0:
+          triangle_lut_out = 8'h60;
+      8'ha1:
+          triangle_lut_out = 8'h5f;
+      8'ha2:
+          triangle_lut_out = 8'h5e;
+      8'ha3:
+          triangle_lut_out = 8'h5d;
+      8'ha4:
+          triangle_lut_out = 8'h5c;
+      8'ha5:
+          triangle_lut_out = 8'h5b;
+      8'ha6:
+          triangle_lut_out = 8'h5a;
+      8'ha7:
+          triangle_lut_out = 8'h59;
+      8'ha8:
+          triangle_lut_out = 8'h58;
+      8'ha9:
+          triangle_lut_out = 8'h57;
+      8'haa:
+          triangle_lut_out = 8'h56;
+      8'hab:
+          triangle_lut_out = 8'h55;
+      8'hac:
+          triangle_lut_out = 8'h54;
+      8'had:
+          triangle_lut_out = 8'h53;
+      8'hae:
+          triangle_lut_out = 8'h52;
+      8'haf:
+          triangle_lut_out = 8'h51;
+      8'hb0:
+          triangle_lut_out = 8'h50;
+      8'hb1:
+          triangle_lut_out = 8'h4f;
+      8'hb2:
+          triangle_lut_out = 8'h4e;
+      8'hb3:
+          triangle_lut_out = 8'h4d;
+      8'hb4:
+          triangle_lut_out = 8'h4c;
+      8'hb5:
+          triangle_lut_out = 8'h4b;
+      8'hb6:
+          triangle_lut_out = 8'h4a;
+      8'hb7:
+          triangle_lut_out = 8'h49;
+      8'hb8:
+          triangle_lut_out = 8'h48;
+      8'hb9:
+          triangle_lut_out = 8'h47;
+      8'hba:
+          triangle_lut_out = 8'h46;
+      8'hbb:
+          triangle_lut_out = 8'h45;
+      8'hbc:
+          triangle_lut_out = 8'h44;
+      8'hbd:
+          triangle_lut_out = 8'h43;
+      8'hbe:
+          triangle_lut_out = 8'h42;
+      8'hbf:
+          triangle_lut_out = 8'h41;
+      8'hc0:
+          triangle_lut_out = 8'h40;
+      8'hc1:
+          triangle_lut_out = 8'h41;
+      8'hc2:
+          triangle_lut_out = 8'h42;
+      8'hc3:
+          triangle_lut_out = 8'h43;
+      8'hc4:
+          triangle_lut_out = 8'h44;
+      8'hc5:
+          triangle_lut_out = 8'h45;
+      8'hc6:
+          triangle_lut_out = 8'h46;
+      8'hc7:
+          triangle_lut_out = 8'h47;
+      8'hc8:
+          triangle_lut_out = 8'h48;
+      8'hc9:
+          triangle_lut_out = 8'h49;
+      8'hca:
+          triangle_lut_out = 8'h4a;
+      8'hcb:
+          triangle_lut_out = 8'h4b;
+      8'hcc:
+          triangle_lut_out = 8'h4c;
+      8'hcd:
+          triangle_lut_out = 8'h4d;
+      8'hce:
+          triangle_lut_out = 8'h4e;
+      8'hcf:
+          triangle_lut_out = 8'h4f;
+      8'hd0:
+          triangle_lut_out = 8'h50;
+      8'hd1:
+          triangle_lut_out = 8'h51;
+      8'hd2:
+          triangle_lut_out = 8'h52;
+      8'hd3:
+          triangle_lut_out = 8'h53;
+      8'hd4:
+          triangle_lut_out = 8'h54;
+      8'hd5:
+          triangle_lut_out = 8'h55;
+      8'hd6:
+          triangle_lut_out = 8'h56;
+      8'hd7:
+          triangle_lut_out = 8'h57;
+      8'hd8:
+          triangle_lut_out = 8'h58;
+      8'hd9:
+          triangle_lut_out = 8'h59;
+      8'hda:
+          triangle_lut_out = 8'h5a;
+      8'hdb:
+          triangle_lut_out = 8'h5b;
+      8'hdc:
+          triangle_lut_out = 8'h5c;
+      8'hdd:
+          triangle_lut_out = 8'h5d;
+      8'hde:
+          triangle_lut_out = 8'h5e;
+      8'hdf:
+          triangle_lut_out = 8'h5f;
+      8'he0:
+          triangle_lut_out = 8'h60;
+      8'he1:
+          triangle_lut_out = 8'h61;
+      8'he2:
+          triangle_lut_out = 8'h62;
+      8'he3:
+          triangle_lut_out = 8'h63;
+      8'he4:
+          triangle_lut_out = 8'h64;
+      8'he5:
+          triangle_lut_out = 8'h65;
+      8'he6:
+          triangle_lut_out = 8'h66;
+      8'he7:
+          triangle_lut_out = 8'h67;
+      8'he8:
+          triangle_lut_out = 8'h68;
+      8'he9:
+          triangle_lut_out = 8'h69;
+      8'hea:
+          triangle_lut_out = 8'h6a;
+      8'heb:
+          triangle_lut_out = 8'h6b;
+      8'hec:
+          triangle_lut_out = 8'h6c;
+      8'hed:
+          triangle_lut_out = 8'h6d;
+      8'hee:
+          triangle_lut_out = 8'h6e;
+      8'hef:
+          triangle_lut_out = 8'h6f;
+      8'hf0:
+          triangle_lut_out = 8'h70;
+      8'hf1:
+          triangle_lut_out = 8'h71;
+      8'hf2:
+          triangle_lut_out = 8'h72;
+      8'hf3:
+          triangle_lut_out = 8'h73;
+      8'hf4:
+          triangle_lut_out = 8'h74;
+      8'hf5:
+          triangle_lut_out = 8'h75;
+      8'hf6:
+          triangle_lut_out = 8'h76;
+      8'hf7:
+          triangle_lut_out = 8'h77;
+      8'hf8:
+          triangle_lut_out = 8'h78;
+      8'hf9:
+          triangle_lut_out = 8'h79;
+      8'hfa:
+          triangle_lut_out = 8'h7a;
+      8'hfb:
+          triangle_lut_out = 8'h7b;
+      8'hfc:
+          triangle_lut_out = 8'h7c;
+      8'hfd:
+          triangle_lut_out = 8'h7d;
+      8'hfe:
+          triangle_lut_out = 8'h7e;
+      8'hff:
+          triangle_lut_out = 8'h7f;
+    endcase
+  end
   always @* begin
     if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
     (* full_case = 32'd1 *)
@@ -5805,7 +6856,9 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   always @* begin
     if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
     (* full_case = 32'd1 *)
-    if (\$18 ) begin
+    if (spwm_edge) begin
+      dac_spwm_comb = 8'h80;
+    end else if (spwm_level) begin
       dac_spwm_comb = 8'hc0;
     end else begin
       dac_spwm_comb = 8'h40;
@@ -5823,8 +6876,8 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
     \$65  = mode_cnt;
     (* full_case = 32'd1 *)
     if (mode_sync) begin
-      if (\$19 ) begin
-        \$65  = \$20 [19:0];
+      if (\$18 ) begin
+        \$65  = \$19 [19:0];
       end
     end else begin
       \$65  = 20'h00000;
@@ -5852,8 +6905,8 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
     \$68  = inc_cnt;
     (* full_case = 32'd1 *)
     if (inc_sync) begin
-      if (\$21 ) begin
-        \$68  = \$22 [19:0];
+      if (\$20 ) begin
+        \$68  = \$21 [19:0];
       end
     end else begin
       \$68  = 20'h00000;
@@ -5881,8 +6934,8 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
     \$71  = dec_cnt;
     (* full_case = 32'd1 *)
     if (dec_sync) begin
-      if (\$23 ) begin
-        \$71  = \$24 [19:0];
+      if (\$22 ) begin
+        \$71  = \$23 [19:0];
       end
     end else begin
       \$71  = 20'h00000;
@@ -5903,10 +6956,10 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
     \$73  = mode;
     if (mode_pulse) begin
       (* full_case = 32'd1 *)
-      if (\$25 ) begin
+      if (\$24 ) begin
         \$73  = 3'h0;
       end else begin
-        \$73  = \$26 [2:0];
+        \$73  = \$25 [2:0];
       end
     end
     if (rst) begin
@@ -5917,16 +6970,16 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
     if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
     \$74  = ftw_basic;
     if (inc_pulse) begin
-      if (\$27 ) begin
-        if (\$32 ) begin
-          \$74  = \$33 [23:0];
+      if (\$26 ) begin
+        if (\$31 ) begin
+          \$74  = \$32 [23:0];
         end
       end
     end
     if (dec_pulse) begin
-      if (\$41 ) begin
-        if (\$45 ) begin
-          \$74  = \$46 [23:0];
+      if (\$40 ) begin
+        if (\$44 ) begin
+          \$74  = \$45 [23:0];
         end
       end
     end
@@ -5938,32 +6991,32 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
     if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
     \$75  = mod_index_fixed;
     if (inc_pulse) begin
-      if (\$27 ) begin
-      end else if (\$28 ) begin
-        if (\$35 ) begin
-          \$75  = \$36 [11:0];
+      if (\$26 ) begin
+      end else if (\$27 ) begin
+        if (\$34 ) begin
+          \$75  = \$35 [11:0];
         end
+      end else if (\$28 ) begin
+        \$75  = \$36 [11:0];
       end else if (\$29 ) begin
-        \$75  = \$37 [11:0];
-      end else if (\$30 ) begin
-        if (\$39 ) begin
-          \$75  = \$40 [11:0];
+        if (\$38 ) begin
+          \$75  = \$39 [11:0];
         end
       end
     end
     if (dec_pulse) begin
-      if (\$41 ) begin
+      if (\$40 ) begin
+      end else if (\$41 ) begin
+        if (\$46 ) begin
+          \$75  = \$47 [11:0];
+        end
       end else if (\$42 ) begin
-        if (\$47 ) begin
-          \$75  = \$48 [11:0];
+        if (\$48 ) begin
+          \$75  = \$49 [11:0];
         end
       end else if (\$43 ) begin
-        if (\$49 ) begin
-          \$75  = \$50 [11:0];
-        end
-      end else if (\$44 ) begin
-        if (\$51 ) begin
-          \$75  = \$52 [11:0];
+        if (\$50 ) begin
+          \$75  = \$51 [11:0];
         end
       end
     end
@@ -5974,11 +7027,11 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   always @* begin
     if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
     (* full_case = 32'd1 *)
-    if (\rst$67 ) begin
+    if (\rst$70 ) begin
       \$76  = 7'h00;
     end else begin
-      \$76  = \$53 [6:0];
-      if (\$55 ) begin
+      \$76  = \$52 [6:0];
+      if (\$54 ) begin
         \$76  = 7'h00;
       end
     end
@@ -5989,10 +7042,10 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   always @* begin
     if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
     \$77  = phase_acc_basic;
-    if (\rst$67 ) begin
+    if (\rst$70 ) begin
       \$77  = 24'h000000;
     end else if (dac_tick) begin
-      \$77  = \$56 [23:0];
+      \$77  = \$55 [23:0];
     end
     if (rst) begin
       \$77  = 24'h000000;
@@ -6001,10 +7054,10 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   always @* begin
     if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
     \$78  = carrier_phase_am;
-    if (\rst$67 ) begin
+    if (\rst$70 ) begin
       \$78  = 24'h000000;
     end else if (dac_tick) begin
-      \$78  = \$57 [23:0];
+      \$78  = \$56 [23:0];
     end
     if (rst) begin
       \$78  = 24'h000000;
@@ -6013,10 +7066,10 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   always @* begin
     if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
     \$79  = mod_phase_am;
-    if (\rst$67 ) begin
+    if (\rst$70 ) begin
       \$79  = 24'h000000;
     end else if (dac_tick) begin
-      \$79  = \$58 [23:0];
+      \$79  = \$57 [23:0];
     end
     if (rst) begin
       \$79  = 24'h000000;
@@ -6025,11 +7078,11 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   always @* begin
     if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
     \$80  = carrier_phase_fm;
-    if (\rst$67 ) begin
+    if (\rst$70 ) begin
       \$80  = 24'h000000;
     end
     if (dac_tick) begin
-      \$80  = \$60 [23:0];
+      \$80  = \$59 [23:0];
     end
     if (rst) begin
       \$80  = 24'h000000;
@@ -6038,10 +7091,10 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   always @* begin
     if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
     \$81  = mod_phase_fm;
-    if (\rst$67 ) begin
+    if (\rst$70 ) begin
       \$81  = 24'h000000;
     end else if (dac_tick) begin
-      \$81  = \$59 [23:0];
+      \$81  = \$58 [23:0];
     end
     if (rst) begin
       \$81  = 24'h000000;
@@ -6050,10 +7103,10 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   always @* begin
     if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
     \$82  = carrier_phase_spwm;
-    if (\rst$67 ) begin
+    if (\rst$70 ) begin
       \$82  = 24'h000000;
     end else if (dac_tick) begin
-      \$82  = \$61 [23:0];
+      \$82  = \$60 [23:0];
     end
     if (rst) begin
       \$82  = 24'h000000;
@@ -6062,10 +7115,10 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   always @* begin
     if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
     \$83  = mod_phase_spwm;
-    if (\rst$67 ) begin
+    if (\rst$70 ) begin
       \$83  = 24'h000000;
     end else if (dac_tick) begin
-      \$83  = \$62 [23:0];
+      \$83  = \$61 [23:0];
     end
     if (rst) begin
       \$83  = 24'h000000;
@@ -6073,12 +7126,32 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
-    \$84  = dac_data;
+    \$84  = spwm_level;
     if (dac_tick) begin
-      \$84  = \$63 ;
+      \$84  = \$62 ;
     end
     if (rst) begin
-      \$84  = 8'h00;
+      \$84  = 1'h0;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
+    \$85  = spwm_prev;
+    if (dac_tick) begin
+      \$85  = spwm_level;
+    end
+    if (rst) begin
+      \$85  = 1'h0;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
+    \$86  = dac_data;
+    if (dac_tick) begin
+      \$86  = \$63 ;
+    end
+    if (rst) begin
+      \$86  = 8'h00;
     end
   end
   always @* begin
@@ -6597,1042 +7670,6 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
           sine_lut_out = 8'h7d;
       8'hff:
           sine_lut_out = 8'h7e;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
-    (* full_case = 32'd1 *)
-    casez (phase_acc_basic[23:16])
-      8'h00:
-          square_lut_out = 8'hc0;
-      8'h01:
-          square_lut_out = 8'hc0;
-      8'h02:
-          square_lut_out = 8'hc0;
-      8'h03:
-          square_lut_out = 8'hc0;
-      8'h04:
-          square_lut_out = 8'hc0;
-      8'h05:
-          square_lut_out = 8'hc0;
-      8'h06:
-          square_lut_out = 8'hc0;
-      8'h07:
-          square_lut_out = 8'hc0;
-      8'h08:
-          square_lut_out = 8'hc0;
-      8'h09:
-          square_lut_out = 8'hc0;
-      8'h0a:
-          square_lut_out = 8'hc0;
-      8'h0b:
-          square_lut_out = 8'hc0;
-      8'h0c:
-          square_lut_out = 8'hc0;
-      8'h0d:
-          square_lut_out = 8'hc0;
-      8'h0e:
-          square_lut_out = 8'hc0;
-      8'h0f:
-          square_lut_out = 8'hc0;
-      8'h10:
-          square_lut_out = 8'hc0;
-      8'h11:
-          square_lut_out = 8'hc0;
-      8'h12:
-          square_lut_out = 8'hc0;
-      8'h13:
-          square_lut_out = 8'hc0;
-      8'h14:
-          square_lut_out = 8'hc0;
-      8'h15:
-          square_lut_out = 8'hc0;
-      8'h16:
-          square_lut_out = 8'hc0;
-      8'h17:
-          square_lut_out = 8'hc0;
-      8'h18:
-          square_lut_out = 8'hc0;
-      8'h19:
-          square_lut_out = 8'hc0;
-      8'h1a:
-          square_lut_out = 8'hc0;
-      8'h1b:
-          square_lut_out = 8'hc0;
-      8'h1c:
-          square_lut_out = 8'hc0;
-      8'h1d:
-          square_lut_out = 8'hc0;
-      8'h1e:
-          square_lut_out = 8'hc0;
-      8'h1f:
-          square_lut_out = 8'hc0;
-      8'h20:
-          square_lut_out = 8'hc0;
-      8'h21:
-          square_lut_out = 8'hc0;
-      8'h22:
-          square_lut_out = 8'hc0;
-      8'h23:
-          square_lut_out = 8'hc0;
-      8'h24:
-          square_lut_out = 8'hc0;
-      8'h25:
-          square_lut_out = 8'hc0;
-      8'h26:
-          square_lut_out = 8'hc0;
-      8'h27:
-          square_lut_out = 8'hc0;
-      8'h28:
-          square_lut_out = 8'hc0;
-      8'h29:
-          square_lut_out = 8'hc0;
-      8'h2a:
-          square_lut_out = 8'hc0;
-      8'h2b:
-          square_lut_out = 8'hc0;
-      8'h2c:
-          square_lut_out = 8'hc0;
-      8'h2d:
-          square_lut_out = 8'hc0;
-      8'h2e:
-          square_lut_out = 8'hc0;
-      8'h2f:
-          square_lut_out = 8'hc0;
-      8'h30:
-          square_lut_out = 8'hc0;
-      8'h31:
-          square_lut_out = 8'hc0;
-      8'h32:
-          square_lut_out = 8'hc0;
-      8'h33:
-          square_lut_out = 8'hc0;
-      8'h34:
-          square_lut_out = 8'hc0;
-      8'h35:
-          square_lut_out = 8'hc0;
-      8'h36:
-          square_lut_out = 8'hc0;
-      8'h37:
-          square_lut_out = 8'hc0;
-      8'h38:
-          square_lut_out = 8'hc0;
-      8'h39:
-          square_lut_out = 8'hc0;
-      8'h3a:
-          square_lut_out = 8'hc0;
-      8'h3b:
-          square_lut_out = 8'hc0;
-      8'h3c:
-          square_lut_out = 8'hc0;
-      8'h3d:
-          square_lut_out = 8'hc0;
-      8'h3e:
-          square_lut_out = 8'hc0;
-      8'h3f:
-          square_lut_out = 8'hc0;
-      8'h40:
-          square_lut_out = 8'hc0;
-      8'h41:
-          square_lut_out = 8'hc0;
-      8'h42:
-          square_lut_out = 8'hc0;
-      8'h43:
-          square_lut_out = 8'hc0;
-      8'h44:
-          square_lut_out = 8'hc0;
-      8'h45:
-          square_lut_out = 8'hc0;
-      8'h46:
-          square_lut_out = 8'hc0;
-      8'h47:
-          square_lut_out = 8'hc0;
-      8'h48:
-          square_lut_out = 8'hc0;
-      8'h49:
-          square_lut_out = 8'hc0;
-      8'h4a:
-          square_lut_out = 8'hc0;
-      8'h4b:
-          square_lut_out = 8'hc0;
-      8'h4c:
-          square_lut_out = 8'hc0;
-      8'h4d:
-          square_lut_out = 8'hc0;
-      8'h4e:
-          square_lut_out = 8'hc0;
-      8'h4f:
-          square_lut_out = 8'hc0;
-      8'h50:
-          square_lut_out = 8'hc0;
-      8'h51:
-          square_lut_out = 8'hc0;
-      8'h52:
-          square_lut_out = 8'hc0;
-      8'h53:
-          square_lut_out = 8'hc0;
-      8'h54:
-          square_lut_out = 8'hc0;
-      8'h55:
-          square_lut_out = 8'hc0;
-      8'h56:
-          square_lut_out = 8'hc0;
-      8'h57:
-          square_lut_out = 8'hc0;
-      8'h58:
-          square_lut_out = 8'hc0;
-      8'h59:
-          square_lut_out = 8'hc0;
-      8'h5a:
-          square_lut_out = 8'hc0;
-      8'h5b:
-          square_lut_out = 8'hc0;
-      8'h5c:
-          square_lut_out = 8'hc0;
-      8'h5d:
-          square_lut_out = 8'hc0;
-      8'h5e:
-          square_lut_out = 8'hc0;
-      8'h5f:
-          square_lut_out = 8'hc0;
-      8'h60:
-          square_lut_out = 8'hc0;
-      8'h61:
-          square_lut_out = 8'hc0;
-      8'h62:
-          square_lut_out = 8'hc0;
-      8'h63:
-          square_lut_out = 8'hc0;
-      8'h64:
-          square_lut_out = 8'hc0;
-      8'h65:
-          square_lut_out = 8'hc0;
-      8'h66:
-          square_lut_out = 8'hc0;
-      8'h67:
-          square_lut_out = 8'hc0;
-      8'h68:
-          square_lut_out = 8'hc0;
-      8'h69:
-          square_lut_out = 8'hc0;
-      8'h6a:
-          square_lut_out = 8'hc0;
-      8'h6b:
-          square_lut_out = 8'hc0;
-      8'h6c:
-          square_lut_out = 8'hc0;
-      8'h6d:
-          square_lut_out = 8'hc0;
-      8'h6e:
-          square_lut_out = 8'hc0;
-      8'h6f:
-          square_lut_out = 8'hc0;
-      8'h70:
-          square_lut_out = 8'hc0;
-      8'h71:
-          square_lut_out = 8'hc0;
-      8'h72:
-          square_lut_out = 8'hc0;
-      8'h73:
-          square_lut_out = 8'hc0;
-      8'h74:
-          square_lut_out = 8'hc0;
-      8'h75:
-          square_lut_out = 8'hc0;
-      8'h76:
-          square_lut_out = 8'hc0;
-      8'h77:
-          square_lut_out = 8'hc0;
-      8'h78:
-          square_lut_out = 8'hc0;
-      8'h79:
-          square_lut_out = 8'hc0;
-      8'h7a:
-          square_lut_out = 8'hc0;
-      8'h7b:
-          square_lut_out = 8'hc0;
-      8'h7c:
-          square_lut_out = 8'hc0;
-      8'h7d:
-          square_lut_out = 8'hc0;
-      8'h7e:
-          square_lut_out = 8'hc0;
-      8'h7f:
-          square_lut_out = 8'hc0;
-      8'h80:
-          square_lut_out = 8'h40;
-      8'h81:
-          square_lut_out = 8'h40;
-      8'h82:
-          square_lut_out = 8'h40;
-      8'h83:
-          square_lut_out = 8'h40;
-      8'h84:
-          square_lut_out = 8'h40;
-      8'h85:
-          square_lut_out = 8'h40;
-      8'h86:
-          square_lut_out = 8'h40;
-      8'h87:
-          square_lut_out = 8'h40;
-      8'h88:
-          square_lut_out = 8'h40;
-      8'h89:
-          square_lut_out = 8'h40;
-      8'h8a:
-          square_lut_out = 8'h40;
-      8'h8b:
-          square_lut_out = 8'h40;
-      8'h8c:
-          square_lut_out = 8'h40;
-      8'h8d:
-          square_lut_out = 8'h40;
-      8'h8e:
-          square_lut_out = 8'h40;
-      8'h8f:
-          square_lut_out = 8'h40;
-      8'h90:
-          square_lut_out = 8'h40;
-      8'h91:
-          square_lut_out = 8'h40;
-      8'h92:
-          square_lut_out = 8'h40;
-      8'h93:
-          square_lut_out = 8'h40;
-      8'h94:
-          square_lut_out = 8'h40;
-      8'h95:
-          square_lut_out = 8'h40;
-      8'h96:
-          square_lut_out = 8'h40;
-      8'h97:
-          square_lut_out = 8'h40;
-      8'h98:
-          square_lut_out = 8'h40;
-      8'h99:
-          square_lut_out = 8'h40;
-      8'h9a:
-          square_lut_out = 8'h40;
-      8'h9b:
-          square_lut_out = 8'h40;
-      8'h9c:
-          square_lut_out = 8'h40;
-      8'h9d:
-          square_lut_out = 8'h40;
-      8'h9e:
-          square_lut_out = 8'h40;
-      8'h9f:
-          square_lut_out = 8'h40;
-      8'ha0:
-          square_lut_out = 8'h40;
-      8'ha1:
-          square_lut_out = 8'h40;
-      8'ha2:
-          square_lut_out = 8'h40;
-      8'ha3:
-          square_lut_out = 8'h40;
-      8'ha4:
-          square_lut_out = 8'h40;
-      8'ha5:
-          square_lut_out = 8'h40;
-      8'ha6:
-          square_lut_out = 8'h40;
-      8'ha7:
-          square_lut_out = 8'h40;
-      8'ha8:
-          square_lut_out = 8'h40;
-      8'ha9:
-          square_lut_out = 8'h40;
-      8'haa:
-          square_lut_out = 8'h40;
-      8'hab:
-          square_lut_out = 8'h40;
-      8'hac:
-          square_lut_out = 8'h40;
-      8'had:
-          square_lut_out = 8'h40;
-      8'hae:
-          square_lut_out = 8'h40;
-      8'haf:
-          square_lut_out = 8'h40;
-      8'hb0:
-          square_lut_out = 8'h40;
-      8'hb1:
-          square_lut_out = 8'h40;
-      8'hb2:
-          square_lut_out = 8'h40;
-      8'hb3:
-          square_lut_out = 8'h40;
-      8'hb4:
-          square_lut_out = 8'h40;
-      8'hb5:
-          square_lut_out = 8'h40;
-      8'hb6:
-          square_lut_out = 8'h40;
-      8'hb7:
-          square_lut_out = 8'h40;
-      8'hb8:
-          square_lut_out = 8'h40;
-      8'hb9:
-          square_lut_out = 8'h40;
-      8'hba:
-          square_lut_out = 8'h40;
-      8'hbb:
-          square_lut_out = 8'h40;
-      8'hbc:
-          square_lut_out = 8'h40;
-      8'hbd:
-          square_lut_out = 8'h40;
-      8'hbe:
-          square_lut_out = 8'h40;
-      8'hbf:
-          square_lut_out = 8'h40;
-      8'hc0:
-          square_lut_out = 8'h40;
-      8'hc1:
-          square_lut_out = 8'h40;
-      8'hc2:
-          square_lut_out = 8'h40;
-      8'hc3:
-          square_lut_out = 8'h40;
-      8'hc4:
-          square_lut_out = 8'h40;
-      8'hc5:
-          square_lut_out = 8'h40;
-      8'hc6:
-          square_lut_out = 8'h40;
-      8'hc7:
-          square_lut_out = 8'h40;
-      8'hc8:
-          square_lut_out = 8'h40;
-      8'hc9:
-          square_lut_out = 8'h40;
-      8'hca:
-          square_lut_out = 8'h40;
-      8'hcb:
-          square_lut_out = 8'h40;
-      8'hcc:
-          square_lut_out = 8'h40;
-      8'hcd:
-          square_lut_out = 8'h40;
-      8'hce:
-          square_lut_out = 8'h40;
-      8'hcf:
-          square_lut_out = 8'h40;
-      8'hd0:
-          square_lut_out = 8'h40;
-      8'hd1:
-          square_lut_out = 8'h40;
-      8'hd2:
-          square_lut_out = 8'h40;
-      8'hd3:
-          square_lut_out = 8'h40;
-      8'hd4:
-          square_lut_out = 8'h40;
-      8'hd5:
-          square_lut_out = 8'h40;
-      8'hd6:
-          square_lut_out = 8'h40;
-      8'hd7:
-          square_lut_out = 8'h40;
-      8'hd8:
-          square_lut_out = 8'h40;
-      8'hd9:
-          square_lut_out = 8'h40;
-      8'hda:
-          square_lut_out = 8'h40;
-      8'hdb:
-          square_lut_out = 8'h40;
-      8'hdc:
-          square_lut_out = 8'h40;
-      8'hdd:
-          square_lut_out = 8'h40;
-      8'hde:
-          square_lut_out = 8'h40;
-      8'hdf:
-          square_lut_out = 8'h40;
-      8'he0:
-          square_lut_out = 8'h40;
-      8'he1:
-          square_lut_out = 8'h40;
-      8'he2:
-          square_lut_out = 8'h40;
-      8'he3:
-          square_lut_out = 8'h40;
-      8'he4:
-          square_lut_out = 8'h40;
-      8'he5:
-          square_lut_out = 8'h40;
-      8'he6:
-          square_lut_out = 8'h40;
-      8'he7:
-          square_lut_out = 8'h40;
-      8'he8:
-          square_lut_out = 8'h40;
-      8'he9:
-          square_lut_out = 8'h40;
-      8'hea:
-          square_lut_out = 8'h40;
-      8'heb:
-          square_lut_out = 8'h40;
-      8'hec:
-          square_lut_out = 8'h40;
-      8'hed:
-          square_lut_out = 8'h40;
-      8'hee:
-          square_lut_out = 8'h40;
-      8'hef:
-          square_lut_out = 8'h40;
-      8'hf0:
-          square_lut_out = 8'h40;
-      8'hf1:
-          square_lut_out = 8'h40;
-      8'hf2:
-          square_lut_out = 8'h40;
-      8'hf3:
-          square_lut_out = 8'h40;
-      8'hf4:
-          square_lut_out = 8'h40;
-      8'hf5:
-          square_lut_out = 8'h40;
-      8'hf6:
-          square_lut_out = 8'h40;
-      8'hf7:
-          square_lut_out = 8'h40;
-      8'hf8:
-          square_lut_out = 8'h40;
-      8'hf9:
-          square_lut_out = 8'h40;
-      8'hfa:
-          square_lut_out = 8'h40;
-      8'hfb:
-          square_lut_out = 8'h40;
-      8'hfc:
-          square_lut_out = 8'h40;
-      8'hfd:
-          square_lut_out = 8'h40;
-      8'hfe:
-          square_lut_out = 8'h40;
-      8'hff:
-          square_lut_out = 8'h40;
-    endcase
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
-    (* full_case = 32'd1 *)
-    casez (phase_acc_basic[23:16])
-      8'h00:
-          triangle_lut_out = 8'h80;
-      8'h01:
-          triangle_lut_out = 8'h81;
-      8'h02:
-          triangle_lut_out = 8'h82;
-      8'h03:
-          triangle_lut_out = 8'h83;
-      8'h04:
-          triangle_lut_out = 8'h84;
-      8'h05:
-          triangle_lut_out = 8'h85;
-      8'h06:
-          triangle_lut_out = 8'h86;
-      8'h07:
-          triangle_lut_out = 8'h87;
-      8'h08:
-          triangle_lut_out = 8'h88;
-      8'h09:
-          triangle_lut_out = 8'h89;
-      8'h0a:
-          triangle_lut_out = 8'h8a;
-      8'h0b:
-          triangle_lut_out = 8'h8b;
-      8'h0c:
-          triangle_lut_out = 8'h8c;
-      8'h0d:
-          triangle_lut_out = 8'h8d;
-      8'h0e:
-          triangle_lut_out = 8'h8e;
-      8'h0f:
-          triangle_lut_out = 8'h8f;
-      8'h10:
-          triangle_lut_out = 8'h90;
-      8'h11:
-          triangle_lut_out = 8'h91;
-      8'h12:
-          triangle_lut_out = 8'h92;
-      8'h13:
-          triangle_lut_out = 8'h93;
-      8'h14:
-          triangle_lut_out = 8'h94;
-      8'h15:
-          triangle_lut_out = 8'h95;
-      8'h16:
-          triangle_lut_out = 8'h96;
-      8'h17:
-          triangle_lut_out = 8'h97;
-      8'h18:
-          triangle_lut_out = 8'h98;
-      8'h19:
-          triangle_lut_out = 8'h99;
-      8'h1a:
-          triangle_lut_out = 8'h9a;
-      8'h1b:
-          triangle_lut_out = 8'h9b;
-      8'h1c:
-          triangle_lut_out = 8'h9c;
-      8'h1d:
-          triangle_lut_out = 8'h9d;
-      8'h1e:
-          triangle_lut_out = 8'h9e;
-      8'h1f:
-          triangle_lut_out = 8'h9f;
-      8'h20:
-          triangle_lut_out = 8'ha0;
-      8'h21:
-          triangle_lut_out = 8'ha1;
-      8'h22:
-          triangle_lut_out = 8'ha2;
-      8'h23:
-          triangle_lut_out = 8'ha3;
-      8'h24:
-          triangle_lut_out = 8'ha4;
-      8'h25:
-          triangle_lut_out = 8'ha5;
-      8'h26:
-          triangle_lut_out = 8'ha6;
-      8'h27:
-          triangle_lut_out = 8'ha7;
-      8'h28:
-          triangle_lut_out = 8'ha8;
-      8'h29:
-          triangle_lut_out = 8'ha9;
-      8'h2a:
-          triangle_lut_out = 8'haa;
-      8'h2b:
-          triangle_lut_out = 8'hab;
-      8'h2c:
-          triangle_lut_out = 8'hac;
-      8'h2d:
-          triangle_lut_out = 8'had;
-      8'h2e:
-          triangle_lut_out = 8'hae;
-      8'h2f:
-          triangle_lut_out = 8'haf;
-      8'h30:
-          triangle_lut_out = 8'hb0;
-      8'h31:
-          triangle_lut_out = 8'hb1;
-      8'h32:
-          triangle_lut_out = 8'hb2;
-      8'h33:
-          triangle_lut_out = 8'hb3;
-      8'h34:
-          triangle_lut_out = 8'hb4;
-      8'h35:
-          triangle_lut_out = 8'hb5;
-      8'h36:
-          triangle_lut_out = 8'hb6;
-      8'h37:
-          triangle_lut_out = 8'hb7;
-      8'h38:
-          triangle_lut_out = 8'hb8;
-      8'h39:
-          triangle_lut_out = 8'hb9;
-      8'h3a:
-          triangle_lut_out = 8'hba;
-      8'h3b:
-          triangle_lut_out = 8'hbb;
-      8'h3c:
-          triangle_lut_out = 8'hbc;
-      8'h3d:
-          triangle_lut_out = 8'hbd;
-      8'h3e:
-          triangle_lut_out = 8'hbe;
-      8'h3f:
-          triangle_lut_out = 8'hbf;
-      8'h40:
-          triangle_lut_out = 8'hc0;
-      8'h41:
-          triangle_lut_out = 8'hbf;
-      8'h42:
-          triangle_lut_out = 8'hbe;
-      8'h43:
-          triangle_lut_out = 8'hbd;
-      8'h44:
-          triangle_lut_out = 8'hbc;
-      8'h45:
-          triangle_lut_out = 8'hbb;
-      8'h46:
-          triangle_lut_out = 8'hba;
-      8'h47:
-          triangle_lut_out = 8'hb9;
-      8'h48:
-          triangle_lut_out = 8'hb8;
-      8'h49:
-          triangle_lut_out = 8'hb7;
-      8'h4a:
-          triangle_lut_out = 8'hb6;
-      8'h4b:
-          triangle_lut_out = 8'hb5;
-      8'h4c:
-          triangle_lut_out = 8'hb4;
-      8'h4d:
-          triangle_lut_out = 8'hb3;
-      8'h4e:
-          triangle_lut_out = 8'hb2;
-      8'h4f:
-          triangle_lut_out = 8'hb1;
-      8'h50:
-          triangle_lut_out = 8'hb0;
-      8'h51:
-          triangle_lut_out = 8'haf;
-      8'h52:
-          triangle_lut_out = 8'hae;
-      8'h53:
-          triangle_lut_out = 8'had;
-      8'h54:
-          triangle_lut_out = 8'hac;
-      8'h55:
-          triangle_lut_out = 8'hab;
-      8'h56:
-          triangle_lut_out = 8'haa;
-      8'h57:
-          triangle_lut_out = 8'ha9;
-      8'h58:
-          triangle_lut_out = 8'ha8;
-      8'h59:
-          triangle_lut_out = 8'ha7;
-      8'h5a:
-          triangle_lut_out = 8'ha6;
-      8'h5b:
-          triangle_lut_out = 8'ha5;
-      8'h5c:
-          triangle_lut_out = 8'ha4;
-      8'h5d:
-          triangle_lut_out = 8'ha3;
-      8'h5e:
-          triangle_lut_out = 8'ha2;
-      8'h5f:
-          triangle_lut_out = 8'ha1;
-      8'h60:
-          triangle_lut_out = 8'ha0;
-      8'h61:
-          triangle_lut_out = 8'h9f;
-      8'h62:
-          triangle_lut_out = 8'h9e;
-      8'h63:
-          triangle_lut_out = 8'h9d;
-      8'h64:
-          triangle_lut_out = 8'h9c;
-      8'h65:
-          triangle_lut_out = 8'h9b;
-      8'h66:
-          triangle_lut_out = 8'h9a;
-      8'h67:
-          triangle_lut_out = 8'h99;
-      8'h68:
-          triangle_lut_out = 8'h98;
-      8'h69:
-          triangle_lut_out = 8'h97;
-      8'h6a:
-          triangle_lut_out = 8'h96;
-      8'h6b:
-          triangle_lut_out = 8'h95;
-      8'h6c:
-          triangle_lut_out = 8'h94;
-      8'h6d:
-          triangle_lut_out = 8'h93;
-      8'h6e:
-          triangle_lut_out = 8'h92;
-      8'h6f:
-          triangle_lut_out = 8'h91;
-      8'h70:
-          triangle_lut_out = 8'h90;
-      8'h71:
-          triangle_lut_out = 8'h8f;
-      8'h72:
-          triangle_lut_out = 8'h8e;
-      8'h73:
-          triangle_lut_out = 8'h8d;
-      8'h74:
-          triangle_lut_out = 8'h8c;
-      8'h75:
-          triangle_lut_out = 8'h8b;
-      8'h76:
-          triangle_lut_out = 8'h8a;
-      8'h77:
-          triangle_lut_out = 8'h89;
-      8'h78:
-          triangle_lut_out = 8'h88;
-      8'h79:
-          triangle_lut_out = 8'h87;
-      8'h7a:
-          triangle_lut_out = 8'h86;
-      8'h7b:
-          triangle_lut_out = 8'h85;
-      8'h7c:
-          triangle_lut_out = 8'h84;
-      8'h7d:
-          triangle_lut_out = 8'h83;
-      8'h7e:
-          triangle_lut_out = 8'h82;
-      8'h7f:
-          triangle_lut_out = 8'h81;
-      8'h80:
-          triangle_lut_out = 8'h80;
-      8'h81:
-          triangle_lut_out = 8'h7f;
-      8'h82:
-          triangle_lut_out = 8'h7e;
-      8'h83:
-          triangle_lut_out = 8'h7d;
-      8'h84:
-          triangle_lut_out = 8'h7c;
-      8'h85:
-          triangle_lut_out = 8'h7b;
-      8'h86:
-          triangle_lut_out = 8'h7a;
-      8'h87:
-          triangle_lut_out = 8'h79;
-      8'h88:
-          triangle_lut_out = 8'h78;
-      8'h89:
-          triangle_lut_out = 8'h77;
-      8'h8a:
-          triangle_lut_out = 8'h76;
-      8'h8b:
-          triangle_lut_out = 8'h75;
-      8'h8c:
-          triangle_lut_out = 8'h74;
-      8'h8d:
-          triangle_lut_out = 8'h73;
-      8'h8e:
-          triangle_lut_out = 8'h72;
-      8'h8f:
-          triangle_lut_out = 8'h71;
-      8'h90:
-          triangle_lut_out = 8'h70;
-      8'h91:
-          triangle_lut_out = 8'h6f;
-      8'h92:
-          triangle_lut_out = 8'h6e;
-      8'h93:
-          triangle_lut_out = 8'h6d;
-      8'h94:
-          triangle_lut_out = 8'h6c;
-      8'h95:
-          triangle_lut_out = 8'h6b;
-      8'h96:
-          triangle_lut_out = 8'h6a;
-      8'h97:
-          triangle_lut_out = 8'h69;
-      8'h98:
-          triangle_lut_out = 8'h68;
-      8'h99:
-          triangle_lut_out = 8'h67;
-      8'h9a:
-          triangle_lut_out = 8'h66;
-      8'h9b:
-          triangle_lut_out = 8'h65;
-      8'h9c:
-          triangle_lut_out = 8'h64;
-      8'h9d:
-          triangle_lut_out = 8'h63;
-      8'h9e:
-          triangle_lut_out = 8'h62;
-      8'h9f:
-          triangle_lut_out = 8'h61;
-      8'ha0:
-          triangle_lut_out = 8'h60;
-      8'ha1:
-          triangle_lut_out = 8'h5f;
-      8'ha2:
-          triangle_lut_out = 8'h5e;
-      8'ha3:
-          triangle_lut_out = 8'h5d;
-      8'ha4:
-          triangle_lut_out = 8'h5c;
-      8'ha5:
-          triangle_lut_out = 8'h5b;
-      8'ha6:
-          triangle_lut_out = 8'h5a;
-      8'ha7:
-          triangle_lut_out = 8'h59;
-      8'ha8:
-          triangle_lut_out = 8'h58;
-      8'ha9:
-          triangle_lut_out = 8'h57;
-      8'haa:
-          triangle_lut_out = 8'h56;
-      8'hab:
-          triangle_lut_out = 8'h55;
-      8'hac:
-          triangle_lut_out = 8'h54;
-      8'had:
-          triangle_lut_out = 8'h53;
-      8'hae:
-          triangle_lut_out = 8'h52;
-      8'haf:
-          triangle_lut_out = 8'h51;
-      8'hb0:
-          triangle_lut_out = 8'h50;
-      8'hb1:
-          triangle_lut_out = 8'h4f;
-      8'hb2:
-          triangle_lut_out = 8'h4e;
-      8'hb3:
-          triangle_lut_out = 8'h4d;
-      8'hb4:
-          triangle_lut_out = 8'h4c;
-      8'hb5:
-          triangle_lut_out = 8'h4b;
-      8'hb6:
-          triangle_lut_out = 8'h4a;
-      8'hb7:
-          triangle_lut_out = 8'h49;
-      8'hb8:
-          triangle_lut_out = 8'h48;
-      8'hb9:
-          triangle_lut_out = 8'h47;
-      8'hba:
-          triangle_lut_out = 8'h46;
-      8'hbb:
-          triangle_lut_out = 8'h45;
-      8'hbc:
-          triangle_lut_out = 8'h44;
-      8'hbd:
-          triangle_lut_out = 8'h43;
-      8'hbe:
-          triangle_lut_out = 8'h42;
-      8'hbf:
-          triangle_lut_out = 8'h41;
-      8'hc0:
-          triangle_lut_out = 8'h40;
-      8'hc1:
-          triangle_lut_out = 8'h41;
-      8'hc2:
-          triangle_lut_out = 8'h42;
-      8'hc3:
-          triangle_lut_out = 8'h43;
-      8'hc4:
-          triangle_lut_out = 8'h44;
-      8'hc5:
-          triangle_lut_out = 8'h45;
-      8'hc6:
-          triangle_lut_out = 8'h46;
-      8'hc7:
-          triangle_lut_out = 8'h47;
-      8'hc8:
-          triangle_lut_out = 8'h48;
-      8'hc9:
-          triangle_lut_out = 8'h49;
-      8'hca:
-          triangle_lut_out = 8'h4a;
-      8'hcb:
-          triangle_lut_out = 8'h4b;
-      8'hcc:
-          triangle_lut_out = 8'h4c;
-      8'hcd:
-          triangle_lut_out = 8'h4d;
-      8'hce:
-          triangle_lut_out = 8'h4e;
-      8'hcf:
-          triangle_lut_out = 8'h4f;
-      8'hd0:
-          triangle_lut_out = 8'h50;
-      8'hd1:
-          triangle_lut_out = 8'h51;
-      8'hd2:
-          triangle_lut_out = 8'h52;
-      8'hd3:
-          triangle_lut_out = 8'h53;
-      8'hd4:
-          triangle_lut_out = 8'h54;
-      8'hd5:
-          triangle_lut_out = 8'h55;
-      8'hd6:
-          triangle_lut_out = 8'h56;
-      8'hd7:
-          triangle_lut_out = 8'h57;
-      8'hd8:
-          triangle_lut_out = 8'h58;
-      8'hd9:
-          triangle_lut_out = 8'h59;
-      8'hda:
-          triangle_lut_out = 8'h5a;
-      8'hdb:
-          triangle_lut_out = 8'h5b;
-      8'hdc:
-          triangle_lut_out = 8'h5c;
-      8'hdd:
-          triangle_lut_out = 8'h5d;
-      8'hde:
-          triangle_lut_out = 8'h5e;
-      8'hdf:
-          triangle_lut_out = 8'h5f;
-      8'he0:
-          triangle_lut_out = 8'h60;
-      8'he1:
-          triangle_lut_out = 8'h61;
-      8'he2:
-          triangle_lut_out = 8'h62;
-      8'he3:
-          triangle_lut_out = 8'h63;
-      8'he4:
-          triangle_lut_out = 8'h64;
-      8'he5:
-          triangle_lut_out = 8'h65;
-      8'he6:
-          triangle_lut_out = 8'h66;
-      8'he7:
-          triangle_lut_out = 8'h67;
-      8'he8:
-          triangle_lut_out = 8'h68;
-      8'he9:
-          triangle_lut_out = 8'h69;
-      8'hea:
-          triangle_lut_out = 8'h6a;
-      8'heb:
-          triangle_lut_out = 8'h6b;
-      8'hec:
-          triangle_lut_out = 8'h6c;
-      8'hed:
-          triangle_lut_out = 8'h6d;
-      8'hee:
-          triangle_lut_out = 8'h6e;
-      8'hef:
-          triangle_lut_out = 8'h6f;
-      8'hf0:
-          triangle_lut_out = 8'h70;
-      8'hf1:
-          triangle_lut_out = 8'h71;
-      8'hf2:
-          triangle_lut_out = 8'h72;
-      8'hf3:
-          triangle_lut_out = 8'h73;
-      8'hf4:
-          triangle_lut_out = 8'h74;
-      8'hf5:
-          triangle_lut_out = 8'h75;
-      8'hf6:
-          triangle_lut_out = 8'h76;
-      8'hf7:
-          triangle_lut_out = 8'h77;
-      8'hf8:
-          triangle_lut_out = 8'h78;
-      8'hf9:
-          triangle_lut_out = 8'h79;
-      8'hfa:
-          triangle_lut_out = 8'h7a;
-      8'hfb:
-          triangle_lut_out = 8'h7b;
-      8'hfc:
-          triangle_lut_out = 8'h7c;
-      8'hfd:
-          triangle_lut_out = 8'h7d;
-      8'hfe:
-          triangle_lut_out = 8'h7e;
-      8'hff:
-          triangle_lut_out = 8'h7f;
     endcase
   end
   assign dac_ile = 1'h1;
@@ -7659,8 +7696,8 @@ module \top.signal_gen (btn_mode, btn_inc, btn_dec, rst, \rst$67 , dac_data, clk
   assign carrier_ftw_am = 24'h0346dc;
   assign mod_ftw_am = 24'h0053e2;
   assign mod_ftw_fm = 24'h0053e2;
-  assign carrier_ftw_spwm = 24'h0346dc;
-  assign mod_ftw_spwm = 24'h0053e2;
+  assign carrier_ftw_spwm = 24'h028f5c;
+  assign mod_ftw_spwm = 24'h004189;
   assign \$7  = { \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27], \$6 [27:18] };
   assign \$12  = { 12'h000, \$11 [26:12] };
   assign \$14  = { \$13 [39], \$13 [39], \$13 [39], \$13 [39], \$13 [39], \$13 [39], \$13 [39:6] };
