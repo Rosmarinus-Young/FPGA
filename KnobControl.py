@@ -31,7 +31,7 @@ class KnobControl(Elaboratable):
                 with m.Else():
                     m.d.sync += cnt.eq(0)
 
-                with m.If(cnt >= 1000000): # 10ms
+                with m.If(cnt >= 500000): # 10ms
                     m.d.sync += [
                         stable.eq(1),
                         stable_status.eq(status),

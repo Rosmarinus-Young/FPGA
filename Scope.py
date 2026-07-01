@@ -6,6 +6,7 @@ from ButtonControl import ButtonControl
 from WaveControl import WaveControl
 from KnobControl import KnobControl
 from RangeSwitcher import RangeSwitcher
+from PhaseGetter import PhaseGetter
 from RAM import RAM
 from amaranth import *
 from GainControl import GainControl
@@ -22,10 +23,16 @@ class Scope(Elaboratable):
         self.sample_period_control_knob = KnobControl(A = sample_period_control_knob_A, 
                                                       B = sample_period_control_knob_B)
 
+        self.phase_getter = PhaseGetter(adc_value = adc_value, adc_ready = adc_ready,
+                                        wave_maxn = self.period_detector.maxn,
+                                        wave_minn = self.period_detector.minn,
+                                        get_period_over = self.period_detector.get_period_over)
+
         self.wave_control = WaveControl(adc_value = adc_value, adc_ready = adc_ready, 
                                         period = self.period_detector.period, 
                                         get_period_over = self.period_detector.get_period_over,
-                                        sample_period_control_knob = self.sample_period_control_knob.out)
+                                        sample_period_control_knob = self.sample_period_control_knob.out,
+                                        period_start = self.phase_getter.period_start)
 
         self.ram = RAM(r_addr = timing.x, r_en = 1, w_addr = self.wave_control.w_addr, 
                        w_data = self.wave_control.w_data, w_en = self.wave_control.w_en)
@@ -48,6 +55,8 @@ class Scope(Elaboratable):
         m.submodules.range_switcher = self.range_switcher
 
         m.submodules.sample_period_control_knob = self.sample_period_control_knob
+
+        m.submodules.phase_getter = self.phase_getter
 
         m.submodules.wave_control = self.wave_control
 

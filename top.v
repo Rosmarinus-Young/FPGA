@@ -192,7 +192,7 @@ module top(rst, auto_button, vauxp10, vauxn10, CH1_sample_period_control_knob_A,
   assign \clk$25  = clk;
 endmodule
 
-(* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:44" *)
+(* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:51" *)
 (* generator = "Amaranth" *)
 module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_control_knob_B, CH1_display_gain_control_knob_A, CH1_display_gain_control_knob_B, pix_rst, rst, pix_clk, x, adc_ch0_value, adc_ch0_ready, out, CH1_KEYA1, CH1_KEYA2, display_y, clk);
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:36" *)
@@ -237,11 +237,13 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
   input out;
   wire out;
   (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:7" *)
-  wire [1:0] \out$18 ;
+  wire [1:0] \out$10 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:7" *)
-  wire [1:0] \out$7 ;
+  wire [1:0] \out$19 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:9" *)
   wire [31:0] period;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:10" *)
+  wire period_start;
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:62" *)
   input pix_clk;
   wire pix_clk;
@@ -253,24 +255,24 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:68" *)
   input rst;
   wire rst;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
-  wire [11:0] w_addr;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
+  wire [11:0] w_addr;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:13" *)
   wire [11:0] w_data;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:10" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
   wire w_en;
   (* src = "/home/yym/workspace/test_fpga/FPGA/VGATiming.py:34" *)
   input [9:0] x;
   wire [9:0] x;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:56" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:65" *)
   \top.Channal1.display_gain_control_knob  display_gain_control_knob (
     .CH1_display_gain_control_knob_A(CH1_display_gain_control_knob_A),
     .CH1_display_gain_control_knob_B(CH1_display_gain_control_knob_B),
     .clk(clk),
-    .out(\out$18 ),
+    .out(\out$19 ),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:58" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:67" *)
   \top.Channal1.gain_control  gain_control (
     .clk(clk),
     .display_y(display_y),
@@ -278,11 +280,11 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .maxn(maxn),
     .mid(mid),
     .minn(minn),
-    .out(\out$18 ),
+    .out(\out$19 ),
     .r_data(r_data),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:46" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:53" *)
   \top.Channal1.period_detector  period_detector (
     .adc_ch0_ready(adc_ch0_ready),
     .adc_ch0_value(adc_ch0_value),
@@ -295,7 +297,18 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .period(period),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:54" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:59" *)
+  \top.Channal1.phase_getter  phase_getter (
+    .adc_ch0_ready(adc_ch0_ready),
+    .adc_ch0_value(adc_ch0_value),
+    .clk(clk),
+    .get_period_over(get_period_over),
+    .\maxn$5 (maxn),
+    .\minn$7 (minn),
+    .period_start(period_start),
+    .rst(rst)
+  );
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:63" *)
   \top.Channal1.ram  ram (
     .clk(clk),
     .pix_clk(pix_clk),
@@ -307,29 +320,30 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .wr__data(w_data),
     .wr__en(w_en)
   );
-  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:48" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:55" *)
   \top.Channal1.range_switcher  range_switcher (
     .CH1_KEYA1(CH1_KEYA1),
     .CH1_KEYA2(CH1_KEYA2),
     .clk(clk),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:50" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:57" *)
   \top.Channal1.sample_period_control_knob  sample_period_control_knob (
     .CH1_sample_period_control_knob_A(CH1_sample_period_control_knob_A),
     .CH1_sample_period_control_knob_B(CH1_sample_period_control_knob_B),
     .clk(clk),
-    .out(\out$7 ),
+    .out(\out$10 ),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:52" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:61" *)
   \top.Channal1.wave_control  wave_control (
     .adc_ch0_ready(adc_ch0_ready),
     .adc_ch0_value(adc_ch0_value),
     .clk(clk),
     .get_period_over(get_period_over),
-    .out(\out$7 ),
+    .out(\out$10 ),
     .period(period),
+    .period_start(period_start),
     .rst(rst),
     .w_addr(w_addr),
     .w_data(w_data),
@@ -1425,6 +1439,198 @@ module \top.Channal1.period_detector (rst, adc_ch0_value, adc_ch0_ready, out, pe
   assign \$45  = { 4'h0, period_sum[31:4] };
 endmodule
 
+(* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:13" *)
+(* generator = "Amaranth" *)
+module \top.Channal1.phase_getter (rst, adc_ch0_value, adc_ch0_ready, get_period_over, \maxn$5 , \minn$7 , period_start, clk);
+  reg \$auto$verilog_backend.cc:2355:dump_module$4  = 0;
+  wire \$1 ;
+  wire [12:0] \$10 ;
+  wire \$11 ;
+  wire \$12 ;
+  wire \$13 ;
+  wire \$14 ;
+  wire \$15 ;
+  wire \$16 ;
+  wire \$17 ;
+  wire \$18 ;
+  wire \$19 ;
+  wire [11:0] \$2 ;
+  reg [11:0] \$20 ;
+  reg [11:0] \$21 ;
+  reg [11:0] \$22 ;
+  reg [11:0] \$23 ;
+  reg [11:0] \$24 ;
+  reg [1:0] \$25 ;
+  reg \$26 ;
+  wire \$3 ;
+  wire [11:0] \$4 ;
+  wire [12:0] \$5 ;
+  wire [12:0] \$6 ;
+  wire [12:0] \$7 ;
+  wire [12:0] \$8 ;
+  wire [12:0] \$9 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/XADCModule.py:12" *)
+  input adc_ch0_ready;
+  wire adc_ch0_ready;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/XADCModule.py:11" *)
+  input [11:0] adc_ch0_value;
+  wire [11:0] adc_ch0_value;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:68" *)
+  input clk;
+  wire clk;
+  (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/contextlib.py:144" *)
+  reg [1:0] fsm_state = 2'h0;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:10" *)
+  input get_period_over;
+  wire get_period_over;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:15" *)
+  reg [11:0] maxn = 12'h000;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:12" *)
+  input [11:0] \maxn$5 ;
+  wire [11:0] \maxn$5 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:17" *)
+  reg [11:0] mid = 12'h000;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:18" *)
+  reg [11:0] mid_high = 12'h000;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:19" *)
+  reg [11:0] mid_low = 12'h000;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:16" *)
+  reg [11:0] minn = 12'hfff;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:13" *)
+  input [11:0] \minn$7 ;
+  wire [11:0] \minn$7 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:10" *)
+  output period_start;
+  reg period_start = 1'h0;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:68" *)
+  input rst;
+  wire rst;
+  assign \$1  = adc_ch0_value > (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:28" *) maxn;
+  assign \$2  = \$1  ? (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:28" *) adc_ch0_value : maxn;
+  assign \$3  = adc_ch0_value < (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:29" *) minn;
+  assign \$4  = \$3  ? (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:29" *) adc_ch0_value : minn;
+  assign \$5  = maxn + (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:33" *) minn;
+  assign \$7  = maxn + (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:34" *) mid;
+  assign \$9  = mid + (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:35" *) minn;
+  assign \$11  = adc_ch0_value < (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:40" *) mid_low;
+  assign \$12  = adc_ch0_ready & (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:40" *) \$11 ;
+  assign \$13  = adc_ch0_value > (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:43" *) mid;
+  assign \$14  = adc_ch0_ready & (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:43" *) \$13 ;
+  assign \$15  = adc_ch0_value > (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:47" *) mid_high;
+  assign \$16  = adc_ch0_ready & (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:47" *) \$15 ;
+  assign \$17  = ! (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) fsm_state;
+  assign \$18  = fsm_state == (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) 1'h1;
+  assign \$19  = fsm_state == (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) 2'h2;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:15" *)
+  always @(posedge clk)
+    maxn <= \$20 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:16" *)
+  always @(posedge clk)
+    minn <= \$21 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:17" *)
+  always @(posedge clk)
+    mid <= \$22 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:18" *)
+  always @(posedge clk)
+    mid_high <= \$23 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:19" *)
+  always @(posedge clk)
+    mid_low <= \$24 ;
+  (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/contextlib.py:144" *)
+  always @(posedge clk)
+    fsm_state <= \$25 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:10" *)
+  always @(posedge clk)
+    period_start <= \$26 ;
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$4 ) begin end
+    \$20  = maxn;
+    if (get_period_over) begin
+      \$20  = \maxn$5 ;
+    end else if (adc_ch0_ready) begin
+      \$20  = \$2 ;
+    end
+    if (rst) begin
+      \$20  = 12'h000;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$4 ) begin end
+    \$21  = minn;
+    if (get_period_over) begin
+      \$21  = \minn$7 ;
+    end else if (adc_ch0_ready) begin
+      \$21  = \$4 ;
+    end
+    if (rst) begin
+      \$21  = 12'hfff;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$4 ) begin end
+    \$22  = \$6 [11:0];
+    if (rst) begin
+      \$22  = 12'h000;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$4 ) begin end
+    \$23  = \$8 [11:0];
+    if (rst) begin
+      \$23  = 12'h000;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$4 ) begin end
+    \$24  = \$10 [11:0];
+    if (rst) begin
+      \$24  = 12'h000;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$4 ) begin end
+    \$25  = fsm_state;
+    casez (fsm_state)
+      2'h0:
+          if (\$12 ) begin
+            \$25  = 2'h1;
+          end
+      2'h1:
+          if (\$14 ) begin
+            \$25  = 2'h2;
+          end
+      2'h2:
+          if (\$16 ) begin
+            \$25  = 2'h0;
+          end
+    endcase
+    if (rst) begin
+      \$25  = 2'h0;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$4 ) begin end
+    \$26  = period_start;
+    casez (fsm_state)
+      2'h0:
+          /* empty */;
+      2'h1:
+          if (\$14 ) begin
+            \$26  = 1'h1;
+          end
+    endcase
+    if (period_start) begin
+      \$26  = 1'h0;
+    end
+    if (rst) begin
+      \$26  = 1'h0;
+    end
+  end
+  assign \$6  = { 1'h0, \$5 [12:1] };
+  assign \$8  = { 1'h0, \$7 [12:1] };
+  assign \$10  = { 1'h0, \$9 [12:1] };
+endmodule
+
 (* src = "/home/yym/workspace/test_fpga/FPGA/RAM.py:16" *)
 (* generator = "Amaranth" *)
 module \top.Channal1.ram (pix_rst, rst, pix_clk, r_data, rd__addr, w_addr, wr__en, wr__data, clk);
@@ -1450,19 +1656,19 @@ module \top.Channal1.ram (pix_rst, rst, pix_clk, r_data, rd__addr, w_addr, wr__e
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:68" *)
   input rst;
   wire rst;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
   input [11:0] w_addr;
   wire [11:0] w_addr;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:13" *)
   wire [11:0] w_data;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:10" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
   wire w_en;
   (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/lib/memory.py:401" *)
   wire [9:0] wr__addr;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:13" *)
   input [11:0] wr__data;
   wire [11:0] wr__data;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:10" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
   input wr__en;
   wire wr__en;
   (* src = "/home/yym/workspace/test_fpga/FPGA/VGATiming.py:34" *)
@@ -2131,7 +2337,7 @@ endmodule
 (* src = "/home/yym/workspace/test_fpga/FPGA/RangeSwitcher.py:10" *)
 (* generator = "Amaranth" *)
 module \top.Channal1.range_switcher (rst, CH1_KEYA1, CH1_KEYA2, clk);
-  reg \$auto$verilog_backend.cc:2355:dump_module$4  = 0;
+  reg \$auto$verilog_backend.cc:2355:dump_module$5  = 0;
   reg \$1 ;
   reg \$2 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:36" *)
@@ -2153,14 +2359,14 @@ module \top.Channal1.range_switcher (rst, CH1_KEYA1, CH1_KEYA2, clk);
   always @(posedge clk)
     CH1_KEYA2 <= \$2 ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$4 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$5 ) begin end
     \$1  = 1'h0;
     if (rst) begin
       \$1  = 1'h1;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$4 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$5 ) begin end
     \$2  = 1'h1;
     if (rst) begin
       \$2  = 1'h1;
@@ -2171,7 +2377,7 @@ endmodule
 (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:10" *)
 (* generator = "Amaranth" *)
 module \top.Channal1.sample_period_control_knob (CH1_sample_period_control_knob_A, CH1_sample_period_control_knob_B, rst, out, clk);
-  reg \$auto$verilog_backend.cc:2355:dump_module$5  = 0;
+  reg \$auto$verilog_backend.cc:2355:dump_module$6  = 0;
   wire [1:0] \$1 ;
   wire \$10 ;
   wire \$11 ;
@@ -2266,21 +2472,21 @@ module \top.Channal1.sample_period_control_knob (CH1_sample_period_control_knob_
   always @(posedge clk)
     last_stable_status <= \$25 ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$5 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$6 ) begin end
     \$18  = status;
     if (rst) begin
       \$18  = 2'h0;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$5 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$6 ) begin end
     \$19  = \$2 [1:0];
     if (rst) begin
       \$19  = 2'h0;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$5 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$6 ) begin end
     \$20  = cnt;
     (* full_case = 32'd1 *)
     casez (fsm_state)
@@ -2301,7 +2507,7 @@ module \top.Channal1.sample_period_control_knob (CH1_sample_period_control_knob_
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$5 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$6 ) begin end
     \$21  = fsm_state;
     (* full_case = 32'd1 *)
     casez (fsm_state)
@@ -2319,7 +2525,7 @@ module \top.Channal1.sample_period_control_knob (CH1_sample_period_control_knob_
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$5 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$6 ) begin end
     \$22  = stable;
     (* full_case = 32'd1 *)
     casez (fsm_state)
@@ -2338,7 +2544,7 @@ module \top.Channal1.sample_period_control_knob (CH1_sample_period_control_knob_
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$5 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$6 ) begin end
     \$23  = stable_status;
     (* full_case = 32'd1 *)
     casez (fsm_state)
@@ -2354,7 +2560,7 @@ module \top.Channal1.sample_period_control_knob (CH1_sample_period_control_knob_
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$5 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$6 ) begin end
     \$24  = out;
     if (stable) begin
       (* full_case = 32'd1 *)
@@ -2393,7 +2599,7 @@ module \top.Channal1.sample_period_control_knob (CH1_sample_period_control_knob_
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$5 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$6 ) begin end
     \$25  = last_stable_status;
     if (stable) begin
       \$25  = stable_status;
@@ -2406,30 +2612,25 @@ module \top.Channal1.sample_period_control_knob (CH1_sample_period_control_knob_
   assign \$17  = fsm_state;
 endmodule
 
-(* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:16" *)
+(* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:17" *)
 (* generator = "Amaranth" *)
-module \top.Channal1.wave_control (rst, adc_ch0_value, adc_ch0_ready, period, get_period_over, out, w_addr, w_en, w_data, clk);
-  reg \$auto$verilog_backend.cc:2355:dump_module$6  = 0;
+module \top.Channal1.wave_control (rst, adc_ch0_value, adc_ch0_ready, period, get_period_over, out, period_start, w_addr, w_en, w_data, clk);
+  reg \$auto$verilog_backend.cc:2355:dump_module$7  = 0;
   wire [32:0] \$1 ;
-  wire \$10 ;
-  wire \$11 ;
-  wire [31:0] \$12 ;
-  wire [32:0] \$13 ;
-  wire [31:0] \$14 ;
-  wire [32:0] \$15 ;
-  reg [31:0] \$16 ;
-  reg \$17 ;
-  reg [31:0] \$18 ;
-  reg [11:0] \$19 ;
+  wire [32:0] \$10 ;
+  wire [31:0] \$11 ;
+  wire [32:0] \$12 ;
+  reg [31:0] \$13 ;
+  reg [11:0] \$14 ;
+  reg \$15 ;
+  reg [11:0] \$16 ;
+  reg [31:0] \$17 ;
   wire \$2 ;
-  reg \$20 ;
-  reg [11:0] \$21 ;
-  reg [31:0] \$22 ;
-  wire [32:0] \$3 ;
+  wire [12:0] \$3 ;
   wire [32:0] \$4 ;
   wire \$5 ;
-  wire [12:0] \$6 ;
-  wire [32:0] \$7 ;
+  wire [31:0] \$6 ;
+  wire \$7 ;
   wire \$8 ;
   wire [31:0] \$9 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/XADCModule.py:12" *)
@@ -2450,159 +2651,125 @@ module \top.Channal1.wave_control (rst, adc_ch0_value, adc_ch0_ready, period, ge
   (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:9" *)
   input [31:0] period;
   wire [31:0] period;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:20" *)
-  reg [31:0] period_cnt = 32'd0;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:21" *)
-  reg period_overflow = 1'h0;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:10" *)
+  input period_start;
+  wire period_start;
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:68" *)
   input rst;
   wire rst;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:23" *)
   reg [31:0] sample_clk = 32'd0;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:13" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:14" *)
   reg [31:0] sample_period = 32'd100000;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
   output [11:0] w_addr;
   reg [11:0] w_addr = 12'h000;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:13" *)
   output [11:0] w_data;
   reg [11:0] w_data = 12'h000;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:10" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
   output w_en;
   reg w_en = 1'h0;
-  assign \$1  = period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:25" *) 1'h1;
-  assign \$2  = $signed({ 1'h0, period_cnt }) >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:25" *) $signed(\$1 );
-  assign \$3  = period_cnt + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:32" *) 1'h1;
-  assign \$4  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:36" *) 1'h1;
-  assign \$5  = $signed({ 1'h0, sample_clk }) >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:36" *) $signed(\$4 );
-  assign \$6  = w_addr + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:39" *) 1'h1;
-  assign \$7  = sample_clk + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:42" *) 1'h1;
-  assign \$8  = w_addr >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:44" *) 10'h280;
-  assign \$10  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:62" *) 1'h1;
-  assign \$11  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:64" *) 2'h2;
-  assign \$13  = sample_period + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:63" *) \$12 ;
-  assign \$15  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:65" *) \$14 ;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:20" *)
-  always @(posedge clk)
-    period_cnt <= \$16 ;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:21" *)
-  always @(posedge clk)
-    period_overflow <= \$17 ;
+  assign \$1  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:26" *) 1'h1;
+  assign \$2  = $signed({ 1'h0, sample_clk }) >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:26" *) $signed(\$1 );
+  assign \$3  = w_addr + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:29" *) 1'h1;
+  assign \$4  = sample_clk + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:32" *) 1'h1;
+  assign \$5  = w_addr >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:34" *) 10'h280;
+  assign \$7  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:52" *) 1'h1;
+  assign \$8  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:54" *) 2'h2;
+  assign \$10  = sample_period + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:53" *) \$9 ;
+  assign \$12  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:55" *) \$11 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:23" *)
   always @(posedge clk)
-    sample_clk <= \$18 ;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
-  always @(posedge clk)
-    w_addr <= \$19 ;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:10" *)
-  always @(posedge clk)
-    w_en <= \$20 ;
+    sample_clk <= \$13 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
   always @(posedge clk)
-    w_data <= \$21 ;
+    w_addr <= \$14 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
+  always @(posedge clk)
+    w_en <= \$15 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:13" *)
   always @(posedge clk)
-    sample_period <= \$22 ;
+    w_data <= \$16 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:14" *)
+  always @(posedge clk)
+    sample_period <= \$17 ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$6 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
     (* full_case = 32'd1 *)
     if (\$2 ) begin
-      \$16  = 32'd0;
+      \$13  = 32'd0;
     end else begin
-      \$16  = \$3 [31:0];
+      \$13  = \$4 [31:0];
     end
     if (rst) begin
-      \$16  = 32'd0;
+      \$13  = 32'd0;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$6 ) begin end
-    (* full_case = 32'd1 *)
+    if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
+    \$14  = w_addr;
     if (\$2 ) begin
-      \$17  = 1'h1;
-    end else begin
-      \$17  = 1'h0;
+      \$14  = \$3 [11:0];
     end
-    if (rst) begin
-      \$17  = 1'h0;
-    end
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$6 ) begin end
-    (* full_case = 32'd1 *)
     if (\$5 ) begin
-      \$18  = 32'd0;
-    end else begin
-      \$18  = \$7 [31:0];
-    end
-    if (rst) begin
-      \$18  = 32'd0;
-    end
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$6 ) begin end
-    \$19  = w_addr;
-    if (\$5 ) begin
-      \$19  = \$6 [11:0];
-    end
-    if (\$8 ) begin
       (* full_case = 32'd1 *)
-      if (period_overflow) begin
-        \$19  = 12'h000;
+      if (period_start) begin
+        \$14  = 12'h000;
       end else begin
-        \$19  = 12'h280;
+        \$14  = 12'h280;
       end
     end
     if (rst) begin
-      \$19  = 12'h000;
+      \$14  = 12'h000;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$6 ) begin end
-    \$20  = w_en;
-    if (\$8 ) begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
+    \$15  = w_en;
+    if (\$5 ) begin
     end else if (adc_ch0_ready) begin
-      \$20  = 1'h1;
+      \$15  = 1'h1;
     end
     if (w_en) begin
-      \$20  = 1'h0;
+      \$15  = 1'h0;
     end
     if (rst) begin
-      \$20  = 1'h0;
+      \$15  = 1'h0;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$6 ) begin end
-    \$21  = w_data;
-    if (\$8 ) begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
+    \$16  = w_data;
+    if (\$5 ) begin
     end else if (adc_ch0_ready) begin
-      \$21  = adc_ch0_value;
+      \$16  = adc_ch0_value;
     end
     if (rst) begin
-      \$21  = 12'h000;
+      \$16  = 12'h000;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$6 ) begin end
-    \$22  = sample_period;
+    if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
+    \$17  = sample_period;
     if (get_period_over) begin
-      \$22  = \$9 ;
+      \$17  = \$6 ;
     end
-    if (\$10 ) begin
-      \$22  = \$13 [31:0];
-    end else if (\$11 ) begin
-      \$22  = \$15 [31:0];
+    if (\$7 ) begin
+      \$17  = \$10 [31:0];
+    end else if (\$8 ) begin
+      \$17  = \$12 [31:0];
     end
     if (rst) begin
-      \$22  = 32'd100000;
+      \$17  = 32'd100000;
     end
   end
-  assign \$9  = { 7'h00, period[31:7] };
-  assign \$12  = { 4'h0, sample_period[31:4] };
-  assign \$14  = { 4'h0, sample_period[31:4] };
+  assign \$6  = { 7'h00, period[31:7] };
+  assign \$9  = { 4'h0, sample_period[31:4] };
+  assign \$11  = { 4'h0, sample_period[31:4] };
 endmodule
 
-(* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:44" *)
+(* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:51" *)
 (* generator = "Amaranth" *)
 module \top.Channal2 (CH1_sample_period_control_knob_A, CH1_sample_period_control_knob_B, CH2_display_gain_control_knob_A, CH2_display_gain_control_knob_B, pix_rst, rst, pix_clk, x, adc_ch1_value, adc_ch1_ready, out, CH2_KEYA1, CH2_KEYA2, display_y, clk);
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:30" *)
@@ -2647,11 +2814,13 @@ module \top.Channal2 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
   input out;
   wire out;
   (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:7" *)
-  wire [1:0] \out$20 ;
+  wire [1:0] \out$12 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:7" *)
-  wire [1:0] \out$9 ;
+  wire [1:0] \out$21 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:9" *)
   wire [31:0] period;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:10" *)
+  wire period_start;
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:62" *)
   input pix_clk;
   wire pix_clk;
@@ -2663,24 +2832,24 @@ module \top.Channal2 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:68" *)
   input rst;
   wire rst;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
-  wire [11:0] w_addr;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
+  wire [11:0] w_addr;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:13" *)
   wire [11:0] w_data;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:10" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
   wire w_en;
   (* src = "/home/yym/workspace/test_fpga/FPGA/VGATiming.py:34" *)
   input [9:0] x;
   wire [9:0] x;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:56" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:65" *)
   \top.Channal2.display_gain_control_knob  display_gain_control_knob (
     .CH2_display_gain_control_knob_A(CH2_display_gain_control_knob_A),
     .CH2_display_gain_control_knob_B(CH2_display_gain_control_knob_B),
     .clk(clk),
-    .out(\out$20 ),
+    .out(\out$21 ),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:58" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:67" *)
   \top.Channal2.gain_control  gain_control (
     .clk(clk),
     .display_y(display_y),
@@ -2688,11 +2857,11 @@ module \top.Channal2 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .maxn(maxn),
     .mid(mid),
     .minn(minn),
-    .out(\out$20 ),
+    .out(\out$21 ),
     .r_data(r_data),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:46" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:53" *)
   \top.Channal2.period_detector  period_detector (
     .adc_ch1_ready(adc_ch1_ready),
     .adc_ch1_value(adc_ch1_value),
@@ -2705,7 +2874,18 @@ module \top.Channal2 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .period(period),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:54" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:59" *)
+  \top.Channal2.phase_getter  phase_getter (
+    .adc_ch1_ready(adc_ch1_ready),
+    .adc_ch1_value(adc_ch1_value),
+    .clk(clk),
+    .get_period_over(get_period_over),
+    .\maxn$5 (maxn),
+    .\minn$7 (minn),
+    .period_start(period_start),
+    .rst(rst)
+  );
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:63" *)
   \top.Channal2.ram  ram (
     .clk(clk),
     .pix_clk(pix_clk),
@@ -2717,29 +2897,30 @@ module \top.Channal2 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .wr__data(w_data),
     .wr__en(w_en)
   );
-  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:48" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:55" *)
   \top.Channal2.range_switcher  range_switcher (
     .CH2_KEYA1(CH2_KEYA1),
     .CH2_KEYA2(CH2_KEYA2),
     .clk(clk),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:50" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:57" *)
   \top.Channal2.sample_period_control_knob  sample_period_control_knob (
     .CH1_sample_period_control_knob_A(CH1_sample_period_control_knob_A),
     .CH1_sample_period_control_knob_B(CH1_sample_period_control_knob_B),
     .clk(clk),
-    .out(\out$9 ),
+    .out(\out$12 ),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:52" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/Scope.py:61" *)
   \top.Channal2.wave_control  wave_control (
     .adc_ch1_ready(adc_ch1_ready),
     .adc_ch1_value(adc_ch1_value),
     .clk(clk),
     .get_period_over(get_period_over),
-    .out(\out$9 ),
+    .out(\out$12 ),
     .period(period),
+    .period_start(period_start),
     .rst(rst),
     .w_addr(w_addr),
     .w_data(w_data),
@@ -2750,7 +2931,7 @@ endmodule
 (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:10" *)
 (* generator = "Amaranth" *)
 module \top.Channal2.display_gain_control_knob (CH2_display_gain_control_knob_A, CH2_display_gain_control_knob_B, rst, out, clk);
-  reg \$auto$verilog_backend.cc:2355:dump_module$7  = 0;
+  reg \$auto$verilog_backend.cc:2355:dump_module$8  = 0;
   wire [1:0] \$1 ;
   wire \$10 ;
   wire \$11 ;
@@ -2845,21 +3026,21 @@ module \top.Channal2.display_gain_control_knob (CH2_display_gain_control_knob_A,
   always @(posedge clk)
     last_stable_status <= \$25 ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$8 ) begin end
     \$18  = status;
     if (rst) begin
       \$18  = 2'h0;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$8 ) begin end
     \$19  = \$2 [1:0];
     if (rst) begin
       \$19  = 2'h0;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$8 ) begin end
     \$20  = cnt;
     (* full_case = 32'd1 *)
     casez (fsm_state)
@@ -2880,7 +3061,7 @@ module \top.Channal2.display_gain_control_knob (CH2_display_gain_control_knob_A,
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$8 ) begin end
     \$21  = fsm_state;
     (* full_case = 32'd1 *)
     casez (fsm_state)
@@ -2898,7 +3079,7 @@ module \top.Channal2.display_gain_control_knob (CH2_display_gain_control_knob_A,
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$8 ) begin end
     \$22  = stable;
     (* full_case = 32'd1 *)
     casez (fsm_state)
@@ -2917,7 +3098,7 @@ module \top.Channal2.display_gain_control_knob (CH2_display_gain_control_knob_A,
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$8 ) begin end
     \$23  = stable_status;
     (* full_case = 32'd1 *)
     casez (fsm_state)
@@ -2933,7 +3114,7 @@ module \top.Channal2.display_gain_control_knob (CH2_display_gain_control_knob_A,
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$8 ) begin end
     \$24  = out;
     if (stable) begin
       (* full_case = 32'd1 *)
@@ -2972,7 +3153,7 @@ module \top.Channal2.display_gain_control_knob (CH2_display_gain_control_knob_A,
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$7 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$8 ) begin end
     \$25  = last_stable_status;
     if (stable) begin
       \$25  = stable_status;
@@ -2988,7 +3169,7 @@ endmodule
 (* src = "/home/yym/workspace/test_fpga/FPGA/GainControl.py:14" *)
 (* generator = "Amaranth" *)
 module \top.Channal2.gain_control (rst, r_data, get_period_over, maxn, minn, mid, out, display_y, clk);
-  reg \$auto$verilog_backend.cc:2355:dump_module$8  = 0;
+  reg \$auto$verilog_backend.cc:2355:dump_module$9  = 0;
   wire [12:0] \$1 ;
   wire [11:0] \$10 ;
   wire [12:0] \$11 ;
@@ -3060,7 +3241,7 @@ module \top.Channal2.gain_control (rst, r_data, get_period_over, maxn, minn, mid
   always @(posedge clk)
     gain <= \$16 ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$8 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
     \$14  = center;
     if (get_period_over) begin
       \$14  = mid;
@@ -3070,14 +3251,14 @@ module \top.Channal2.gain_control (rst, r_data, get_period_over, maxn, minn, mid
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$8 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
     \$15  = \$5 [11:0];
     if (rst) begin
       \$15  = 12'h000;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$8 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
     \$16  = gain;
     if (\$6 ) begin
       \$16  = \$9 [11:0];
@@ -3104,7 +3285,7 @@ endmodule
 (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:17" *)
 (* generator = "Amaranth" *)
 module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, period, get_period_over, \maxn$24 , \minn$25 , \mid$26 , clk);
-  reg \$auto$verilog_backend.cc:2355:dump_module$9  = 0;
+  reg \$auto$verilog_backend.cc:2355:dump_module$10  = 0;
   wire [32:0] \$1 ;
   wire \$10 ;
   wire [8:0] \$11 ;
@@ -3358,7 +3539,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
   assign \$24  = wave_range + (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:79" *) 1'h1;
   assign \$25  = choose_range_timeout + (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:87" *) 1'h1;
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$53  = period_sum;
     if (get_period_ready) begin
       \$53  = \$1 [31:0];
@@ -3376,28 +3557,28 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$54  = \$5 [13:0];
     if (rst) begin
       \$54  = 14'h0000;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$55  = \$9 [13:0];
     if (rst) begin
       \$55  = 14'h0000;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$56  = { 5'h00, \$11  };
     if (rst) begin
       \$56  = 14'h0000;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     (* full_case = 32'd1 *)
     if (\$12 ) begin
       \$57  = \$13 [31:0];
@@ -3409,7 +3590,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$58  = maxn;
     casez (fsm_state)
       3'h0:
@@ -3433,7 +3614,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$59  = minn;
     casez (fsm_state)
       3'h0:
@@ -3457,7 +3638,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$60  = choose_range_timeout;
     casez (fsm_state)
       3'h0:
@@ -3479,7 +3660,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$61  = wave_range;
     casez (fsm_state)
       3'h0:
@@ -3498,7 +3679,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$62  = normal_status;
     casez (fsm_state)
       3'h0:
@@ -3523,7 +3704,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$63  = fsm_state;
     casez (fsm_state)
       3'h0:
@@ -3586,7 +3767,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$64  = mid;
     casez (fsm_state)
       3'h0:
@@ -3601,7 +3782,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$65  = mid_high;
     casez (fsm_state)
       3'h0:
@@ -3616,7 +3797,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$66  = mid_low;
     casez (fsm_state)
       3'h0:
@@ -3631,7 +3812,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$67  = get_period_ready;
     casez (fsm_state)
       3'h0:
@@ -3658,7 +3839,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$68  = period_cnt;
     casez (fsm_state)
       3'h0:
@@ -3687,7 +3868,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$69  = period;
     casez (fsm_state)
       3'h0:
@@ -3712,7 +3893,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$70  = get_period_over;
     casez (fsm_state)
       3'h0:
@@ -3738,7 +3919,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$71  = average;
     casez (fsm_state)
       3'h0:
@@ -3761,7 +3942,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$72  = \maxn$24 ;
     casez (fsm_state)
       3'h0:
@@ -3784,7 +3965,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$73  = \minn$25 ;
     casez (fsm_state)
       3'h0:
@@ -3807,7 +3988,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
     \$74  = \mid$26 ;
     casez (fsm_state)
       3'h0:
@@ -3835,6 +4016,198 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, pe
   assign \$45  = { 4'h0, period_sum[31:4] };
 endmodule
 
+(* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:13" *)
+(* generator = "Amaranth" *)
+module \top.Channal2.phase_getter (rst, adc_ch1_value, adc_ch1_ready, get_period_over, \maxn$5 , \minn$7 , period_start, clk);
+  reg \$auto$verilog_backend.cc:2355:dump_module$11  = 0;
+  wire \$1 ;
+  wire [12:0] \$10 ;
+  wire \$11 ;
+  wire \$12 ;
+  wire \$13 ;
+  wire \$14 ;
+  wire \$15 ;
+  wire \$16 ;
+  wire \$17 ;
+  wire \$18 ;
+  wire \$19 ;
+  wire [11:0] \$2 ;
+  reg [11:0] \$20 ;
+  reg [11:0] \$21 ;
+  reg [11:0] \$22 ;
+  reg [11:0] \$23 ;
+  reg [11:0] \$24 ;
+  reg [1:0] \$25 ;
+  reg \$26 ;
+  wire \$3 ;
+  wire [11:0] \$4 ;
+  wire [12:0] \$5 ;
+  wire [12:0] \$6 ;
+  wire [12:0] \$7 ;
+  wire [12:0] \$8 ;
+  wire [12:0] \$9 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/XADCModule.py:14" *)
+  input adc_ch1_ready;
+  wire adc_ch1_ready;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/XADCModule.py:13" *)
+  input [11:0] adc_ch1_value;
+  wire [11:0] adc_ch1_value;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:68" *)
+  input clk;
+  wire clk;
+  (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/contextlib.py:144" *)
+  reg [1:0] fsm_state = 2'h0;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:10" *)
+  input get_period_over;
+  wire get_period_over;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:15" *)
+  reg [11:0] maxn = 12'h000;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:12" *)
+  input [11:0] \maxn$5 ;
+  wire [11:0] \maxn$5 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:17" *)
+  reg [11:0] mid = 12'h000;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:18" *)
+  reg [11:0] mid_high = 12'h000;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:19" *)
+  reg [11:0] mid_low = 12'h000;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:16" *)
+  reg [11:0] minn = 12'hfff;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:13" *)
+  input [11:0] \minn$7 ;
+  wire [11:0] \minn$7 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:10" *)
+  output period_start;
+  reg period_start = 1'h0;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:68" *)
+  input rst;
+  wire rst;
+  assign \$1  = adc_ch1_value > (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:28" *) maxn;
+  assign \$2  = \$1  ? (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:28" *) adc_ch1_value : maxn;
+  assign \$3  = adc_ch1_value < (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:29" *) minn;
+  assign \$4  = \$3  ? (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:29" *) adc_ch1_value : minn;
+  assign \$5  = maxn + (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:33" *) minn;
+  assign \$7  = maxn + (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:34" *) mid;
+  assign \$9  = mid + (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:35" *) minn;
+  assign \$11  = adc_ch1_value < (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:40" *) mid_low;
+  assign \$12  = adc_ch1_ready & (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:40" *) \$11 ;
+  assign \$13  = adc_ch1_value > (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:43" *) mid;
+  assign \$14  = adc_ch1_ready & (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:43" *) \$13 ;
+  assign \$15  = adc_ch1_value > (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:47" *) mid_high;
+  assign \$16  = adc_ch1_ready & (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:47" *) \$15 ;
+  assign \$17  = ! (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) fsm_state;
+  assign \$18  = fsm_state == (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) 1'h1;
+  assign \$19  = fsm_state == (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) 2'h2;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:15" *)
+  always @(posedge clk)
+    maxn <= \$20 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:16" *)
+  always @(posedge clk)
+    minn <= \$21 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:17" *)
+  always @(posedge clk)
+    mid <= \$22 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:18" *)
+  always @(posedge clk)
+    mid_high <= \$23 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:19" *)
+  always @(posedge clk)
+    mid_low <= \$24 ;
+  (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/contextlib.py:144" *)
+  always @(posedge clk)
+    fsm_state <= \$25 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:10" *)
+  always @(posedge clk)
+    period_start <= \$26 ;
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$11 ) begin end
+    \$20  = maxn;
+    if (get_period_over) begin
+      \$20  = \maxn$5 ;
+    end else if (adc_ch1_ready) begin
+      \$20  = \$2 ;
+    end
+    if (rst) begin
+      \$20  = 12'h000;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$11 ) begin end
+    \$21  = minn;
+    if (get_period_over) begin
+      \$21  = \minn$7 ;
+    end else if (adc_ch1_ready) begin
+      \$21  = \$4 ;
+    end
+    if (rst) begin
+      \$21  = 12'hfff;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$11 ) begin end
+    \$22  = \$6 [11:0];
+    if (rst) begin
+      \$22  = 12'h000;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$11 ) begin end
+    \$23  = \$8 [11:0];
+    if (rst) begin
+      \$23  = 12'h000;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$11 ) begin end
+    \$24  = \$10 [11:0];
+    if (rst) begin
+      \$24  = 12'h000;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$11 ) begin end
+    \$25  = fsm_state;
+    casez (fsm_state)
+      2'h0:
+          if (\$12 ) begin
+            \$25  = 2'h1;
+          end
+      2'h1:
+          if (\$14 ) begin
+            \$25  = 2'h2;
+          end
+      2'h2:
+          if (\$16 ) begin
+            \$25  = 2'h0;
+          end
+    endcase
+    if (rst) begin
+      \$25  = 2'h0;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$11 ) begin end
+    \$26  = period_start;
+    casez (fsm_state)
+      2'h0:
+          /* empty */;
+      2'h1:
+          if (\$14 ) begin
+            \$26  = 1'h1;
+          end
+    endcase
+    if (period_start) begin
+      \$26  = 1'h0;
+    end
+    if (rst) begin
+      \$26  = 1'h0;
+    end
+  end
+  assign \$6  = { 1'h0, \$5 [12:1] };
+  assign \$8  = { 1'h0, \$7 [12:1] };
+  assign \$10  = { 1'h0, \$9 [12:1] };
+endmodule
+
 (* src = "/home/yym/workspace/test_fpga/FPGA/RAM.py:16" *)
 (* generator = "Amaranth" *)
 module \top.Channal2.ram (pix_rst, rst, pix_clk, r_data, rd__addr, w_addr, wr__en, wr__data, clk);
@@ -3860,19 +4233,19 @@ module \top.Channal2.ram (pix_rst, rst, pix_clk, r_data, rd__addr, w_addr, wr__e
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:68" *)
   input rst;
   wire rst;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
   input [11:0] w_addr;
   wire [11:0] w_addr;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:13" *)
   wire [11:0] w_data;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:10" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
   wire w_en;
   (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/lib/memory.py:401" *)
   wire [9:0] wr__addr;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:13" *)
   input [11:0] wr__data;
   wire [11:0] wr__data;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:10" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
   input wr__en;
   wire wr__en;
   (* src = "/home/yym/workspace/test_fpga/FPGA/VGATiming.py:34" *)
@@ -4541,7 +4914,7 @@ endmodule
 (* src = "/home/yym/workspace/test_fpga/FPGA/RangeSwitcher.py:10" *)
 (* generator = "Amaranth" *)
 module \top.Channal2.range_switcher (rst, CH2_KEYA1, CH2_KEYA2, clk);
-  reg \$auto$verilog_backend.cc:2355:dump_module$10  = 0;
+  reg \$auto$verilog_backend.cc:2355:dump_module$12  = 0;
   reg \$1 ;
   reg \$2 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:45" *)
@@ -4563,14 +4936,14 @@ module \top.Channal2.range_switcher (rst, CH2_KEYA1, CH2_KEYA2, clk);
   always @(posedge clk)
     CH2_KEYA2 <= \$2 ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$12 ) begin end
     \$1  = 1'h0;
     if (rst) begin
       \$1  = 1'h1;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$10 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$12 ) begin end
     \$2  = 1'h1;
     if (rst) begin
       \$2  = 1'h1;
@@ -4581,7 +4954,7 @@ endmodule
 (* src = "/home/yym/workspace/test_fpga/FPGA/KnobControl.py:10" *)
 (* generator = "Amaranth" *)
 module \top.Channal2.sample_period_control_knob (CH1_sample_period_control_knob_A, CH1_sample_period_control_knob_B, rst, out, clk);
-  reg \$auto$verilog_backend.cc:2355:dump_module$11  = 0;
+  reg \$auto$verilog_backend.cc:2355:dump_module$13  = 0;
   wire [1:0] \$1 ;
   wire \$10 ;
   wire \$11 ;
@@ -4676,21 +5049,21 @@ module \top.Channal2.sample_period_control_knob (CH1_sample_period_control_knob_
   always @(posedge clk)
     last_stable_status <= \$25 ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$11 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$13 ) begin end
     \$18  = status;
     if (rst) begin
       \$18  = 2'h0;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$11 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$13 ) begin end
     \$19  = \$2 [1:0];
     if (rst) begin
       \$19  = 2'h0;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$11 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$13 ) begin end
     \$20  = cnt;
     (* full_case = 32'd1 *)
     casez (fsm_state)
@@ -4711,7 +5084,7 @@ module \top.Channal2.sample_period_control_knob (CH1_sample_period_control_knob_
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$11 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$13 ) begin end
     \$21  = fsm_state;
     (* full_case = 32'd1 *)
     casez (fsm_state)
@@ -4729,7 +5102,7 @@ module \top.Channal2.sample_period_control_knob (CH1_sample_period_control_knob_
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$11 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$13 ) begin end
     \$22  = stable;
     (* full_case = 32'd1 *)
     casez (fsm_state)
@@ -4748,7 +5121,7 @@ module \top.Channal2.sample_period_control_knob (CH1_sample_period_control_knob_
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$11 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$13 ) begin end
     \$23  = stable_status;
     (* full_case = 32'd1 *)
     casez (fsm_state)
@@ -4764,7 +5137,7 @@ module \top.Channal2.sample_period_control_knob (CH1_sample_period_control_knob_
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$11 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$13 ) begin end
     \$24  = out;
     if (stable) begin
       (* full_case = 32'd1 *)
@@ -4803,7 +5176,7 @@ module \top.Channal2.sample_period_control_knob (CH1_sample_period_control_knob_
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$11 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$13 ) begin end
     \$25  = last_stable_status;
     if (stable) begin
       \$25  = stable_status;
@@ -4816,30 +5189,25 @@ module \top.Channal2.sample_period_control_knob (CH1_sample_period_control_knob_
   assign \$17  = fsm_state;
 endmodule
 
-(* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:16" *)
+(* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:17" *)
 (* generator = "Amaranth" *)
-module \top.Channal2.wave_control (rst, adc_ch1_value, adc_ch1_ready, period, get_period_over, out, w_addr, w_en, w_data, clk);
-  reg \$auto$verilog_backend.cc:2355:dump_module$12  = 0;
+module \top.Channal2.wave_control (rst, adc_ch1_value, adc_ch1_ready, period, get_period_over, out, period_start, w_addr, w_en, w_data, clk);
+  reg \$auto$verilog_backend.cc:2355:dump_module$14  = 0;
   wire [32:0] \$1 ;
-  wire \$10 ;
-  wire \$11 ;
-  wire [31:0] \$12 ;
-  wire [32:0] \$13 ;
-  wire [31:0] \$14 ;
-  wire [32:0] \$15 ;
-  reg [31:0] \$16 ;
-  reg \$17 ;
-  reg [31:0] \$18 ;
-  reg [11:0] \$19 ;
+  wire [32:0] \$10 ;
+  wire [31:0] \$11 ;
+  wire [32:0] \$12 ;
+  reg [31:0] \$13 ;
+  reg [11:0] \$14 ;
+  reg \$15 ;
+  reg [11:0] \$16 ;
+  reg [31:0] \$17 ;
   wire \$2 ;
-  reg \$20 ;
-  reg [11:0] \$21 ;
-  reg [31:0] \$22 ;
-  wire [32:0] \$3 ;
+  wire [12:0] \$3 ;
   wire [32:0] \$4 ;
   wire \$5 ;
-  wire [12:0] \$6 ;
-  wire [32:0] \$7 ;
+  wire [31:0] \$6 ;
+  wire \$7 ;
   wire \$8 ;
   wire [31:0] \$9 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/XADCModule.py:14" *)
@@ -4860,162 +5228,128 @@ module \top.Channal2.wave_control (rst, adc_ch1_value, adc_ch1_ready, period, ge
   (* src = "/home/yym/workspace/test_fpga/FPGA/PeriodDetector.py:9" *)
   input [31:0] period;
   wire [31:0] period;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:20" *)
-  reg [31:0] period_cnt = 32'd0;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:21" *)
-  reg period_overflow = 1'h0;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/PhaseGetter.py:10" *)
+  input period_start;
+  wire period_start;
   (* src = "/home/yym/workspace/test_fpga/FPGA/./main.py:68" *)
   input rst;
   wire rst;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:23" *)
   reg [31:0] sample_clk = 32'd0;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:13" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:14" *)
   reg [31:0] sample_period = 32'd100000;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
   output [11:0] w_addr;
   reg [11:0] w_addr = 12'h000;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:13" *)
   output [11:0] w_data;
   reg [11:0] w_data = 12'h000;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:10" *)
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
   output w_en;
   reg w_en = 1'h0;
-  assign \$1  = period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:25" *) 1'h1;
-  assign \$2  = $signed({ 1'h0, period_cnt }) >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:25" *) $signed(\$1 );
-  assign \$3  = period_cnt + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:32" *) 1'h1;
-  assign \$4  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:36" *) 1'h1;
-  assign \$5  = $signed({ 1'h0, sample_clk }) >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:36" *) $signed(\$4 );
-  assign \$6  = w_addr + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:39" *) 1'h1;
-  assign \$7  = sample_clk + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:42" *) 1'h1;
-  assign \$8  = w_addr >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:44" *) 10'h280;
-  assign \$10  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:62" *) 1'h1;
-  assign \$11  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:64" *) 2'h2;
-  assign \$13  = sample_period + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:63" *) \$12 ;
-  assign \$15  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:65" *) \$14 ;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:20" *)
-  always @(posedge clk)
-    period_cnt <= \$16 ;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:21" *)
-  always @(posedge clk)
-    period_overflow <= \$17 ;
+  assign \$1  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:26" *) 1'h1;
+  assign \$2  = $signed({ 1'h0, sample_clk }) >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:26" *) $signed(\$1 );
+  assign \$3  = w_addr + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:29" *) 1'h1;
+  assign \$4  = sample_clk + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:32" *) 1'h1;
+  assign \$5  = w_addr >= (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:34" *) 10'h280;
+  assign \$7  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:52" *) 1'h1;
+  assign \$8  = out == (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:54" *) 2'h2;
+  assign \$10  = sample_period + (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:53" *) \$9 ;
+  assign \$12  = sample_period - (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:55" *) \$11 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:23" *)
   always @(posedge clk)
-    sample_clk <= \$18 ;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
-  always @(posedge clk)
-    w_addr <= \$19 ;
-  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:10" *)
-  always @(posedge clk)
-    w_en <= \$20 ;
+    sample_clk <= \$13 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:12" *)
   always @(posedge clk)
-    w_data <= \$21 ;
+    w_addr <= \$14 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:11" *)
+  always @(posedge clk)
+    w_en <= \$15 ;
   (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:13" *)
   always @(posedge clk)
-    sample_period <= \$22 ;
+    w_data <= \$16 ;
+  (* src = "/home/yym/workspace/test_fpga/FPGA/WaveControl.py:14" *)
+  always @(posedge clk)
+    sample_period <= \$17 ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$12 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$14 ) begin end
     (* full_case = 32'd1 *)
     if (\$2 ) begin
-      \$16  = 32'd0;
+      \$13  = 32'd0;
     end else begin
-      \$16  = \$3 [31:0];
+      \$13  = \$4 [31:0];
     end
     if (rst) begin
-      \$16  = 32'd0;
+      \$13  = 32'd0;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$12 ) begin end
-    (* full_case = 32'd1 *)
+    if (\$auto$verilog_backend.cc:2355:dump_module$14 ) begin end
+    \$14  = w_addr;
     if (\$2 ) begin
-      \$17  = 1'h1;
-    end else begin
-      \$17  = 1'h0;
+      \$14  = \$3 [11:0];
     end
-    if (rst) begin
-      \$17  = 1'h0;
-    end
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$12 ) begin end
-    (* full_case = 32'd1 *)
     if (\$5 ) begin
-      \$18  = 32'd0;
-    end else begin
-      \$18  = \$7 [31:0];
-    end
-    if (rst) begin
-      \$18  = 32'd0;
-    end
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$12 ) begin end
-    \$19  = w_addr;
-    if (\$5 ) begin
-      \$19  = \$6 [11:0];
-    end
-    if (\$8 ) begin
       (* full_case = 32'd1 *)
-      if (period_overflow) begin
-        \$19  = 12'h000;
+      if (period_start) begin
+        \$14  = 12'h000;
       end else begin
-        \$19  = 12'h280;
+        \$14  = 12'h280;
       end
     end
     if (rst) begin
-      \$19  = 12'h000;
+      \$14  = 12'h000;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$12 ) begin end
-    \$20  = w_en;
-    if (\$8 ) begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$14 ) begin end
+    \$15  = w_en;
+    if (\$5 ) begin
     end else if (adc_ch1_ready) begin
-      \$20  = 1'h1;
+      \$15  = 1'h1;
     end
     if (w_en) begin
-      \$20  = 1'h0;
+      \$15  = 1'h0;
     end
     if (rst) begin
-      \$20  = 1'h0;
+      \$15  = 1'h0;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$12 ) begin end
-    \$21  = w_data;
-    if (\$8 ) begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$14 ) begin end
+    \$16  = w_data;
+    if (\$5 ) begin
     end else if (adc_ch1_ready) begin
-      \$21  = adc_ch1_value;
+      \$16  = adc_ch1_value;
     end
     if (rst) begin
-      \$21  = 12'h000;
+      \$16  = 12'h000;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$12 ) begin end
-    \$22  = sample_period;
+    if (\$auto$verilog_backend.cc:2355:dump_module$14 ) begin end
+    \$17  = sample_period;
     if (get_period_over) begin
-      \$22  = \$9 ;
+      \$17  = \$6 ;
     end
-    if (\$10 ) begin
-      \$22  = \$13 [31:0];
-    end else if (\$11 ) begin
-      \$22  = \$15 [31:0];
+    if (\$7 ) begin
+      \$17  = \$10 [31:0];
+    end else if (\$8 ) begin
+      \$17  = \$12 [31:0];
     end
     if (rst) begin
-      \$22  = 32'd100000;
+      \$17  = 32'd100000;
     end
   end
-  assign \$9  = { 7'h00, period[31:7] };
-  assign \$12  = { 4'h0, sample_period[31:4] };
-  assign \$14  = { 4'h0, sample_period[31:4] };
+  assign \$6  = { 7'h00, period[31:7] };
+  assign \$9  = { 4'h0, sample_period[31:4] };
+  assign \$11  = { 4'h0, sample_period[31:4] };
 endmodule
 
 (* src = "/home/yym/workspace/test_fpga/FPGA/ButtonControl.py:9" *)
 (* generator = "Amaranth" *)
 module \top.auto_button$40 (auto_button, rst, out, clk);
-  reg \$auto$verilog_backend.cc:2355:dump_module$13  = 0;
+  reg \$auto$verilog_backend.cc:2355:dump_module$15  = 0;
   wire \$1 ;
   reg \$10 ;
   reg [31:0] \$11 ;
@@ -5071,21 +5405,21 @@ module \top.auto_button$40 (auto_button, rst, out, clk);
   always @(posedge clk)
     fsm_state <= \$13 ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$13 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$15 ) begin end
     \$9  = status;
     if (rst) begin
       \$9  = 1'h0;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$13 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$15 ) begin end
     \$10  = auto_button;
     if (rst) begin
       \$10  = 1'h0;
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$13 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$15 ) begin end
     (* full_case = 32'd1 *)
     casez (fsm_state)
       1'h0:
@@ -5118,7 +5452,7 @@ module \top.auto_button$40 (auto_button, rst, out, clk);
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$13 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$15 ) begin end
     \$12  = out;
     (* full_case = 32'd1 *)
     casez (fsm_state)
@@ -5134,7 +5468,7 @@ module \top.auto_button$40 (auto_button, rst, out, clk);
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$13 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$15 ) begin end
     \$13  = fsm_state;
     (* full_case = 32'd1 *)
     casez (fsm_state)
@@ -5158,7 +5492,7 @@ endmodule
 (* src = "/home/yym/workspace/test_fpga/FPGA/VGATiming.py:38" *)
 (* generator = "Amaranth" *)
 module \top.timing (pix_clk, visible, hsync, vsync, h_cnt, v_cnt, pix_rst);
-  reg \$auto$verilog_backend.cc:2355:dump_module$14  = 0;
+  reg \$auto$verilog_backend.cc:2355:dump_module$16  = 0;
   wire \$1 ;
   wire \$10 ;
   wire \$11 ;
@@ -5226,7 +5560,7 @@ module \top.timing (pix_clk, visible, hsync, vsync, h_cnt, v_cnt, pix_rst);
   always @(posedge pix_clk)
     v_cnt <= \$14 ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$14 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$16 ) begin end
     (* full_case = 32'd1 *)
     if (\$1 ) begin
       \$13  = 10'h000;
@@ -5238,7 +5572,7 @@ module \top.timing (pix_clk, visible, hsync, vsync, h_cnt, v_cnt, pix_rst);
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$14 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$16 ) begin end
     \$14  = v_cnt;
     if (\$1 ) begin
       (* full_case = 32'd1 *)
@@ -5261,7 +5595,7 @@ endmodule
 (* src = "/home/yym/workspace/test_fpga/FPGA/VGADisplay.py:15" *)
 (* generator = "Amaranth" *)
 module \top.vga_display (x, y, display_y, \display_y$8 , r, g, b, visible);
-  reg \$auto$verilog_backend.cc:2355:dump_module$15  = 0;
+  reg \$auto$verilog_backend.cc:2355:dump_module$17  = 0;
   wire \$1 ;
   wire \$2 ;
   wire \$3 ;
@@ -5304,7 +5638,7 @@ module \top.vga_display (x, y, display_y, \display_y$8 , r, g, b, visible);
   assign \$3  = y == (* src = "/home/yym/workspace/test_fpga/FPGA/VGADisplay.py:38" *) display_y;
   assign \$4  = y == (* src = "/home/yym/workspace/test_fpga/FPGA/VGADisplay.py:44" *) \display_y$8 ;
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$15 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$17 ) begin end
     r = 4'h0;
     if (visible) begin
       if (grid) begin
@@ -5317,7 +5651,7 @@ module \top.vga_display (x, y, display_y, \display_y$8 , r, g, b, visible);
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$15 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$17 ) begin end
     g = 4'h0;
     if (visible) begin
       if (grid) begin
@@ -5330,7 +5664,7 @@ module \top.vga_display (x, y, display_y, \display_y$8 , r, g, b, visible);
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$15 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$17 ) begin end
     b = 4'h0;
     if (visible) begin
       if (grid) begin
@@ -5350,7 +5684,7 @@ endmodule
 (* src = "/home/yym/workspace/test_fpga/FPGA/XADCModule.py:17" *)
 (* generator = "Amaranth" *)
 module \top.xadc (vauxp10, vauxn10, vauxp2, vauxn2, rst, adc_ch0_value, adc_ch0_ready, adc_ch1_value, adc_ch1_ready, clk);
-  reg \$auto$verilog_backend.cc:2355:dump_module$16  = 0;
+  reg \$auto$verilog_backend.cc:2355:dump_module$18  = 0;
   wire \$1 ;
   wire \$2 ;
   wire [4:0] \$3 ;
@@ -5442,7 +5776,7 @@ module \top.xadc (vauxp10, vauxn10, vauxp2, vauxn2, rst, adc_ch0_value, adc_ch0_
     .vp_in(1'h0)
   );
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$16 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$18 ) begin end
     \$4  = adc_ch0_value;
     if (drdy) begin
       if (\$1 ) begin
@@ -5454,7 +5788,7 @@ module \top.xadc (vauxp10, vauxn10, vauxp2, vauxn2, rst, adc_ch0_value, adc_ch0_
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$16 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$18 ) begin end
     \$5  = adc_ch0_ready;
     if (drdy) begin
       if (\$1 ) begin
@@ -5469,7 +5803,7 @@ module \top.xadc (vauxp10, vauxn10, vauxp2, vauxn2, rst, adc_ch0_value, adc_ch0_
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$16 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$18 ) begin end
     \$6  = adc_ch1_value;
     if (drdy) begin
       (* full_case = 32'd1 *)
@@ -5483,7 +5817,7 @@ module \top.xadc (vauxp10, vauxn10, vauxp2, vauxn2, rst, adc_ch0_value, adc_ch0_
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$16 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$18 ) begin end
     \$7  = adc_ch1_ready;
     if (drdy) begin
       (* full_case = 32'd1 *)
@@ -5500,7 +5834,7 @@ module \top.xadc (vauxp10, vauxn10, vauxp2, vauxn2, rst, adc_ch0_value, adc_ch0_
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$16 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$18 ) begin end
     \$8  = channel;
     if (drdy) begin
       \$8  = \$2 ;
@@ -5510,7 +5844,7 @@ module \top.xadc (vauxp10, vauxn10, vauxp2, vauxn2, rst, adc_ch0_value, adc_ch0_
     end
   end
   always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$16 ) begin end
+    if (\$auto$verilog_backend.cc:2355:dump_module$18 ) begin end
     \$9  = daddr;
     if (eoc) begin
       \$9  = { 2'h0, \$3  };
