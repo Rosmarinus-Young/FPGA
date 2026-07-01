@@ -43,25 +43,25 @@ module top(rst, vauxp1, vauxn1, auto_button, sample_period_control_knob_A, sampl
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\main.py:21" *)
   output [3:0] vga_b;
   wire [3:0] vga_b;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:117" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:163" *)
   output [7:0] dac_data;
   wire [7:0] dac_data;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:120" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:166" *)
   output dac_ile;
   wire dac_ile;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:124" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:170" *)
   output dac_cs;
   wire dac_cs;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:124" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:170" *)
   output dac_wr1;
   wire dac_wr1;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:124" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:170" *)
   output dac_wr2;
   wire dac_wr2;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:124" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:170" *)
   output dac_xfer;
   wire dac_xfer;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:127" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:173" *)
   input clk;
   wire clk;
   wire \$1 ;
@@ -74,21 +74,21 @@ module top(rst, vauxp1, vauxn1, auto_button, sample_period_control_knob_A, sampl
   wire [11:0] adc_value;
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\main.py:80" *)
   wire \clk$24 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:127" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:173" *)
   wire \clk$26 ;
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\main.py:53" *)
   wire clk_25m;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:121" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:167" *)
   wire \dac_cs$30 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:117" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:163" *)
   wire [7:0] \dac_data$28 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:120" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:166" *)
   wire \dac_ile$29 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:122" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:168" *)
   wire \dac_wr1$31 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:123" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:169" *)
   wire \dac_wr2$32 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:124" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:170" *)
   wire \dac_xfer$33 ;
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\PeriodDetector.py:10" *)
   wire get_period_over;
@@ -110,7 +110,7 @@ module top(rst, vauxp1, vauxn1, auto_button, sample_period_control_knob_A, sampl
   wire [11:0] r_data;
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\main.py:80" *)
   wire \rst$25 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:128" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:174" *)
   wire \rst$27 ;
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\VGATiming.py:32" *)
   wire visible;
@@ -2262,17 +2262,17 @@ module \top.sample_period_control_knob (sample_period_control_knob_A, sample_per
   assign \$17  = fsm_state;
 endmodule
 
-(* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:193" *)
+(* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:276" *)
 (* generator = "Amaranth" *)
 module \top.signal_gen (rst, \rst$11 , dac_data, clk);
   reg \$auto$verilog_backend.cc:2445:dump_module$6  = 0;
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\main.py:80" *)
   input rst;
   wire rst;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:128" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:174" *)
   input \rst$11 ;
   wire \rst$11 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:117" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:163" *)
   output [7:0] dac_data;
   reg [7:0] dac_data = 8'h00;
   (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\main.py:80" *)
@@ -2285,39 +2285,39 @@ module \top.signal_gen (rst, \rst$11 , dac_data, clk);
   reg [6:0] \$5 ;
   reg [23:0] \$6 ;
   reg [7:0] \$7 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:235" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:308" *)
   reg [6:0] clk_div_cnt = 7'h00;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:121" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:167" *)
   wire dac_cs;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:120" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:166" *)
   wire dac_ile;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:236" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:309" *)
   wire dac_tick;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:122" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:168" *)
   wire dac_wr1;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:123" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:169" *)
   wire dac_wr2;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:124" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:170" *)
   wire dac_xfer;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:211" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:333" *)
   wire [23:0] ftw;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:259" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:350" *)
   wire [7:0] lut_addr;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:251" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:344" *)
   reg [23:0] phase_acc = 24'h000000;
-  assign \$2  = clk_div_cnt == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:242" *) 7'h7f;
-  assign \$3  = phase_acc + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:256" *) 15'h53e2;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:235" *)
+  assign \$2  = clk_div_cnt == (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:315" *) 7'h7f;
+  assign \$3  = phase_acc + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:348" *) 15'h53e2;
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:308" *)
   always @(posedge clk)
     clk_div_cnt <= \$5 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:251" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:344" *)
   always @(posedge clk)
     phase_acc <= \$6 ;
-  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:117" *)
+  (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:163" *)
   always @(posedge clk)
     dac_data <= \$7 ;
-  assign dac_tick = ! (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:245" *) clk_div_cnt;
-  assign \$1  = clk_div_cnt + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:241" *) 1'h1;
+  assign dac_tick = ! (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:318" *) clk_div_cnt;
+  assign \$1  = clk_div_cnt + (* src = "D:\\UserFiles\\MyProjects\\FPGAProject\\FPGA\\SignalGenerator.py:314" *) 1'h1;
   always @* begin
     if (\$auto$verilog_backend.cc:2445:dump_module$6 ) begin end
     (* full_case = 32'd1 *)
@@ -2325,515 +2325,515 @@ module \top.signal_gen (rst, \rst$11 , dac_data, clk);
       8'h00:
           \$4  = 8'h80;
       8'h01:
-          \$4  = 8'h81;
+          \$4  = 8'h82;
       8'h02:
           \$4  = 8'h83;
       8'h03:
-          \$4  = 8'h84;
+          \$4  = 8'h85;
       8'h04:
-          \$4  = 8'h85;
+          \$4  = 8'h86;
       8'h05:
-          \$4  = 8'h86;
+          \$4  = 8'h88;
       8'h06:
-          \$4  = 8'h87;
+          \$4  = 8'h89;
       8'h07:
-          \$4  = 8'h89;
+          \$4  = 8'h8b;
       8'h08:
-          \$4  = 8'h8a;
+          \$4  = 8'h8c;
       8'h09:
-          \$4  = 8'h8b;
+          \$4  = 8'h8e;
       8'h0a:
-          \$4  = 8'h8c;
+          \$4  = 8'h90;
       8'h0b:
-          \$4  = 8'h8e;
+          \$4  = 8'h91;
       8'h0c:
-          \$4  = 8'h8f;
+          \$4  = 8'h93;
       8'h0d:
-          \$4  = 8'h90;
+          \$4  = 8'h94;
       8'h0e:
-          \$4  = 8'h91;
+          \$4  = 8'h96;
       8'h0f:
-          \$4  = 8'h92;
+          \$4  = 8'h97;
       8'h10:
-          \$4  = 8'h94;
+          \$4  = 8'h98;
       8'h11:
-          \$4  = 8'h95;
+          \$4  = 8'h9a;
       8'h12:
-          \$4  = 8'h96;
+          \$4  = 8'h9b;
       8'h13:
-          \$4  = 8'h97;
+          \$4  = 8'h9d;
       8'h14:
-          \$4  = 8'h98;
+          \$4  = 8'h9e;
       8'h15:
-          \$4  = 8'h99;
+          \$4  = 8'ha0;
       8'h16:
-          \$4  = 8'h9a;
+          \$4  = 8'ha1;
       8'h17:
-          \$4  = 8'h9b;
+          \$4  = 8'ha2;
       8'h18:
-          \$4  = 8'h9c;
+          \$4  = 8'ha4;
       8'h19:
-          \$4  = 8'h9d;
+          \$4  = 8'ha5;
       8'h1a:
-          \$4  = 8'h9e;
+          \$4  = 8'ha6;
       8'h1b:
-          \$4  = 8'h9f;
+          \$4  = 8'ha7;
       8'h1c:
-          \$4  = 8'ha0;
+          \$4  = 8'ha9;
       8'h1d:
-          \$4  = 8'ha1;
+          \$4  = 8'haa;
       8'h1e:
-          \$4  = 8'ha2;
+          \$4  = 8'hab;
       8'h1f:
-          \$4  = 8'ha3;
+          \$4  = 8'hac;
       8'h20:
-          \$4  = 8'ha4;
+          \$4  = 8'had;
       8'h21:
-          \$4  = 8'ha5;
+          \$4  = 8'hae;
       8'h22:
-          \$4  = 8'ha6;
+          \$4  = 8'haf;
       8'h23:
-          \$4  = 8'ha7;
+          \$4  = 8'hb0;
       8'h24:
-          \$4  = 8'ha7;
+          \$4  = 8'hb1;
       8'h25:
-          \$4  = 8'ha8;
+          \$4  = 8'hb2;
       8'h26:
-          \$4  = 8'ha9;
+          \$4  = 8'hb3;
       8'h27:
-          \$4  = 8'haa;
+          \$4  = 8'hb4;
       8'h28:
-          \$4  = 8'haa;
+          \$4  = 8'hb5;
       8'h29:
-          \$4  = 8'hab;
+          \$4  = 8'hb6;
       8'h2a:
-          \$4  = 8'hac;
+          \$4  = 8'hb7;
       8'h2b:
-          \$4  = 8'hac;
+          \$4  = 8'hb8;
       8'h2c:
-          \$4  = 8'had;
+          \$4  = 8'hb8;
       8'h2d:
-          \$4  = 8'hae;
+          \$4  = 8'hb9;
       8'h2e:
-          \$4  = 8'hae;
+          \$4  = 8'hba;
       8'h2f:
-          \$4  = 8'haf;
+          \$4  = 8'hbb;
       8'h30:
-          \$4  = 8'haf;
+          \$4  = 8'hbb;
       8'h31:
-          \$4  = 8'hb0;
+          \$4  = 8'hbc;
       8'h32:
-          \$4  = 8'hb0;
+          \$4  = 8'hbc;
       8'h33:
-          \$4  = 8'hb0;
+          \$4  = 8'hbd;
       8'h34:
-          \$4  = 8'hb1;
+          \$4  = 8'hbd;
       8'h35:
-          \$4  = 8'hb1;
+          \$4  = 8'hbe;
       8'h36:
-          \$4  = 8'hb1;
+          \$4  = 8'hbe;
       8'h37:
-          \$4  = 8'hb2;
+          \$4  = 8'hbe;
       8'h38:
-          \$4  = 8'hb2;
+          \$4  = 8'hbf;
       8'h39:
-          \$4  = 8'hb2;
+          \$4  = 8'hbf;
       8'h3a:
-          \$4  = 8'hb2;
+          \$4  = 8'hbf;
       8'h3b:
-          \$4  = 8'hb3;
+          \$4  = 8'hc0;
       8'h3c:
-          \$4  = 8'hb3;
+          \$4  = 8'hc0;
       8'h3d:
-          \$4  = 8'hb3;
+          \$4  = 8'hc0;
       8'h3e:
-          \$4  = 8'hb3;
+          \$4  = 8'hc0;
       8'h3f:
-          \$4  = 8'hb3;
+          \$4  = 8'hc0;
       8'h40:
-          \$4  = 8'hb3;
+          \$4  = 8'hc0;
       8'h41:
-          \$4  = 8'hb3;
+          \$4  = 8'hc0;
       8'h42:
-          \$4  = 8'hb3;
+          \$4  = 8'hc0;
       8'h43:
-          \$4  = 8'hb3;
+          \$4  = 8'hc0;
       8'h44:
-          \$4  = 8'hb3;
+          \$4  = 8'hc0;
       8'h45:
-          \$4  = 8'hb3;
+          \$4  = 8'hc0;
       8'h46:
-          \$4  = 8'hb2;
+          \$4  = 8'hbf;
       8'h47:
-          \$4  = 8'hb2;
+          \$4  = 8'hbf;
       8'h48:
-          \$4  = 8'hb2;
+          \$4  = 8'hbf;
       8'h49:
-          \$4  = 8'hb2;
+          \$4  = 8'hbe;
       8'h4a:
-          \$4  = 8'hb1;
+          \$4  = 8'hbe;
       8'h4b:
-          \$4  = 8'hb1;
+          \$4  = 8'hbe;
       8'h4c:
-          \$4  = 8'hb1;
+          \$4  = 8'hbd;
       8'h4d:
-          \$4  = 8'hb0;
+          \$4  = 8'hbd;
       8'h4e:
-          \$4  = 8'hb0;
+          \$4  = 8'hbc;
       8'h4f:
-          \$4  = 8'hb0;
+          \$4  = 8'hbc;
       8'h50:
-          \$4  = 8'haf;
+          \$4  = 8'hbb;
       8'h51:
-          \$4  = 8'haf;
+          \$4  = 8'hbb;
       8'h52:
-          \$4  = 8'hae;
+          \$4  = 8'hba;
       8'h53:
-          \$4  = 8'hae;
+          \$4  = 8'hb9;
       8'h54:
-          \$4  = 8'had;
+          \$4  = 8'hb8;
       8'h55:
-          \$4  = 8'hac;
+          \$4  = 8'hb8;
       8'h56:
-          \$4  = 8'hac;
+          \$4  = 8'hb7;
       8'h57:
-          \$4  = 8'hab;
+          \$4  = 8'hb6;
       8'h58:
-          \$4  = 8'haa;
+          \$4  = 8'hb5;
       8'h59:
-          \$4  = 8'haa;
+          \$4  = 8'hb4;
       8'h5a:
-          \$4  = 8'ha9;
+          \$4  = 8'hb3;
       8'h5b:
-          \$4  = 8'ha8;
+          \$4  = 8'hb2;
       8'h5c:
-          \$4  = 8'ha7;
+          \$4  = 8'hb1;
       8'h5d:
-          \$4  = 8'ha7;
+          \$4  = 8'hb0;
       8'h5e:
-          \$4  = 8'ha6;
+          \$4  = 8'haf;
       8'h5f:
-          \$4  = 8'ha5;
+          \$4  = 8'hae;
       8'h60:
-          \$4  = 8'ha4;
+          \$4  = 8'had;
       8'h61:
-          \$4  = 8'ha3;
+          \$4  = 8'hac;
       8'h62:
-          \$4  = 8'ha2;
+          \$4  = 8'hab;
       8'h63:
-          \$4  = 8'ha1;
+          \$4  = 8'haa;
       8'h64:
-          \$4  = 8'ha0;
+          \$4  = 8'ha9;
       8'h65:
-          \$4  = 8'h9f;
+          \$4  = 8'ha7;
       8'h66:
-          \$4  = 8'h9e;
+          \$4  = 8'ha6;
       8'h67:
-          \$4  = 8'h9d;
+          \$4  = 8'ha5;
       8'h68:
-          \$4  = 8'h9c;
+          \$4  = 8'ha4;
       8'h69:
-          \$4  = 8'h9b;
+          \$4  = 8'ha2;
       8'h6a:
-          \$4  = 8'h9a;
+          \$4  = 8'ha1;
       8'h6b:
-          \$4  = 8'h99;
+          \$4  = 8'ha0;
       8'h6c:
-          \$4  = 8'h98;
+          \$4  = 8'h9e;
       8'h6d:
-          \$4  = 8'h97;
+          \$4  = 8'h9d;
       8'h6e:
-          \$4  = 8'h96;
+          \$4  = 8'h9b;
       8'h6f:
-          \$4  = 8'h95;
+          \$4  = 8'h9a;
       8'h70:
-          \$4  = 8'h94;
+          \$4  = 8'h98;
       8'h71:
-          \$4  = 8'h92;
+          \$4  = 8'h97;
       8'h72:
-          \$4  = 8'h91;
+          \$4  = 8'h96;
       8'h73:
-          \$4  = 8'h90;
+          \$4  = 8'h94;
       8'h74:
-          \$4  = 8'h8f;
+          \$4  = 8'h93;
       8'h75:
-          \$4  = 8'h8e;
+          \$4  = 8'h91;
       8'h76:
-          \$4  = 8'h8c;
+          \$4  = 8'h90;
       8'h77:
-          \$4  = 8'h8b;
+          \$4  = 8'h8e;
       8'h78:
-          \$4  = 8'h8a;
+          \$4  = 8'h8c;
       8'h79:
-          \$4  = 8'h89;
+          \$4  = 8'h8b;
       8'h7a:
-          \$4  = 8'h87;
+          \$4  = 8'h89;
       8'h7b:
-          \$4  = 8'h86;
+          \$4  = 8'h88;
       8'h7c:
-          \$4  = 8'h85;
+          \$4  = 8'h86;
       8'h7d:
-          \$4  = 8'h84;
+          \$4  = 8'h85;
       8'h7e:
           \$4  = 8'h83;
       8'h7f:
-          \$4  = 8'h81;
+          \$4  = 8'h82;
       8'h80:
           \$4  = 8'h80;
       8'h81:
-          \$4  = 8'h7f;
+          \$4  = 8'h7e;
       8'h82:
           \$4  = 8'h7d;
       8'h83:
-          \$4  = 8'h7c;
+          \$4  = 8'h7b;
       8'h84:
-          \$4  = 8'h7b;
+          \$4  = 8'h7a;
       8'h85:
-          \$4  = 8'h7a;
+          \$4  = 8'h78;
       8'h86:
-          \$4  = 8'h79;
+          \$4  = 8'h77;
       8'h87:
-          \$4  = 8'h77;
+          \$4  = 8'h75;
       8'h88:
-          \$4  = 8'h76;
+          \$4  = 8'h74;
       8'h89:
-          \$4  = 8'h75;
+          \$4  = 8'h72;
       8'h8a:
-          \$4  = 8'h74;
+          \$4  = 8'h70;
       8'h8b:
-          \$4  = 8'h72;
+          \$4  = 8'h6f;
       8'h8c:
-          \$4  = 8'h71;
+          \$4  = 8'h6d;
       8'h8d:
-          \$4  = 8'h70;
+          \$4  = 8'h6c;
       8'h8e:
-          \$4  = 8'h6f;
+          \$4  = 8'h6a;
       8'h8f:
-          \$4  = 8'h6e;
+          \$4  = 8'h69;
       8'h90:
-          \$4  = 8'h6c;
+          \$4  = 8'h68;
       8'h91:
-          \$4  = 8'h6b;
+          \$4  = 8'h66;
       8'h92:
-          \$4  = 8'h6a;
+          \$4  = 8'h65;
       8'h93:
-          \$4  = 8'h69;
+          \$4  = 8'h63;
       8'h94:
-          \$4  = 8'h68;
+          \$4  = 8'h62;
       8'h95:
-          \$4  = 8'h67;
+          \$4  = 8'h60;
       8'h96:
-          \$4  = 8'h66;
+          \$4  = 8'h5f;
       8'h97:
-          \$4  = 8'h65;
+          \$4  = 8'h5e;
       8'h98:
-          \$4  = 8'h64;
+          \$4  = 8'h5c;
       8'h99:
-          \$4  = 8'h63;
+          \$4  = 8'h5b;
       8'h9a:
-          \$4  = 8'h62;
+          \$4  = 8'h5a;
       8'h9b:
-          \$4  = 8'h61;
+          \$4  = 8'h59;
       8'h9c:
-          \$4  = 8'h60;
+          \$4  = 8'h57;
       8'h9d:
-          \$4  = 8'h5f;
+          \$4  = 8'h56;
       8'h9e:
-          \$4  = 8'h5e;
+          \$4  = 8'h55;
       8'h9f:
-          \$4  = 8'h5d;
+          \$4  = 8'h54;
       8'ha0:
-          \$4  = 8'h5c;
+          \$4  = 8'h53;
       8'ha1:
-          \$4  = 8'h5b;
+          \$4  = 8'h52;
       8'ha2:
-          \$4  = 8'h5a;
+          \$4  = 8'h51;
       8'ha3:
-          \$4  = 8'h59;
+          \$4  = 8'h50;
       8'ha4:
-          \$4  = 8'h59;
+          \$4  = 8'h4f;
       8'ha5:
-          \$4  = 8'h58;
+          \$4  = 8'h4e;
       8'ha6:
-          \$4  = 8'h57;
+          \$4  = 8'h4d;
       8'ha7:
-          \$4  = 8'h56;
+          \$4  = 8'h4c;
       8'ha8:
-          \$4  = 8'h56;
+          \$4  = 8'h4b;
       8'ha9:
-          \$4  = 8'h55;
+          \$4  = 8'h4a;
       8'haa:
-          \$4  = 8'h54;
+          \$4  = 8'h49;
       8'hab:
-          \$4  = 8'h54;
+          \$4  = 8'h48;
       8'hac:
-          \$4  = 8'h53;
+          \$4  = 8'h48;
       8'had:
-          \$4  = 8'h52;
+          \$4  = 8'h47;
       8'hae:
-          \$4  = 8'h52;
+          \$4  = 8'h46;
       8'haf:
-          \$4  = 8'h51;
+          \$4  = 8'h45;
       8'hb0:
-          \$4  = 8'h51;
+          \$4  = 8'h45;
       8'hb1:
-          \$4  = 8'h50;
+          \$4  = 8'h44;
       8'hb2:
-          \$4  = 8'h50;
+          \$4  = 8'h44;
       8'hb3:
-          \$4  = 8'h50;
+          \$4  = 8'h43;
       8'hb4:
-          \$4  = 8'h4f;
+          \$4  = 8'h43;
       8'hb5:
-          \$4  = 8'h4f;
+          \$4  = 8'h42;
       8'hb6:
-          \$4  = 8'h4f;
+          \$4  = 8'h42;
       8'hb7:
-          \$4  = 8'h4e;
+          \$4  = 8'h42;
       8'hb8:
-          \$4  = 8'h4e;
+          \$4  = 8'h41;
       8'hb9:
-          \$4  = 8'h4e;
+          \$4  = 8'h41;
       8'hba:
-          \$4  = 8'h4e;
+          \$4  = 8'h41;
       8'hbb:
-          \$4  = 8'h4d;
+          \$4  = 8'h40;
       8'hbc:
-          \$4  = 8'h4d;
+          \$4  = 8'h40;
       8'hbd:
-          \$4  = 8'h4d;
+          \$4  = 8'h40;
       8'hbe:
-          \$4  = 8'h4d;
+          \$4  = 8'h40;
       8'hbf:
-          \$4  = 8'h4d;
+          \$4  = 8'h40;
       8'hc0:
-          \$4  = 8'h4d;
+          \$4  = 8'h40;
       8'hc1:
-          \$4  = 8'h4d;
+          \$4  = 8'h40;
       8'hc2:
-          \$4  = 8'h4d;
+          \$4  = 8'h40;
       8'hc3:
-          \$4  = 8'h4d;
+          \$4  = 8'h40;
       8'hc4:
-          \$4  = 8'h4d;
+          \$4  = 8'h40;
       8'hc5:
-          \$4  = 8'h4d;
+          \$4  = 8'h40;
       8'hc6:
-          \$4  = 8'h4e;
+          \$4  = 8'h41;
       8'hc7:
-          \$4  = 8'h4e;
+          \$4  = 8'h41;
       8'hc8:
-          \$4  = 8'h4e;
+          \$4  = 8'h41;
       8'hc9:
-          \$4  = 8'h4e;
+          \$4  = 8'h42;
       8'hca:
-          \$4  = 8'h4f;
+          \$4  = 8'h42;
       8'hcb:
-          \$4  = 8'h4f;
+          \$4  = 8'h42;
       8'hcc:
-          \$4  = 8'h4f;
+          \$4  = 8'h43;
       8'hcd:
-          \$4  = 8'h50;
+          \$4  = 8'h43;
       8'hce:
-          \$4  = 8'h50;
+          \$4  = 8'h44;
       8'hcf:
-          \$4  = 8'h50;
+          \$4  = 8'h44;
       8'hd0:
-          \$4  = 8'h51;
+          \$4  = 8'h45;
       8'hd1:
-          \$4  = 8'h51;
+          \$4  = 8'h45;
       8'hd2:
-          \$4  = 8'h52;
+          \$4  = 8'h46;
       8'hd3:
-          \$4  = 8'h52;
+          \$4  = 8'h47;
       8'hd4:
-          \$4  = 8'h53;
+          \$4  = 8'h48;
       8'hd5:
-          \$4  = 8'h54;
+          \$4  = 8'h48;
       8'hd6:
-          \$4  = 8'h54;
+          \$4  = 8'h49;
       8'hd7:
-          \$4  = 8'h55;
+          \$4  = 8'h4a;
       8'hd8:
-          \$4  = 8'h56;
+          \$4  = 8'h4b;
       8'hd9:
-          \$4  = 8'h56;
+          \$4  = 8'h4c;
       8'hda:
-          \$4  = 8'h57;
+          \$4  = 8'h4d;
       8'hdb:
-          \$4  = 8'h58;
+          \$4  = 8'h4e;
       8'hdc:
-          \$4  = 8'h59;
+          \$4  = 8'h4f;
       8'hdd:
-          \$4  = 8'h59;
+          \$4  = 8'h50;
       8'hde:
-          \$4  = 8'h5a;
+          \$4  = 8'h51;
       8'hdf:
-          \$4  = 8'h5b;
+          \$4  = 8'h52;
       8'he0:
-          \$4  = 8'h5c;
+          \$4  = 8'h53;
       8'he1:
-          \$4  = 8'h5d;
+          \$4  = 8'h54;
       8'he2:
-          \$4  = 8'h5e;
+          \$4  = 8'h55;
       8'he3:
-          \$4  = 8'h5f;
+          \$4  = 8'h56;
       8'he4:
-          \$4  = 8'h60;
+          \$4  = 8'h57;
       8'he5:
-          \$4  = 8'h61;
+          \$4  = 8'h59;
       8'he6:
-          \$4  = 8'h62;
+          \$4  = 8'h5a;
       8'he7:
-          \$4  = 8'h63;
+          \$4  = 8'h5b;
       8'he8:
-          \$4  = 8'h64;
+          \$4  = 8'h5c;
       8'he9:
-          \$4  = 8'h65;
+          \$4  = 8'h5e;
       8'hea:
-          \$4  = 8'h66;
+          \$4  = 8'h5f;
       8'heb:
-          \$4  = 8'h67;
+          \$4  = 8'h60;
       8'hec:
-          \$4  = 8'h68;
+          \$4  = 8'h62;
       8'hed:
-          \$4  = 8'h69;
+          \$4  = 8'h63;
       8'hee:
-          \$4  = 8'h6a;
+          \$4  = 8'h65;
       8'hef:
-          \$4  = 8'h6b;
+          \$4  = 8'h66;
       8'hf0:
-          \$4  = 8'h6c;
+          \$4  = 8'h68;
       8'hf1:
-          \$4  = 8'h6e;
+          \$4  = 8'h69;
       8'hf2:
-          \$4  = 8'h6f;
+          \$4  = 8'h6a;
       8'hf3:
-          \$4  = 8'h70;
+          \$4  = 8'h6c;
       8'hf4:
-          \$4  = 8'h71;
+          \$4  = 8'h6d;
       8'hf5:
-          \$4  = 8'h72;
+          \$4  = 8'h6f;
       8'hf6:
-          \$4  = 8'h74;
+          \$4  = 8'h70;
       8'hf7:
-          \$4  = 8'h75;
+          \$4  = 8'h72;
       8'hf8:
-          \$4  = 8'h76;
+          \$4  = 8'h74;
       8'hf9:
-          \$4  = 8'h77;
+          \$4  = 8'h75;
       8'hfa:
-          \$4  = 8'h79;
+          \$4  = 8'h77;
       8'hfb:
-          \$4  = 8'h7a;
+          \$4  = 8'h78;
       8'hfc:
-          \$4  = 8'h7b;
+          \$4  = 8'h7a;
       8'hfd:
-          \$4  = 8'h7c;
+          \$4  = 8'h7b;
       8'hfe:
           \$4  = 8'h7d;
       8'hff:
-          \$4  = 8'h7f;
+          \$4  = 8'h7e;
     endcase
   end
   always @* begin
