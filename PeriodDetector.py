@@ -72,11 +72,15 @@ class PeriodDetector(Elaboratable):
                     ]
 
                 with m.If(choose_range_timeout >= 50000000):
-                    m.d.sync += choose_range_timeout.eq(0)
                     with m.If((self.wave_range < 4)
                               & (maxn2center < range_up_threshold)
                               & (minn2center < range_up_threshold)):
-                        m.d.sync += self.wave_range.eq(self.wave_range + 1)
+                        m.d.sync += [
+                            self.wave_range.eq(self.wave_range + 1),
+                            choose_range_timeout.eq(0),
+                            maxn.eq(0),
+                            minn.eq((1 << ADC_BITS) - 1),
+                        ]
                     with m.Else():
                         m.next = "get_average"
                 with m.Else():
