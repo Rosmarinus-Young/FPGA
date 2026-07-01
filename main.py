@@ -3,11 +3,9 @@ from amaranth.back import verilog
 from VGATiming import VGATiming
 from XADCModule import XADCModule
 from VGADisplay import VGADisplay
-from PeriodDetector import PeriodDetector
 from ButtonControl import ButtonControl
-from WaveControl import WaveControl
-from KnobControl import KnobControl
-from RangeSwitcher import RangeSwitcher
+from Scope import Scope
+
 from RAM import RAM
 
 class VGADemo(Elaboratable):
@@ -23,17 +21,29 @@ class VGADemo(Elaboratable):
 
         self.vauxp1 = Signal()
         self.vauxn1 = Signal()
+        self.vauxp2 = Signal()
+        self.vauxn2 = Signal()
+
 
         self.auto_button = Signal()
 
-        self.sample_period_control_knob_A = Signal()
-        self.sample_period_control_knob_B = Signal()
+        self.CH1_sample_period_control_knob_A = Signal()
+        self.CH1_sample_period_control_knob_B = Signal()
 
-        self.display_gain_control_knob_A = Signal()
-        self.display_gain_control_knob_B = Signal()
+        self.CH1_display_gain_control_knob_A = Signal()
+        self.CH1_display_gain_control_knob_B = Signal()
 
-        self.KEYA1 = Signal(init = 1)
-        self.KEYA1 = Signal(init = 1)
+        self.CH1_KEYA1 = Signal(init = 1)
+        self.CH1_KEYA2 = Signal(init = 1)
+
+        self.CH2_sample_period_control_knob_A = Signal()
+        self.CH2_sample_period_control_knob_B = Signal()
+
+        self.CH2_display_gain_control_knob_A = Signal()
+        self.CH2_display_gain_control_knob_B = Signal()
+
+        self.CH2_KEYA1 = Signal(init = 1)
+        self.CH2_KEYA2 = Signal(init = 1)
 
     def elaborate(self, platform):
         m = Module()
@@ -65,43 +75,37 @@ class VGADemo(Elaboratable):
         timing = VGATiming(self.vga_hsync, self.vga_vsync)
         m.submodules.timing = timing
 
-        xadc = XADCModule(clk = self.clk, vauxp1 = self.vauxp1, vauxn1 = self.vauxn1)
+        xadc = XADCModule(clk = self.clk, vauxp1 = self.vauxp1, vauxn1 = self.vauxn1,
+                          vauxp2 = self.vauxp2, vauxn2 = self.vauxn2)
         m.submodules.xadc = xadc
 
         auto_button = ButtonControl(button = self.auto_button)
         m.submodules.auto_button = auto_button
 
-        period_detector = PeriodDetector(adc_value = xadc.adc_value, 
-                                         adc_ready = xadc.adc_ready,
-                                         auto_button = auto_button.out)
-        m.submodules.period_detector = period_detector
+        Channal1 = Scope(adc_value = xadc.adc_ch0_value, adc_ready = xadc.adc_ch0_ready,
+                         auto_button = auto_button.out, 
+                         KEYA1 = self.CH1_KEYA1, KEYA2 = self.CH1_KEYA2,
+                         sample_period_control_knob_A = self.CH1_sample_period_control_knob_A,
+                         sample_period_control_knob_B = self.CH1_sample_period_control_knob_B,
+                         display_gain_control_knob_A = self.CH1_display_gain_control_knob_A,
+                         display_gain_control_knob_B = self.CH1_display_gain_control_knob_B,
+                         timing = timing)
+        m.submodules.Channal1 = Channal1
 
-        range_switcher = RangeSwitcher(A0 = self.KEYA1, A1 = self.KEYA1, 
-                                       wave_range = period_detector.wave_range)
-        m.submodules.range_switcher = range_switcher
-
-        sample_period_control_knob = KnobControl(A = self.sample_period_control_knob_A, 
-                                                 B = self.sample_period_control_knob_B)
-        m.submodules.sample_period_control_knob = sample_period_control_knob
-
-        wave_control = WaveControl(adc_value = xadc.adc_value, adc_ready = xadc.adc_ready, 
-                                   period = period_detector.period, 
-                                   get_period_over = period_detector.get_period_over,
-                                   sample_period_control_knob = sample_period_control_knob.out)
-        m.submodules.wave_control = wave_control
-
-        ram = RAM(r_addr = timing.x, r_en = 1, w_addr = wave_control.w_addr, 
-                  w_data = wave_control.w_data, w_en = wave_control.w_en)
-        m.submodules.ram = ram
-
-        display_gain_control_knob = KnobControl(A = self.display_gain_control_knob_A, 
-                                                 B = self.display_gain_control_knob_B)
-        m.submodules.display_gain_control_knob = display_gain_control_knob
+        Channal2 = Scope(adc_value = xadc.adc_ch1_value, adc_ready = xadc.adc_ch1_ready,
+                         auto_button = auto_button.out, 
+                         KEYA1 = self.CH2_KEYA1, KEYA2 = self.CH2_KEYA2,
+                         sample_period_control_knob_A = self.CH2_sample_period_control_knob_A,
+                         sample_period_control_knob_B = self.CH2_sample_period_control_knob_B,
+                         display_gain_control_knob_A = self.CH2_display_gain_control_knob_A,
+                         display_gain_control_knob_B = self.CH2_display_gain_control_knob_B,
+                         timing = timing)
+        m.submodules.Channal2 = Channal2
 
         vga_display = VGADisplay(timing = timing, vga_r = self.vga_r, 
-                                 vga_g = self.vga_g, vga_b = self.vga_b, 
-                                 r_data = ram.r_data, 
-                                 gain_control_knob = display_gain_control_knob.out)
+                                 vga_g = self.vga_g, vga_b = self.vga_b,
+                                 CH1_display_y = Channal1.gain_control.display_y,
+                                 CH2_display_y = Channal2.gain_control.display_y)
         m.submodules.vga_display = vga_display
 
         return m
@@ -120,13 +124,26 @@ if __name__ == "__main__":
             top.vga_r,
             top.vga_g,
             top.vga_b,
+
+            top.auto_button,
+
             top.vauxp1,
             top.vauxn1,
-            top.auto_button,
-            top.sample_period_control_knob_A,
-            top.sample_period_control_knob_B,
-            top.display_gain_control_knob_A,
-            top.display_gain_control_knob_B,
+            top.CH1_sample_period_control_knob_A,
+            top.CH1_sample_period_control_knob_B,
+            top.CH1_display_gain_control_knob_A,
+            top.CH1_display_gain_control_knob_B,
+            top.CH1_KEYA1,
+            top.CH1_KEYA2,
+
+            top.vauxp2,
+            top.vauxn2,
+            top.CH2_sample_period_control_knob_A,
+            top.CH2_sample_period_control_knob_B,
+            top.CH2_display_gain_control_knob_A,
+            top.CH2_display_gain_control_knob_B,
+            top.CH2_KEYA1,
+            top.CH2_KEYA2,
         ]
     )
 
