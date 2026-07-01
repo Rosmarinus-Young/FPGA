@@ -15,16 +15,22 @@ Features:
   - Algorithm: DDS (Direct Digital Synthesis) per doc/DDS.md
   - Button control: 5 push buttons for runtime mode selection
 
-=== Button Mapping (EGO1 S0–S4) ===
-  btn_sine     -> S0 (R11)  : WAVEFORM_SINE
-  btn_square   -> S1 (R17)  : WAVEFORM_SQUARE
-  btn_triangle -> S2 (R15)  : WAVEFORM_TRIANGLE
-  btn_am       -> S3 (V1)   : MODE_AM
-  btn_fm       -> S4 (U4)   : MODE_FM
+=== Button Mapping (EGO1 S1, S2, S4) ===
+  btn_mode -> S2 (R15) : Cycle through modes 0-5 (press to advance)
+  btn_inc  -> S4 (U4)  : Increase current parameter
+  btn_dec  -> S1 (R17) : Decrease current parameter
+  S0 (R11), S3 (V1)    : Unused (no function in signal generator)
+
+  Parameter adjusted depends on current mode:
+    Modes 0/1/2 (basic waveforms): frequency (step = FREQ_STEP Hz)
+    Mode 3 (AM):                   modulation index m (step = MOD_INDEX_STEP_AM)
+    Mode 4 (FM):                   modulation index β (step = MOD_INDEX_STEP_FM)
+    Mode 5 (SPWM):                 modulation index m_a (step = MOD_INDEX_STEP_SPWM)
 
   Each button is debounced (~10 ms) and edge-detected.
-  Pressing a button switches the runtime mode register immediately.
-  The module parameter MODE sets the power-on / reset default mode.
+  Pressing btn_mode advances the runtime mode register (wraps 5→0).
+  Pressing btn_inc/btn_dec adjusts the active parameter for the
+  current mode.  The module parameter MODE sets the power-on default.
 
 === Modulation Theory (from doc/DDS.md) ===
   AM  (Amplitude Modulation):
@@ -111,8 +117,9 @@ class SignalGenerator(Elaboratable):
     ------------------
     - clk         -> P17 (100 MHz system clock)
     - rst         -> P15 (active-high reset button)
-    - btn_sine    -> R11 (S0)
-    - btn_square  -> R17 (S1)
+    - btn_mode -> R15 (S2)  : cycle mode 0-5
+    - btn_inc  -> U4  (S4)  : parameter increase
+    - btn_dec  -> R17 (S1)  : parameter decrease    - btn_square  -> R17 (S1)
     - btn_triangle -> R15 (S2)
     - btn_am      -> V1  (S3)
     - btn_fm      -> U4  (S4)
@@ -155,6 +162,16 @@ class SignalGenerator(Elaboratable):
     #         e.g. NUM=8, DEN=10  →  m_a = 0.8  (80% modulation)
     MOD_INDEX_NUM = 1
     MOD_INDEX_DEN = 2
+
+    # -- Parameter step sizes (per button press, user-configurable) --
+    FREQ_STEP = 20              # Hz per increment for basic waveforms
+    MOD_INDEX_STEP_AM   = 0.1  # m  step per increment (AM)
+    MOD_INDEX_STEP_FM   = 1.0  # β  step per increment (FM)
+    MOD_INDEX_STEP_SPWM = 0.1  # m_a step per increment (SPWM)
+
+    # -- Parameter bounds --
+    FREQ_MIN_HZ = 100            # Minimum output frequency (Hz)
+    FREQ_MAX_HZ = 10000          # Maximum output frequency (Hz)
     # ================================================================
 
     # DDS engine parameters
@@ -197,12 +214,10 @@ class SignalGenerator(Elaboratable):
         self.clk = Signal()        # 100 MHz system clock
         self.rst = Signal()        # Active-high reset
 
-        # Button inputs (EGO1 push buttons S0–S4)
-        self.btn_sine     = Signal()   # S0 → WAVEFORM_SINE
-        self.btn_square   = Signal()   # S1 → WAVEFORM_SQUARE
-        self.btn_triangle = Signal()   # S2 → WAVEFORM_TRIANGLE
-        self.btn_am       = Signal()   # S3 → MODE_AM
-        self.btn_fm       = Signal()   # S4 → MODE_FM
+        # Button inputs (EGO1 push buttons)
+        self.btn_mode = Signal()   # S2 (R15) → cycle mode 0-5
+        self.btn_inc  = Signal()   # S4 (U4)  → parameter increase
+        self.btn_dec  = Signal()   # S1 (R17) → parameter decrease
 
         self.standalone = standalone
 
@@ -364,30 +379,96 @@ class SignalGenerator(Elaboratable):
         # Button debounce — one circuit per button, producing single-cycle
         # pulses on confirmed press.
         # ================================================================
-        pulse_sine     = self._add_button_debounce(m, self.btn_sine,     "sine")
-        pulse_square   = self._add_button_debounce(m, self.btn_square,   "square")
-        pulse_triangle = self._add_button_debounce(m, self.btn_triangle, "triangle")
-        pulse_am       = self._add_button_debounce(m, self.btn_am,       "am")
-        pulse_fm       = self._add_button_debounce(m, self.btn_fm,       "fm")
+        pulse_mode = self._add_button_debounce(m, self.btn_mode, "mode")
+        pulse_inc  = self._add_button_debounce(m, self.btn_inc,  "inc")
+        pulse_dec  = self._add_button_debounce(m, self.btn_dec,  "dec")
 
         # ================================================================
-        # Runtime mode register
+        # Pre-computed hardware constants (Python arithmetic → Verilog literals)
+        # ================================================================
+        ftw_step_val  = int(self.FREQ_STEP * (1 << self.N) / self.F_DAC)
+        ftw_min_val   = int(self.FREQ_MIN_HZ * (1 << self.N) / self.F_DAC)
+        ftw_max_val   = int(self.FREQ_MAX_HZ * (1 << self.N) / self.F_DAC)
+
+        mod_index_reset = int((self.MOD_INDEX_NUM / self.MOD_INDEX_DEN)
+                              * (1 << 12) + 0.5)
+
+        # Fixed-point step sizes (12 fractional bits)
+        mod_step_am_val   = int(self.MOD_INDEX_STEP_AM   * (1 << 12) + 0.5)
+        mod_step_fm_val   = int(self.MOD_INDEX_STEP_FM   * (1 << 12) + 0.5)
+        mod_step_spwm_val = int(self.MOD_INDEX_STEP_SPWM * (1 << 12) + 0.5)
+
+        # FM: ftw_dev = (mod_index_fixed * fm_dev_scale) >> 12
+        fm_dev_scale_val = int(self.MOD_FREQ * (1 << self.N) / self.F_DAC)
+
+        MOD_INDEX_MAX = (1 << 12) - 1  # 4095 ~= 1.0 for AM/SPWM
+
+        # ================================================================
+        # Runtime mode register (3-bit, 6 modes, wraps 5→0)
         #
-        # 3-bit register reset to the PYTHON-level MODE constant.
-        # On a debounced button pulse the mode switches immediately.
+        # S2 (btn_mode) press → mode = (mode + 1) % 6
         # ================================================================
         mode = Signal(3, reset=self.MODE)
 
-        with m.If(pulse_sine):
-            m.d.sync += mode.eq(self.WAVEFORM_SINE)
-        with m.Elif(pulse_square):
-            m.d.sync += mode.eq(self.WAVEFORM_SQUARE)
-        with m.Elif(pulse_triangle):
-            m.d.sync += mode.eq(self.WAVEFORM_TRIANGLE)
-        with m.Elif(pulse_am):
-            m.d.sync += mode.eq(self.MODE_AM)
-        with m.Elif(pulse_fm):
-            m.d.sync += mode.eq(self.MODE_FM)
+        with m.If(pulse_mode):
+            with m.If(mode == self.MODE_SPWM):   # 5 → wrap to 0
+                m.d.sync += mode.eq(0)
+            with m.Else():
+                m.d.sync += mode.eq(mode + 1)
+
+        # ================================================================
+        # Runtime parameter registers
+        #
+        # ftw_basic:       frequency tuning word for basic waveforms
+        # mod_index_fixed:  modulation index (12 fractional bits) shared
+        #                   by AM / FM / SPWM modes
+        # ================================================================
+        ftw_basic_val = int(self.FREQ_HZ * (1 << self.N) / self.F_DAC)
+        ftw_basic = Signal(self.N, reset=ftw_basic_val)
+
+        mod_index_fixed = Signal(12, reset=mod_index_reset)
+
+        # ================================================================
+        # Parameter adjustment on S4 (inc) / S1 (dec) button pulses
+        #
+        # Which parameter is adjusted depends on the current mode:
+        #   mode 0/1/2 (basic):  frequency (via ftw_basic)
+        #   mode 3 (AM):         modulation index m
+        #   mode 4 (FM):         modulation index β
+        #   mode 5 (SPWM):       modulation index m_a
+        # ================================================================
+        with m.If(pulse_inc):
+            with m.If(mode < 3):  # basic waveforms: increase frequency
+                with m.If(ftw_basic + ftw_step_val <= ftw_max_val):
+                    m.d.sync += ftw_basic.eq(ftw_basic + ftw_step_val)
+            with m.Elif(mode == self.MODE_AM):
+                with m.If(mod_index_fixed + mod_step_am_val <= MOD_INDEX_MAX):
+                    m.d.sync += mod_index_fixed.eq(
+                        mod_index_fixed + mod_step_am_val)
+            with m.Elif(mode == self.MODE_FM):
+                m.d.sync += mod_index_fixed.eq(
+                    mod_index_fixed + mod_step_fm_val)
+            with m.Elif(mode == self.MODE_SPWM):
+                with m.If(mod_index_fixed + mod_step_spwm_val <= MOD_INDEX_MAX):
+                    m.d.sync += mod_index_fixed.eq(
+                        mod_index_fixed + mod_step_spwm_val)
+
+        with m.If(pulse_dec):
+            with m.If(mode < 3):  # basic waveforms: decrease frequency
+                with m.If(ftw_basic >= ftw_step_val + ftw_min_val):
+                    m.d.sync += ftw_basic.eq(ftw_basic - ftw_step_val)
+            with m.Elif(mode == self.MODE_AM):
+                with m.If(mod_index_fixed >= mod_step_am_val):
+                    m.d.sync += mod_index_fixed.eq(
+                        mod_index_fixed - mod_step_am_val)
+            with m.Elif(mode == self.MODE_FM):
+                with m.If(mod_index_fixed >= mod_step_fm_val):
+                    m.d.sync += mod_index_fixed.eq(
+                        mod_index_fixed - mod_step_fm_val)
+            with m.Elif(mode == self.MODE_SPWM):
+                with m.If(mod_index_fixed >= mod_step_spwm_val):
+                    m.d.sync += mod_index_fixed.eq(
+                        mod_index_fixed - mod_step_spwm_val)
 
         # ================================================================
         # Clock divider for DAC update rate
@@ -399,7 +480,7 @@ class SignalGenerator(Elaboratable):
         dac_div = Signal(8)
         m.d.comb += dac_div.eq(Mux(mode == self.MODE_SPWM, 100,
                                    self.DAC_DIV))
-        f_dac = self.F_CLK // self.DAC_DIV  # nominal, used for FTW calc
+        f_dac_spwm = self.F_CLK // 100     # SPWM actual (1 MHz, period = 1 µs)
 
         clk_div_cnt = Signal(range(max(self.DAC_DIV, 100)))
         dac_tick    = Signal()
@@ -412,13 +493,6 @@ class SignalGenerator(Elaboratable):
                 m.d.sync += clk_div_cnt.eq(0)
 
         m.d.comb += dac_tick.eq(clk_div_cnt == 0)
-
-        # ================================================================
-        # Fixed-point modulation index (pre-computed in Python)
-        # m_fixed = int( (NUM/DEN) * 2^12 ), 12 fractional bits.
-        # ================================================================
-        m_fixed_val = int((self.MOD_INDEX_NUM / self.MOD_INDEX_DEN)
-                          * (1 << 12) + 0.5)
 
         # ================================================================
         # Build all LUTs (Python pre-computation)
@@ -436,8 +510,6 @@ class SignalGenerator(Elaboratable):
         # runtime via mode[1:0] (values 0, 1, 2).
         # Output: dac_basic_comb
         # ================================================================
-        ftw_basic_val = int(self.FREQ_HZ * (1 << self.N) / self.F_DAC)
-        ftw_basic = Signal(self.N, reset=ftw_basic_val)
 
         phase_acc_basic = Signal(self.N)
         with m.If(self.rst):
@@ -526,14 +598,14 @@ class SignalGenerator(Elaboratable):
 
         # AM computation:
         #   dac = center + carrier_sin
-        #       + (m_fixed * mod_sin * carrier_sin) >> (AMP_SHIFT + 12)
-        product_am   = Signal(signed(24))
+        #       + (mod_index_fixed * mod_sin * carrier_sin) >> (AMP_SHIFT + 12)
+        product_am   = Signal(signed(32))
         modulated_am = Signal(signed(16))
         am_signed    = Signal(signed(9))
         dac_raw_am   = Signal(signed(10))
 
         m.d.comb += [
-            product_am.eq(m_fixed_val * mod_sin_am * carrier_sin_am),
+            product_am.eq(mod_index_fixed * mod_sin_am * carrier_sin_am),
             modulated_am.eq(product_am >> (self.AMP_SHIFT + 12)),
             am_signed.eq(carrier_sin_am + modulated_am),
             dac_raw_am.eq(self.AMP_CENTER + am_signed),
@@ -562,9 +634,10 @@ class SignalGenerator(Elaboratable):
         carrier_ftw_fm_val = int(self.CARRIER_FREQ * (1 << self.N) / self.F_DAC)
         mod_ftw_fm_val     = int(self.MOD_FREQ     * (1 << self.N) / self.F_DAC)
 
-        # Peak frequency deviation & corresponding FTW deviation
-        delta_f_fm  = (self.MOD_INDEX_NUM / self.MOD_INDEX_DEN) * self.MOD_FREQ
-        ftw_dev_val = int(delta_f_fm * (1 << self.N) / self.F_DAC)
+        # Dynamic ftw_dev from modulation index register
+        #   ftw_dev = (mod_index_fixed * fm_dev_scale) >> 12
+        #   where fm_dev_scale = MOD_FREQ * 2^N / F_DAC
+        ftw_dev_dynamic = Signal(signed(32))
 
         carrier_ftw_fm = Signal(self.N, reset=carrier_ftw_fm_val)
         mod_ftw_fm     = Signal(self.N, reset=mod_ftw_fm_val)
@@ -593,12 +666,16 @@ class SignalGenerator(Elaboratable):
             mod_sin_fm.eq(signed_lut_fm[mod_addr_fm]),
         ]
 
+        # Dynamic ftw_dev from modulation index register
+        m.d.comb += ftw_dev_dynamic.eq(
+            (mod_index_fixed * fm_dev_scale_val) >> 12)
+
         # Instantaneous FTW = carrier_ftw + (ftw_dev * mod_sin) >> AMP_SHIFT
         ftw_delta_fm = Signal(signed(self.N))
         ftw_inst_fm  = Signal(self.N)
 
         m.d.comb += [
-            ftw_delta_fm.eq((ftw_dev_val * mod_sin_fm) >> self.AMP_SHIFT),
+            ftw_delta_fm.eq((ftw_dev_dynamic * mod_sin_fm) >> self.AMP_SHIFT),
             ftw_inst_fm.eq(carrier_ftw_fm + ftw_delta_fm),
         ]
 
@@ -620,8 +697,8 @@ class SignalGenerator(Elaboratable):
         #   HIGH = 192, LOW = 64
         #   Output: dac_spwm_comb (two-level)
         # ================================================================
-        carrier_ftw_spwm_val = int(self.CARRIER_FREQ * (1 << self.N) / f_dac)
-        mod_ftw_spwm_val     = int(self.MOD_FREQ     * (1 << self.N) / f_dac)
+        carrier_ftw_spwm_val = int(self.CARRIER_FREQ * (1 << self.N) / f_dac_spwm)
+        mod_ftw_spwm_val     = int(self.MOD_FREQ     * (1 << self.N) / f_dac_spwm)
 
         carrier_ftw_spwm = Signal(self.N, reset=carrier_ftw_spwm_val)
         mod_ftw_spwm     = Signal(self.N, reset=mod_ftw_spwm_val)
@@ -659,10 +736,10 @@ class SignalGenerator(Elaboratable):
         ]
 
         # Scale modulating signal by modulation index m_a
-        #   mod_scaled = (m_fixed * mod_sin) >> 12
+        #   mod_scaled = (mod_index_fixed * mod_sin) >> 12
         mod_scaled_spwm = Signal(signed(8))
         m.d.comb += mod_scaled_spwm.eq(
-            (m_fixed_val * mod_sin_spwm) >> 12)
+            (mod_index_fixed * mod_sin_spwm) >> 12)
 
         # Comparator: mod_scaled > tri_value → HIGH, else LOW
         hi_code = self.AMP_CENTER + self.AMP_PEAK  # 192

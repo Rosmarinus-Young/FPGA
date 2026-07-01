@@ -35,17 +35,16 @@ set_property PACKAGE_PIN C4  [get_ports vga_vsync]
 set_property IOSTANDARD LVCMOS33 [get_ports vga_hsync]
 set_property IOSTANDARD LVCMOS33 [get_ports vga_vsync]
 
-# ---- SignalGenerator mode-select buttons (EGO1 S0–S4) ----
-set_property PACKAGE_PIN R11 [get_ports btn_sine]
-set_property PACKAGE_PIN R17 [get_ports btn_square]
-set_property PACKAGE_PIN R15 [get_ports btn_triangle]
-set_property PACKAGE_PIN V1  [get_ports btn_am]
-set_property PACKAGE_PIN U4  [get_ports btn_fm]
-set_property IOSTANDARD LVCMOS33 [get_ports btn_sine]
-set_property IOSTANDARD LVCMOS33 [get_ports btn_square]
-set_property IOSTANDARD LVCMOS33 [get_ports btn_triangle]
-set_property IOSTANDARD LVCMOS33 [get_ports btn_am]
-set_property IOSTANDARD LVCMOS33 [get_ports btn_fm]
+# ---- SignalGenerator buttons (EGO1 S1, S2, S4) ----
+# S2 (R15): cycle mode    S4 (U4): param inc    S1 (R17): param dec
+set_property PACKAGE_PIN R15 [get_ports btn_mode]
+set_property PACKAGE_PIN U4  [get_ports btn_inc]
+set_property PACKAGE_PIN R17 [get_ports btn_dec]
+set_property IOSTANDARD LVCMOS33 [get_ports btn_mode]
+set_property IOSTANDARD LVCMOS33 [get_ports btn_inc]
+set_property IOSTANDARD LVCMOS33 [get_ports btn_dec]
+
+# S0 (R11) and S3 (V1) are unused for signal generation
 
 # ---- XADC analog input ----
 set_property PACKAGE_PIN K9  [get_ports vauxp1]
