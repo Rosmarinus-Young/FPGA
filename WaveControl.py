@@ -47,7 +47,7 @@ class WaveControl(Elaboratable):
 
         with m.Else():
             m.d.sync += [
-                self.w_en.eq(0),
+                self.w_en.eq(1),
                 self.w_data.eq(w_last)
             ]
         
