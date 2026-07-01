@@ -10,14 +10,14 @@ class RAM(Elaboratable):
         self.r_en = r_en
         self.r_addr = r_addr
 
-        self.r_data = Signal(10, init=0)
+        self.r_data = Signal(12, init=0)
 
     def elaborate(self, platform):
         m = Module()
 
 
         m.submodules.ram = ram = Memory(
-            shape=unsigned(10),
+            shape=unsigned(12),
             depth=640,
             init=[0] * 640
         )

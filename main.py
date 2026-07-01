@@ -8,6 +8,7 @@ from ButtonControl import ButtonControl
 from WaveControl import WaveControl
 from KnobControl import KnobControl
 from RAM import RAM
+
 class VGADemo(Elaboratable):
     def __init__(self):
         self.vga_hsync = Signal()
@@ -26,6 +27,9 @@ class VGADemo(Elaboratable):
 
         self.sample_period_control_knob_A = Signal()
         self.sample_period_control_knob_B = Signal()
+
+        self.display_gain_control_knob_A = Signal()
+        self.display_gain_control_knob_B = Signal()
 
     def elaborate(self, platform):
         m = Module()
@@ -82,9 +86,14 @@ class VGADemo(Elaboratable):
                   w_data = wave_control.w_data, w_en = wave_control.w_en)
         m.submodules.ram = ram
 
+        display_gain_control_knob = KnobControl(A = self.display_gain_control_knob_A, 
+                                                 B = self.display_gain_control_knob_B)
+        m.submodules.display_gain_control_knob = display_gain_control_knob
+
         vga_display = VGADisplay(timing = timing, vga_r = self.vga_r, 
                                  vga_g = self.vga_g, vga_b = self.vga_b, 
-                                 r_data = ram.r_data)
+                                 r_data = ram.r_data, 
+                                 gain_control_knob = display_gain_control_knob.out)
         m.submodules.vga_display = vga_display
 
         return m
@@ -108,6 +117,8 @@ if __name__ == "__main__":
             top.auto_button,
             top.sample_period_control_knob_A,
             top.sample_period_control_knob_B,
+            top.display_gain_control_knob_A,
+            top.display_gain_control_knob_B,
         ]
     )
 

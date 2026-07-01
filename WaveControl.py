@@ -9,7 +9,7 @@ class WaveControl(Elaboratable):
         self.sample_period_control_knob = sample_period_control_knob
         self.w_en = Signal()
         self.w_addr = Signal(12, init = 0)
-        self.w_data = Signal(10)
+        self.w_data = Signal(12)
         self.sample_period = Signal(32, init = 100000)
 
     def elaborate(self, platform):
