@@ -3,8 +3,8 @@
 (* top =  1  *)
 (* src = "/home/yym/workspace/fpga/./main.py:49" *)
 (* generator = "Amaranth" *)
-module top(rst, auto_button, vauxp1, vauxn1, CH1_sample_period_control_knob_A, CH1_sample_period_control_knob_B, CH1_display_gain_control_knob_A, CH1_display_gain_control_knob_B, vauxp2, vauxn2, CH2_sample_period_control_knob_A, CH2_sample_period_control_knob_B, CH2_display_gain_control_knob_A, CH2_display_gain_control_knob_B, vga_hsync, vga_vsync, vga_r, vga_g, vga_b, CH1_KEYA1, CH1_KEYA2
-, CH2_KEYA1, CH2_KEYA2, clk);
+module top(rst, auto_button, vauxp10, vauxn10, CH1_sample_period_control_knob_A, CH1_sample_period_control_knob_B, CH1_display_gain_control_knob_A, CH1_display_gain_control_knob_B, vauxp2, vauxn2, CH2_display_gain_control_knob_A, CH2_display_gain_control_knob_B, vga_hsync, vga_vsync, vga_r, vga_g, vga_b, CH1_KEYA1, CH1_KEYA2, CH2_KEYA1, CH2_KEYA2
+, clk);
   wire \$1 ;
   (* src = "/home/yym/workspace/fpga/./main.py:36" *)
   output CH1_KEYA1;
@@ -36,12 +36,6 @@ module top(rst, auto_button, vauxp1, vauxn1, CH1_sample_period_control_knob_A, C
   (* src = "/home/yym/workspace/fpga/./main.py:43" *)
   input CH2_display_gain_control_knob_B;
   wire CH2_display_gain_control_knob_B;
-  (* src = "/home/yym/workspace/fpga/./main.py:39" *)
-  input CH2_sample_period_control_knob_A;
-  wire CH2_sample_period_control_knob_A;
-  (* src = "/home/yym/workspace/fpga/./main.py:40" *)
-  input CH2_sample_period_control_knob_B;
-  wire CH2_sample_period_control_knob_B;
   (* src = "/home/yym/workspace/fpga/XADCModule.py:12" *)
   wire adc_ch0_ready;
   (* src = "/home/yym/workspace/fpga/XADCModule.py:11" *)
@@ -57,13 +51,13 @@ module top(rst, auto_button, vauxp1, vauxn1, CH1_sample_period_control_knob_A, C
   input clk;
   wire clk;
   (* src = "/home/yym/workspace/fpga/./main.py:68" *)
-  wire \clk$27 ;
+  wire \clk$25 ;
   (* src = "/home/yym/workspace/fpga/./main.py:53" *)
   wire clk_25m;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:7" *)
+  (* src = "/home/yym/workspace/fpga/GainControl.py:11" *)
   wire [11:0] display_y;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:7" *)
-  wire [11:0] \display_y$38 ;
+  (* src = "/home/yym/workspace/fpga/GainControl.py:11" *)
+  wire [11:0] \display_y$36 ;
   (* src = "/home/yym/workspace/fpga/ButtonControl.py:6" *)
   wire out;
   (* src = "/home/yym/workspace/fpga/./main.py:62" *)
@@ -74,16 +68,16 @@ module top(rst, auto_button, vauxp1, vauxn1, CH1_sample_period_control_knob_A, C
   input rst;
   wire rst;
   (* src = "/home/yym/workspace/fpga/./main.py:68" *)
-  wire \rst$28 ;
+  wire \rst$26 ;
   (* src = "/home/yym/workspace/fpga/./main.py:23" *)
-  input vauxn1;
-  wire vauxn1;
+  input vauxn10;
+  wire vauxn10;
   (* src = "/home/yym/workspace/fpga/./main.py:25" *)
   input vauxn2;
   wire vauxn2;
   (* src = "/home/yym/workspace/fpga/./main.py:22" *)
-  input vauxp1;
-  wire vauxp1;
+  input vauxp10;
+  wire vauxp10;
   (* src = "/home/yym/workspace/fpga/./main.py:24" *)
   input vauxp2;
   wire vauxp2;
@@ -109,7 +103,7 @@ module top(rst, auto_button, vauxp1, vauxn1, CH1_sample_period_control_knob_A, C
   (* src = "/home/yym/workspace/fpga/VGATiming.py:35" *)
   wire [9:0] y;
   assign pix_rst = ~ (* src = "/home/yym/workspace/fpga/./main.py:65" *) rst;
-  assign \rst$28  = ~ (* src = "/home/yym/workspace/fpga/./main.py:71" *) rst;
+  assign \rst$26  = ~ (* src = "/home/yym/workspace/fpga/./main.py:71" *) rst;
   assign \$1  = ~ (* src = "/home/yym/workspace/fpga/./main.py:58" *) rst;
   (* src = "/home/yym/workspace/fpga/./main.py:93" *)
   \top.Channal1  Channal1 (
@@ -126,33 +120,33 @@ module top(rst, auto_button, vauxp1, vauxn1, CH1_sample_period_control_knob_A, C
     .out(out),
     .pix_clk(pix_clk),
     .pix_rst(pix_rst),
-    .rst(\rst$28 ),
+    .rst(\rst$26 ),
     .x(x)
   );
   (* src = "/home/yym/workspace/fpga/./main.py:103" *)
   \top.Channal2  Channal2 (
+    .CH1_sample_period_control_knob_A(CH1_sample_period_control_knob_A),
+    .CH1_sample_period_control_knob_B(CH1_sample_period_control_knob_B),
     .CH2_KEYA1(CH2_KEYA1),
     .CH2_KEYA2(CH2_KEYA2),
     .CH2_display_gain_control_knob_A(CH2_display_gain_control_knob_A),
     .CH2_display_gain_control_knob_B(CH2_display_gain_control_knob_B),
-    .CH2_sample_period_control_knob_A(CH2_sample_period_control_knob_A),
-    .CH2_sample_period_control_knob_B(CH2_sample_period_control_knob_B),
     .adc_ch1_ready(adc_ch1_ready),
     .adc_ch1_value(adc_ch1_value),
     .clk(clk),
-    .display_y(\display_y$38 ),
+    .display_y(\display_y$36 ),
     .out(out),
     .pix_clk(pix_clk),
     .pix_rst(pix_rst),
-    .rst(\rst$28 ),
+    .rst(\rst$26 ),
     .x(x)
   );
   (* src = "/home/yym/workspace/fpga/./main.py:83" *)
-  \top.auto_button$42  \auto_button$42  (
+  \top.auto_button$40  \auto_button$40  (
     .auto_button(auto_button),
     .clk(clk),
     .out(out),
-    .rst(\rst$28 )
+    .rst(\rst$26 )
   );
   (* src = "/home/yym/workspace/fpga/./main.py:55" *)
   dcm_25m dcm_25m (
@@ -174,7 +168,7 @@ module top(rst, auto_button, vauxp1, vauxn1, CH1_sample_period_control_knob_A, C
   \top.vga_display  vga_display (
     .b(vga_b),
     .display_y(display_y),
-    .\display_y$8 (\display_y$38 ),
+    .\display_y$8 (\display_y$36 ),
     .g(vga_g),
     .r(vga_r),
     .visible(visible),
@@ -188,17 +182,17 @@ module top(rst, auto_button, vauxp1, vauxn1, CH1_sample_period_control_knob_A, C
     .adc_ch1_ready(adc_ch1_ready),
     .adc_ch1_value(adc_ch1_value),
     .clk(clk),
-    .rst(\rst$28 ),
-    .vauxn1(vauxn1),
+    .rst(\rst$26 ),
+    .vauxn10(vauxn10),
     .vauxn2(vauxn2),
-    .vauxp1(vauxp1),
+    .vauxp10(vauxp10),
     .vauxp2(vauxp2)
   );
   assign clk_25m = pix_clk;
-  assign \clk$27  = clk;
+  assign \clk$25  = clk;
 endmodule
 
-(* src = "/home/yym/workspace/fpga/Scope.py:40" *)
+(* src = "/home/yym/workspace/fpga/Scope.py:44" *)
 (* generator = "Amaranth" *)
 module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_control_knob_B, CH1_display_gain_control_knob_A, CH1_display_gain_control_knob_B, pix_rst, rst, pix_clk, x, adc_ch0_value, adc_ch0_ready, out, CH1_KEYA1, CH1_KEYA2, display_y, clk);
   (* src = "/home/yym/workspace/fpga/./main.py:36" *)
@@ -228,16 +222,22 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
   (* src = "/home/yym/workspace/fpga/./main.py:68" *)
   input clk;
   wire clk;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:7" *)
+  (* src = "/home/yym/workspace/fpga/GainControl.py:11" *)
   output [11:0] display_y;
   wire [11:0] display_y;
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:10" *)
   wire get_period_over;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:12" *)
+  wire [11:0] maxn;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:14" *)
+  wire [11:0] mid;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:13" *)
+  wire [11:0] minn;
   (* src = "/home/yym/workspace/fpga/ButtonControl.py:6" *)
   input out;
   wire out;
   (* src = "/home/yym/workspace/fpga/KnobControl.py:7" *)
-  wire [1:0] \out$16 ;
+  wire [1:0] \out$19 ;
   (* src = "/home/yym/workspace/fpga/KnobControl.py:7" *)
   wire [1:0] \out$8 ;
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:9" *)
@@ -264,34 +264,41 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
   (* src = "/home/yym/workspace/fpga/VGATiming.py:34" *)
   input [9:0] x;
   wire [9:0] x;
-  (* src = "/home/yym/workspace/fpga/Scope.py:52" *)
+  (* src = "/home/yym/workspace/fpga/Scope.py:56" *)
   \top.Channal1.display_gain_control_knob  display_gain_control_knob (
     .CH1_display_gain_control_knob_A(CH1_display_gain_control_knob_A),
     .CH1_display_gain_control_knob_B(CH1_display_gain_control_knob_B),
     .clk(clk),
-    .out(\out$16 ),
+    .out(\out$19 ),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/fpga/Scope.py:54" *)
+  (* src = "/home/yym/workspace/fpga/Scope.py:58" *)
   \top.Channal1.gain_control  gain_control (
     .clk(clk),
     .display_y(display_y),
-    .out(\out$16 ),
+    .get_period_over(get_period_over),
+    .maxn(maxn),
+    .mid(mid),
+    .minn(minn),
+    .out(\out$19 ),
     .r_data(r_data),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/fpga/Scope.py:42" *)
+  (* src = "/home/yym/workspace/fpga/Scope.py:46" *)
   \top.Channal1.period_detector  period_detector (
     .adc_ch0_ready(adc_ch0_ready),
     .adc_ch0_value(adc_ch0_value),
     .clk(clk),
     .get_period_over(get_period_over),
+    .\maxn$24 (maxn),
+    .\mid$26 (mid),
+    .\minn$25 (minn),
     .out(out),
     .period(period),
     .rst(rst),
     .wave_range(wave_range)
   );
-  (* src = "/home/yym/workspace/fpga/Scope.py:50" *)
+  (* src = "/home/yym/workspace/fpga/Scope.py:54" *)
   \top.Channal1.ram  ram (
     .clk(clk),
     .pix_clk(pix_clk),
@@ -303,7 +310,7 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .wr__data(w_data),
     .wr__en(w_en)
   );
-  (* src = "/home/yym/workspace/fpga/Scope.py:44" *)
+  (* src = "/home/yym/workspace/fpga/Scope.py:48" *)
   \top.Channal1.range_switcher  range_switcher (
     .CH1_KEYA1(CH1_KEYA1),
     .CH1_KEYA2(CH1_KEYA2),
@@ -311,7 +318,7 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .rst(rst),
     .wave_range(wave_range)
   );
-  (* src = "/home/yym/workspace/fpga/Scope.py:46" *)
+  (* src = "/home/yym/workspace/fpga/Scope.py:50" *)
   \top.Channal1.sample_period_control_knob  sample_period_control_knob (
     .CH1_sample_period_control_knob_A(CH1_sample_period_control_knob_A),
     .CH1_sample_period_control_knob_B(CH1_sample_period_control_knob_B),
@@ -319,7 +326,7 @@ module \top.Channal1 (CH1_sample_period_control_knob_A, CH1_sample_period_contro
     .out(\out$8 ),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/fpga/Scope.py:48" *)
+  (* src = "/home/yym/workspace/fpga/Scope.py:52" *)
   \top.Channal1.wave_control  wave_control (
     .adc_ch0_ready(adc_ch0_ready),
     .adc_ch0_value(adc_ch0_value),
@@ -572,34 +579,57 @@ module \top.Channal1.display_gain_control_knob (CH1_display_gain_control_knob_A,
   assign \$17  = fsm_state;
 endmodule
 
-(* src = "/home/yym/workspace/fpga/GainControl.py:10" *)
+(* src = "/home/yym/workspace/fpga/GainControl.py:14" *)
 (* generator = "Amaranth" *)
-module \top.Channal1.gain_control (rst, r_data, out, display_y, clk);
+module \top.Channal1.gain_control (rst, r_data, get_period_over, maxn, minn, mid, out, display_y, clk);
   reg \$auto$verilog_backend.cc:2355:dump_module$2  = 0;
   wire [12:0] \$1 ;
-  wire [12:0] \$10 ;
+  wire [25:0] \$10 ;
   wire \$11 ;
   wire \$12 ;
-  reg [11:0] \$13 ;
-  reg [11:0] \$14 ;
-  wire [11:0] \$2 ;
-  wire [24:0] \$3 ;
-  wire [25:0] \$4 ;
+  wire [11:0] \$13 ;
+  wire [12:0] \$14 ;
+  wire [11:0] \$15 ;
+  wire [12:0] \$16 ;
+  wire \$17 ;
+  wire \$18 ;
+  reg [11:0] \$19 ;
+  wire \$2 ;
+  reg [11:0] \$20 ;
+  reg [11:0] \$21 ;
+  wire \$3 ;
+  wire \$4 ;
   wire \$5 ;
   wire \$6 ;
-  wire [11:0] \$7 ;
-  wire [12:0] \$8 ;
-  wire [11:0] \$9 ;
+  wire [12:0] \$7 ;
+  wire [11:0] \$8 ;
+  wire [24:0] \$9 ;
+  (* src = "/home/yym/workspace/fpga/GainControl.py:19" *)
+  wire [11:0] amp;
+  (* src = "/home/yym/workspace/fpga/GainControl.py:17" *)
+  reg [11:0] center = 12'h800;
   (* src = "/home/yym/workspace/fpga/./main.py:68" *)
   input clk;
   wire clk;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:12" *)
+  (* src = "/home/yym/workspace/fpga/GainControl.py:16" *)
   wire [12:0] diff;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:7" *)
+  (* src = "/home/yym/workspace/fpga/GainControl.py:11" *)
   output [11:0] display_y;
   reg [11:0] display_y = 12'h000;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:14" *)
+  (* src = "/home/yym/workspace/fpga/GainControl.py:18" *)
   reg [11:0] gain = 12'h010;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:10" *)
+  input get_period_over;
+  wire get_period_over;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:12" *)
+  input [11:0] maxn;
+  wire [11:0] maxn;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:14" *)
+  input [11:0] mid;
+  wire [11:0] mid;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:13" *)
+  input [11:0] minn;
+  wire [11:0] minn;
   (* src = "/home/yym/workspace/fpga/KnobControl.py:7" *)
   input [1:0] out;
   wire [1:0] out;
@@ -609,55 +639,91 @@ module \top.Channal1.gain_control (rst, r_data, out, display_y, clk);
   (* src = "/home/yym/workspace/fpga/./main.py:68" *)
   input rst;
   wire rst;
-  assign diff = r_data - (* src = "/home/yym/workspace/fpga/GainControl.py:18" *) 12'h800;
-  assign \$3  = $signed(\$1 ) * (* src = "/home/yym/workspace/fpga/GainControl.py:19" *) $signed({ 1'h0, \$2  });
-  assign \$4  = $signed(9'h0f0) + (* src = "/home/yym/workspace/fpga/GainControl.py:19" *) $signed(\$3 );
-  assign \$5  = out == (* src = "/home/yym/workspace/fpga/GainControl.py:21" *) 1'h1;
-  assign \$6  = out == (* src = "/home/yym/workspace/fpga/GainControl.py:23" *) 2'h2;
-  assign \$8  = gain + (* src = "/home/yym/workspace/fpga/GainControl.py:22" *) \$7 ;
-  assign \$10  = gain - (* src = "/home/yym/workspace/fpga/GainControl.py:24" *) \$9 ;
-  assign \$11  = gain < (* src = "/home/yym/workspace/fpga/GainControl.py:26" *) 3'h4;
-  assign \$12  = gain > (* src = "/home/yym/workspace/fpga/GainControl.py:28" *) 9'h100;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:7" *)
+  assign \$1  = maxn - (* src = "/home/yym/workspace/fpga/GainControl.py:22" *) minn;
+  assign diff = r_data - (* src = "/home/yym/workspace/fpga/GainControl.py:44" *) center;
+  assign \$2  = \$1 [11:0] > (* src = "/home/yym/workspace/fpga/GainControl.py:30" *) 12'hbb8;
+  assign \$3  = \$1 [11:0] > (* src = "/home/yym/workspace/fpga/GainControl.py:32" *) 11'h5dc;
+  assign \$4  = \$1 [11:0] > (* src = "/home/yym/workspace/fpga/GainControl.py:34" *) 10'h2ee;
+  assign \$5  = \$1 [11:0] > (* src = "/home/yym/workspace/fpga/GainControl.py:36" *) 9'h177;
+  assign \$6  = \$1 [11:0] > (* src = "/home/yym/workspace/fpga/GainControl.py:38" *) 8'hbb;
+  assign \$9  = $signed(\$7 ) * (* src = "/home/yym/workspace/fpga/GainControl.py:45" *) $signed({ 1'h0, \$8  });
+  assign \$10  = $signed(9'h0f0) + (* src = "/home/yym/workspace/fpga/GainControl.py:45" *) $signed(\$9 );
+  assign \$11  = out == (* src = "/home/yym/workspace/fpga/GainControl.py:47" *) 1'h1;
+  assign \$12  = out == (* src = "/home/yym/workspace/fpga/GainControl.py:49" *) 2'h2;
+  assign \$14  = gain + (* src = "/home/yym/workspace/fpga/GainControl.py:48" *) \$13 ;
+  assign \$16  = gain - (* src = "/home/yym/workspace/fpga/GainControl.py:50" *) \$15 ;
+  assign \$17  = gain < (* src = "/home/yym/workspace/fpga/GainControl.py:52" *) 3'h4;
+  assign \$18  = gain > (* src = "/home/yym/workspace/fpga/GainControl.py:54" *) 9'h100;
+  (* src = "/home/yym/workspace/fpga/GainControl.py:17" *)
   always @(posedge clk)
-    display_y <= \$13 ;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:14" *)
+    center <= \$19 ;
+  (* src = "/home/yym/workspace/fpga/GainControl.py:18" *)
   always @(posedge clk)
-    gain <= \$14 ;
+    gain <= \$20 ;
+  (* src = "/home/yym/workspace/fpga/GainControl.py:11" *)
+  always @(posedge clk)
+    display_y <= \$21 ;
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$2 ) begin end
-    \$13  = \$4 [11:0];
+    \$19  = center;
+    if (get_period_over) begin
+      \$19  = mid;
+    end
     if (rst) begin
-      \$13  = 12'h000;
+      \$19  = 12'h800;
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$2 ) begin end
-    \$14  = gain;
-    if (\$5 ) begin
-      \$14  = \$8 [11:0];
-    end else if (\$6 ) begin
-      \$14  = \$10 [11:0];
+    \$20  = gain;
+    if (get_period_over) begin
+      (* full_case = 32'd1 *)
+      if (\$2 ) begin
+        \$20  = 12'h008;
+      end else if (\$3 ) begin
+        \$20  = 12'h010;
+      end else if (\$4 ) begin
+        \$20  = 12'h020;
+      end else if (\$5 ) begin
+        \$20  = 12'h040;
+      end else if (\$6 ) begin
+        \$20  = 12'h080;
+      end else begin
+        \$20  = 12'h100;
+      end
     end
     if (\$11 ) begin
-      \$14  = 12'h004;
+      \$20  = \$14 [11:0];
+    end else if (\$12 ) begin
+      \$20  = \$16 [11:0];
     end
-    if (\$12 ) begin
-      \$14  = 12'h100;
+    if (\$17 ) begin
+      \$20  = 12'h004;
+    end
+    if (\$18 ) begin
+      \$20  = 12'h100;
     end
     if (rst) begin
-      \$14  = 12'h010;
+      \$20  = 12'h010;
     end
   end
-  assign \$1  = { diff[12], diff[12], diff[12], diff[12:3] };
-  assign \$2  = { 4'h0, gain[11:4] };
-  assign \$7  = { 2'h0, gain[11:2] };
-  assign \$9  = { 2'h0, gain[11:2] };
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$2 ) begin end
+    \$21  = \$10 [11:0];
+    if (rst) begin
+      \$21  = 12'h000;
+    end
+  end
+  assign amp = \$1 [11:0];
+  assign \$7  = { diff[12], diff[12], diff[12], diff[12:3] };
+  assign \$8  = { 4'h0, gain[11:4] };
+  assign \$13  = { 2'h0, gain[11:2] };
+  assign \$15  = { 2'h0, gain[11:2] };
 endmodule
 
-(* src = "/home/yym/workspace/fpga/PeriodDetector.py:14" *)
+(* src = "/home/yym/workspace/fpga/PeriodDetector.py:17" *)
 (* generator = "Amaranth" *)
-module \top.Channal1.period_detector (rst, adc_ch0_value, adc_ch0_ready, out, wave_range, period, get_period_over, clk);
+module \top.Channal1.period_detector (rst, adc_ch0_value, adc_ch0_ready, out, wave_range, period, get_period_over, \maxn$24 , \minn$25 , \mid$26 , clk);
   reg \$auto$verilog_backend.cc:2355:dump_module$3  = 0;
   wire [32:0] \$1 ;
   wire \$10 ;
@@ -728,6 +794,9 @@ module \top.Channal1.period_detector (rst, adc_ch0_value, adc_ch0_ready, out, wa
   wire [14:0] \$7 ;
   reg \$70 ;
   reg [31:0] \$71 ;
+  reg [11:0] \$72 ;
+  reg [11:0] \$73 ;
+  reg [11:0] \$74 ;
   wire [14:0] \$8 ;
   wire [14:0] \$9 ;
   (* src = "/home/yym/workspace/fpga/XADCModule.py:12" *)
@@ -738,7 +807,7 @@ module \top.Channal1.period_detector (rst, adc_ch0_value, adc_ch0_ready, out, wa
   wire [11:0] adc_ch0_value;
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:8" *)
   reg [31:0] average = 32'd0;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:23" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:26" *)
   reg [31:0] choose_range_timeout = 32'd0;
   (* src = "/home/yym/workspace/fpga/./main.py:68" *)
   input clk;
@@ -748,25 +817,34 @@ module \top.Channal1.period_detector (rst, adc_ch0_value, adc_ch0_ready, out, wa
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:10" *)
   output get_period_over;
   reg get_period_over = 1'h0;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:29" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:32" *)
   reg get_period_ready = 1'h0;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:24" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:27" *)
   reg [31:0] get_period_timeout = 32'd0;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:18" *)
-  reg [13:0] maxn = 14'h0000;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:30" *)
-  reg [13:0] maxn2center = 14'h0000;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:20" *)
-  reg [13:0] mid = 14'h0000;
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:21" *)
-  reg [13:0] mid_high = 14'h0000;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:22" *)
-  reg [13:0] mid_low = 14'h0000;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:19" *)
-  reg [13:0] minn = 14'h0fff;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:31" *)
-  reg [13:0] minn2center = 14'h0000;
+  reg [13:0] maxn = 14'h0000;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:12" *)
+  output [11:0] \maxn$24 ;
+  reg [11:0] \maxn$24  = 12'hc00;
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:33" *)
+  reg [13:0] maxn2center = 14'h0000;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:23" *)
+  reg [13:0] mid = 14'h0000;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:14" *)
+  output [11:0] \mid$26 ;
+  reg [11:0] \mid$26  = 12'h800;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:24" *)
+  reg [13:0] mid_high = 14'h0000;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:25" *)
+  reg [13:0] mid_low = 14'h0000;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:22" *)
+  reg [13:0] minn = 14'h0fff;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:13" *)
+  output [11:0] \minn$25 ;
+  reg [11:0] \minn$25  = 12'h400;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:34" *)
+  reg [13:0] minn2center = 14'h0000;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:36" *)
   reg normal_status = 1'h1;
   (* src = "/home/yym/workspace/fpga/ButtonControl.py:6" *)
   input out;
@@ -774,11 +852,11 @@ module \top.Channal1.period_detector (rst, adc_ch0_value, adc_ch0_ready, out, wa
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:9" *)
   output [31:0] period;
   reg [31:0] period = 32'd1000000;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:26" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:29" *)
   reg [31:0] period_cnt = 32'd0;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:25" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:28" *)
   reg [31:0] period_sum = 32'd0;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:32" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:35" *)
   reg [13:0] range_up_threshold = 14'h0000;
   (* src = "/home/yym/workspace/fpga/./main.py:68" *)
   input rst;
@@ -786,20 +864,22 @@ module \top.Channal1.period_detector (rst, adc_ch0_value, adc_ch0_ready, out, wa
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:11" *)
   output [3:0] wave_range;
   reg [3:0] wave_range = 4'h1;
-  assign \$29  = \$28  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:85" *) maxn;
-  assign \$30  = \$29  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:85" *) minn;
-  assign \$32  = maxn + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:86" *) minn;
-  assign \$33  = \$32  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:86" *) minn;
-  assign \$34  = \$33  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:86" *) minn;
-  assign \$36  = adc_ch0_value < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:94" *) mid_low;
-  assign \$37  = get_period_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:96" *) 30'h3b9aca00;
-  assign \$38  = adc_ch0_value > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:101" *) mid;
-  assign \$39  = period_cnt <= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:103" *) 4'hf;
-  assign \$40  = period_cnt + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:104" *) 1'h1;
-  assign \$41  = get_period_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:108" *) 30'h3b9aca00;
-  assign \$42  = adc_ch0_value > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:113" *) mid_high;
-  assign \$43  = get_period_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:115" *) 30'h3b9aca00;
-  assign \$44  = get_period_timeout < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:119" *) 30'h3b9aca00;
+  assign \$26  = maxn + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:87" *) minn;
+  assign \$28  = maxn + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:88" *) maxn;
+  assign \$29  = \$28  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:88" *) maxn;
+  assign \$30  = \$29  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:88" *) minn;
+  assign \$32  = maxn + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:89" *) minn;
+  assign \$33  = \$32  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:89" *) minn;
+  assign \$34  = \$33  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:89" *) minn;
+  assign \$36  = adc_ch0_value < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:97" *) mid_low;
+  assign \$37  = get_period_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:99" *) 30'h3b9aca00;
+  assign \$38  = adc_ch0_value > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:104" *) mid;
+  assign \$39  = period_cnt <= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:106" *) 4'hf;
+  assign \$40  = period_cnt + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:107" *) 1'h1;
+  assign \$41  = get_period_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:111" *) 30'h3b9aca00;
+  assign \$42  = adc_ch0_value > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:116" *) mid_high;
+  assign \$43  = get_period_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:118" *) 30'h3b9aca00;
+  assign \$44  = get_period_timeout < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:122" *) 30'h3b9aca00;
   assign \$46  = ! (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) fsm_state;
   assign \$47  = fsm_state == (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) 1'h1;
   assign \$48  = fsm_state == (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) 2'h2;
@@ -807,52 +887,52 @@ module \top.Channal1.period_detector (rst, adc_ch0_value, adc_ch0_ready, out, wa
   assign \$50  = fsm_state == (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) 3'h4;
   assign \$51  = fsm_state == (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) 3'h5;
   assign \$52  = fsm_state == (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) 3'h6;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:25" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:28" *)
   always @(posedge clk)
     period_sum <= \$53 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:30" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:33" *)
   always @(posedge clk)
     maxn2center <= \$54 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:31" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:34" *)
   always @(posedge clk)
     minn2center <= \$55 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:32" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:35" *)
   always @(posedge clk)
     range_up_threshold <= \$56 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:24" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:27" *)
   always @(posedge clk)
     get_period_timeout <= \$57 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:18" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:21" *)
   always @(posedge clk)
     maxn <= \$58 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:19" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:22" *)
   always @(posedge clk)
     minn <= \$59 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:23" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:26" *)
   always @(posedge clk)
     choose_range_timeout <= \$60 ;
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:11" *)
   always @(posedge clk)
     wave_range <= \$61 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:33" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:36" *)
   always @(posedge clk)
     normal_status <= \$62 ;
   (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/contextlib.py:144" *)
   always @(posedge clk)
     fsm_state <= \$63 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:20" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:23" *)
   always @(posedge clk)
     mid <= \$64 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:21" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:24" *)
   always @(posedge clk)
     mid_high <= \$65 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:22" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:25" *)
   always @(posedge clk)
     mid_low <= \$66 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:29" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:32" *)
   always @(posedge clk)
     get_period_ready <= \$67 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:26" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:29" *)
   always @(posedge clk)
     period_cnt <= \$68 ;
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:9" *)
@@ -864,33 +944,40 @@ module \top.Channal1.period_detector (rst, adc_ch0_value, adc_ch0_ready, out, wa
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:8" *)
   always @(posedge clk)
     average <= \$71 ;
-  assign \$1  = period_sum + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:38" *) 1'h1;
-  assign \$2  = maxn > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:41" *) 12'h800;
-  assign \$3  = maxn - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:41" *) 12'h800;
-  assign \$4  = 12'h800 - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:41" *) maxn;
-  assign \$5  = \$2  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:41" *) \$3  : \$4 ;
-  assign \$6  = minn < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:42" *) 12'h800;
-  assign \$7  = 12'h800 - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:42" *) minn;
-  assign \$8  = minn - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:42" *) 12'h800;
-  assign \$9  = \$6  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:42" *) \$7  : \$8 ;
-  assign \$10  = wave_range == (* src = "/home/yym/workspace/fpga/PeriodDetector.py:43" *) 1'h1;
-  assign \$11  = \$10  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:43" *) 9'h100 : 9'h080;
-  assign \$12  = ~ (* src = "/home/yym/workspace/fpga/PeriodDetector.py:46" *) normal_status;
-  assign \$13  = get_period_timeout + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:47" *) 1'h1;
-  assign \$14  = adc_ch0_value > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:67" *) maxn;
-  assign \$15  = \$14  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:67" *) { 2'h0, adc_ch0_value } : maxn;
-  assign \$16  = adc_ch0_value < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:68" *) minn;
-  assign \$17  = \$16  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:68" *) { 2'h0, adc_ch0_value } : minn;
-  assign \$18  = choose_range_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:71" *) 26'h2faf080;
-  assign \$19  = wave_range < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:73" *) 3'h4;
-  assign \$20  = maxn2center < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:74" *) range_up_threshold;
-  assign \$21  = \$19  & (* src = "/home/yym/workspace/fpga/PeriodDetector.py:73" *) \$20 ;
-  assign \$22  = minn2center < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:75" *) range_up_threshold;
-  assign \$23  = \$21  & (* src = "/home/yym/workspace/fpga/PeriodDetector.py:73" *) \$22 ;
-  assign \$24  = wave_range + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:76" *) 1'h1;
-  assign \$25  = choose_range_timeout + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:80" *) 1'h1;
-  assign \$26  = maxn + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:84" *) minn;
-  assign \$28  = maxn + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:85" *) maxn;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:12" *)
+  always @(posedge clk)
+    \maxn$24  <= \$72 ;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:13" *)
+  always @(posedge clk)
+    \minn$25  <= \$73 ;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:14" *)
+  always @(posedge clk)
+    \mid$26  <= \$74 ;
+  assign \$1  = period_sum + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:41" *) 1'h1;
+  assign \$2  = maxn > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:44" *) 12'h800;
+  assign \$3  = maxn - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:44" *) 12'h800;
+  assign \$4  = 12'h800 - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:44" *) maxn;
+  assign \$5  = \$2  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:44" *) \$3  : \$4 ;
+  assign \$6  = minn < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:45" *) 12'h800;
+  assign \$7  = 12'h800 - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:45" *) minn;
+  assign \$8  = minn - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:45" *) 12'h800;
+  assign \$9  = \$6  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:45" *) \$7  : \$8 ;
+  assign \$10  = wave_range == (* src = "/home/yym/workspace/fpga/PeriodDetector.py:46" *) 1'h1;
+  assign \$11  = \$10  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:46" *) 9'h100 : 9'h080;
+  assign \$12  = ~ (* src = "/home/yym/workspace/fpga/PeriodDetector.py:49" *) normal_status;
+  assign \$13  = get_period_timeout + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:50" *) 1'h1;
+  assign \$14  = adc_ch0_value > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:70" *) maxn;
+  assign \$15  = \$14  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:70" *) { 2'h0, adc_ch0_value } : maxn;
+  assign \$16  = adc_ch0_value < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:71" *) minn;
+  assign \$17  = \$16  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:71" *) { 2'h0, adc_ch0_value } : minn;
+  assign \$18  = choose_range_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:74" *) 26'h2faf080;
+  assign \$19  = wave_range < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:76" *) 3'h4;
+  assign \$20  = maxn2center < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:77" *) range_up_threshold;
+  assign \$21  = \$19  & (* src = "/home/yym/workspace/fpga/PeriodDetector.py:76" *) \$20 ;
+  assign \$22  = minn2center < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:78" *) range_up_threshold;
+  assign \$23  = \$21  & (* src = "/home/yym/workspace/fpga/PeriodDetector.py:76" *) \$22 ;
+  assign \$24  = wave_range + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:79" *) 1'h1;
+  assign \$25  = choose_range_timeout + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:83" *) 1'h1;
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$3 ) begin end
     \$53  = period_sum;
@@ -1276,6 +1363,75 @@ module \top.Channal1.period_detector (rst, adc_ch0_value, adc_ch0_ready, out, wa
     endcase
     if (rst) begin
       \$71  = 32'd0;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$3 ) begin end
+    \$72  = \maxn$24 ;
+    casez (fsm_state)
+      3'h0:
+          /* empty */;
+      3'h1:
+          /* empty */;
+      3'h2:
+          /* empty */;
+      3'h3:
+          /* empty */;
+      3'h4:
+          /* empty */;
+      3'h6:
+          /* empty */;
+      3'h5:
+          \$72  = maxn[11:0];
+    endcase
+    if (rst) begin
+      \$72  = 12'hc00;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$3 ) begin end
+    \$73  = \minn$25 ;
+    casez (fsm_state)
+      3'h0:
+          /* empty */;
+      3'h1:
+          /* empty */;
+      3'h2:
+          /* empty */;
+      3'h3:
+          /* empty */;
+      3'h4:
+          /* empty */;
+      3'h6:
+          /* empty */;
+      3'h5:
+          \$73  = minn[11:0];
+    endcase
+    if (rst) begin
+      \$73  = 12'h400;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$3 ) begin end
+    \$74  = \mid$26 ;
+    casez (fsm_state)
+      3'h0:
+          /* empty */;
+      3'h1:
+          /* empty */;
+      3'h2:
+          /* empty */;
+      3'h3:
+          /* empty */;
+      3'h4:
+          /* empty */;
+      3'h6:
+          /* empty */;
+      3'h5:
+          \$74  = mid[11:0];
+    endcase
+    if (rst) begin
+      \$74  = 12'h800;
     end
   end
   assign \$27  = { 1'h0, \$26 [14:1] };
@@ -2488,9 +2644,15 @@ module \top.Channal1.wave_control (rst, adc_ch0_value, adc_ch0_ready, period, ge
   assign \$14  = { 4'h0, sample_period[31:4] };
 endmodule
 
-(* src = "/home/yym/workspace/fpga/Scope.py:40" *)
+(* src = "/home/yym/workspace/fpga/Scope.py:44" *)
 (* generator = "Amaranth" *)
-module \top.Channal2 (CH2_sample_period_control_knob_A, CH2_sample_period_control_knob_B, CH2_display_gain_control_knob_A, CH2_display_gain_control_knob_B, pix_rst, rst, pix_clk, x, adc_ch1_value, adc_ch1_ready, out, CH2_KEYA1, CH2_KEYA2, display_y, clk);
+module \top.Channal2 (CH1_sample_period_control_knob_A, CH1_sample_period_control_knob_B, CH2_display_gain_control_knob_A, CH2_display_gain_control_knob_B, pix_rst, rst, pix_clk, x, adc_ch1_value, adc_ch1_ready, out, CH2_KEYA1, CH2_KEYA2, display_y, clk);
+  (* src = "/home/yym/workspace/fpga/./main.py:30" *)
+  input CH1_sample_period_control_knob_A;
+  wire CH1_sample_period_control_knob_A;
+  (* src = "/home/yym/workspace/fpga/./main.py:31" *)
+  input CH1_sample_period_control_knob_B;
+  wire CH1_sample_period_control_knob_B;
   (* src = "/home/yym/workspace/fpga/./main.py:45" *)
   output CH2_KEYA1;
   wire CH2_KEYA1;
@@ -2503,12 +2665,6 @@ module \top.Channal2 (CH2_sample_period_control_knob_A, CH2_sample_period_contro
   (* src = "/home/yym/workspace/fpga/./main.py:43" *)
   input CH2_display_gain_control_knob_B;
   wire CH2_display_gain_control_knob_B;
-  (* src = "/home/yym/workspace/fpga/./main.py:39" *)
-  input CH2_sample_period_control_knob_A;
-  wire CH2_sample_period_control_knob_A;
-  (* src = "/home/yym/workspace/fpga/./main.py:40" *)
-  input CH2_sample_period_control_knob_B;
-  wire CH2_sample_period_control_knob_B;
   (* src = "/home/yym/workspace/fpga/XADCModule.py:14" *)
   input adc_ch1_ready;
   wire adc_ch1_ready;
@@ -2518,18 +2674,24 @@ module \top.Channal2 (CH2_sample_period_control_knob_A, CH2_sample_period_contro
   (* src = "/home/yym/workspace/fpga/./main.py:68" *)
   input clk;
   wire clk;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:7" *)
+  (* src = "/home/yym/workspace/fpga/GainControl.py:11" *)
   output [11:0] display_y;
   wire [11:0] display_y;
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:10" *)
   wire get_period_over;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:12" *)
+  wire [11:0] maxn;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:14" *)
+  wire [11:0] mid;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:13" *)
+  wire [11:0] minn;
   (* src = "/home/yym/workspace/fpga/ButtonControl.py:6" *)
   input out;
   wire out;
   (* src = "/home/yym/workspace/fpga/KnobControl.py:7" *)
-  wire [1:0] \out$16 ;
+  wire [1:0] \out$10 ;
   (* src = "/home/yym/workspace/fpga/KnobControl.py:7" *)
-  wire [1:0] \out$8 ;
+  wire [1:0] \out$21 ;
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:9" *)
   wire [31:0] period;
   (* src = "/home/yym/workspace/fpga/./main.py:62" *)
@@ -2554,34 +2716,41 @@ module \top.Channal2 (CH2_sample_period_control_knob_A, CH2_sample_period_contro
   (* src = "/home/yym/workspace/fpga/VGATiming.py:34" *)
   input [9:0] x;
   wire [9:0] x;
-  (* src = "/home/yym/workspace/fpga/Scope.py:52" *)
+  (* src = "/home/yym/workspace/fpga/Scope.py:56" *)
   \top.Channal2.display_gain_control_knob  display_gain_control_knob (
     .CH2_display_gain_control_knob_A(CH2_display_gain_control_knob_A),
     .CH2_display_gain_control_knob_B(CH2_display_gain_control_knob_B),
     .clk(clk),
-    .out(\out$16 ),
+    .out(\out$21 ),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/fpga/Scope.py:54" *)
+  (* src = "/home/yym/workspace/fpga/Scope.py:58" *)
   \top.Channal2.gain_control  gain_control (
     .clk(clk),
     .display_y(display_y),
-    .out(\out$16 ),
+    .get_period_over(get_period_over),
+    .maxn(maxn),
+    .mid(mid),
+    .minn(minn),
+    .out(\out$21 ),
     .r_data(r_data),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/fpga/Scope.py:42" *)
+  (* src = "/home/yym/workspace/fpga/Scope.py:46" *)
   \top.Channal2.period_detector  period_detector (
     .adc_ch1_ready(adc_ch1_ready),
     .adc_ch1_value(adc_ch1_value),
     .clk(clk),
     .get_period_over(get_period_over),
+    .\maxn$24 (maxn),
+    .\mid$26 (mid),
+    .\minn$25 (minn),
     .out(out),
     .period(period),
     .rst(rst),
     .wave_range(wave_range)
   );
-  (* src = "/home/yym/workspace/fpga/Scope.py:50" *)
+  (* src = "/home/yym/workspace/fpga/Scope.py:54" *)
   \top.Channal2.ram  ram (
     .clk(clk),
     .pix_clk(pix_clk),
@@ -2593,7 +2762,7 @@ module \top.Channal2 (CH2_sample_period_control_knob_A, CH2_sample_period_contro
     .wr__data(w_data),
     .wr__en(w_en)
   );
-  (* src = "/home/yym/workspace/fpga/Scope.py:44" *)
+  (* src = "/home/yym/workspace/fpga/Scope.py:48" *)
   \top.Channal2.range_switcher  range_switcher (
     .CH2_KEYA1(CH2_KEYA1),
     .CH2_KEYA2(CH2_KEYA2),
@@ -2601,21 +2770,21 @@ module \top.Channal2 (CH2_sample_period_control_knob_A, CH2_sample_period_contro
     .rst(rst),
     .wave_range(wave_range)
   );
-  (* src = "/home/yym/workspace/fpga/Scope.py:46" *)
+  (* src = "/home/yym/workspace/fpga/Scope.py:50" *)
   \top.Channal2.sample_period_control_knob  sample_period_control_knob (
-    .CH2_sample_period_control_knob_A(CH2_sample_period_control_knob_A),
-    .CH2_sample_period_control_knob_B(CH2_sample_period_control_knob_B),
+    .CH1_sample_period_control_knob_A(CH1_sample_period_control_knob_A),
+    .CH1_sample_period_control_knob_B(CH1_sample_period_control_knob_B),
     .clk(clk),
-    .out(\out$8 ),
+    .out(\out$10 ),
     .rst(rst)
   );
-  (* src = "/home/yym/workspace/fpga/Scope.py:48" *)
+  (* src = "/home/yym/workspace/fpga/Scope.py:52" *)
   \top.Channal2.wave_control  wave_control (
     .adc_ch1_ready(adc_ch1_ready),
     .adc_ch1_value(adc_ch1_value),
     .clk(clk),
     .get_period_over(get_period_over),
-    .out(\out$8 ),
+    .out(\out$10 ),
     .period(period),
     .rst(rst),
     .w_addr(w_addr),
@@ -2862,34 +3031,57 @@ module \top.Channal2.display_gain_control_knob (CH2_display_gain_control_knob_A,
   assign \$17  = fsm_state;
 endmodule
 
-(* src = "/home/yym/workspace/fpga/GainControl.py:10" *)
+(* src = "/home/yym/workspace/fpga/GainControl.py:14" *)
 (* generator = "Amaranth" *)
-module \top.Channal2.gain_control (rst, r_data, out, display_y, clk);
+module \top.Channal2.gain_control (rst, r_data, get_period_over, maxn, minn, mid, out, display_y, clk);
   reg \$auto$verilog_backend.cc:2355:dump_module$8  = 0;
   wire [12:0] \$1 ;
-  wire [12:0] \$10 ;
+  wire [25:0] \$10 ;
   wire \$11 ;
   wire \$12 ;
-  reg [11:0] \$13 ;
-  reg [11:0] \$14 ;
-  wire [11:0] \$2 ;
-  wire [24:0] \$3 ;
-  wire [25:0] \$4 ;
+  wire [11:0] \$13 ;
+  wire [12:0] \$14 ;
+  wire [11:0] \$15 ;
+  wire [12:0] \$16 ;
+  wire \$17 ;
+  wire \$18 ;
+  reg [11:0] \$19 ;
+  wire \$2 ;
+  reg [11:0] \$20 ;
+  reg [11:0] \$21 ;
+  wire \$3 ;
+  wire \$4 ;
   wire \$5 ;
   wire \$6 ;
-  wire [11:0] \$7 ;
-  wire [12:0] \$8 ;
-  wire [11:0] \$9 ;
+  wire [12:0] \$7 ;
+  wire [11:0] \$8 ;
+  wire [24:0] \$9 ;
+  (* src = "/home/yym/workspace/fpga/GainControl.py:19" *)
+  wire [11:0] amp;
+  (* src = "/home/yym/workspace/fpga/GainControl.py:17" *)
+  reg [11:0] center = 12'h800;
   (* src = "/home/yym/workspace/fpga/./main.py:68" *)
   input clk;
   wire clk;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:12" *)
+  (* src = "/home/yym/workspace/fpga/GainControl.py:16" *)
   wire [12:0] diff;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:7" *)
+  (* src = "/home/yym/workspace/fpga/GainControl.py:11" *)
   output [11:0] display_y;
   reg [11:0] display_y = 12'h000;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:14" *)
+  (* src = "/home/yym/workspace/fpga/GainControl.py:18" *)
   reg [11:0] gain = 12'h010;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:10" *)
+  input get_period_over;
+  wire get_period_over;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:12" *)
+  input [11:0] maxn;
+  wire [11:0] maxn;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:14" *)
+  input [11:0] mid;
+  wire [11:0] mid;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:13" *)
+  input [11:0] minn;
+  wire [11:0] minn;
   (* src = "/home/yym/workspace/fpga/KnobControl.py:7" *)
   input [1:0] out;
   wire [1:0] out;
@@ -2899,55 +3091,91 @@ module \top.Channal2.gain_control (rst, r_data, out, display_y, clk);
   (* src = "/home/yym/workspace/fpga/./main.py:68" *)
   input rst;
   wire rst;
-  assign diff = r_data - (* src = "/home/yym/workspace/fpga/GainControl.py:18" *) 12'h800;
-  assign \$3  = $signed(\$1 ) * (* src = "/home/yym/workspace/fpga/GainControl.py:19" *) $signed({ 1'h0, \$2  });
-  assign \$4  = $signed(9'h0f0) + (* src = "/home/yym/workspace/fpga/GainControl.py:19" *) $signed(\$3 );
-  assign \$5  = out == (* src = "/home/yym/workspace/fpga/GainControl.py:21" *) 1'h1;
-  assign \$6  = out == (* src = "/home/yym/workspace/fpga/GainControl.py:23" *) 2'h2;
-  assign \$8  = gain + (* src = "/home/yym/workspace/fpga/GainControl.py:22" *) \$7 ;
-  assign \$10  = gain - (* src = "/home/yym/workspace/fpga/GainControl.py:24" *) \$9 ;
-  assign \$11  = gain < (* src = "/home/yym/workspace/fpga/GainControl.py:26" *) 3'h4;
-  assign \$12  = gain > (* src = "/home/yym/workspace/fpga/GainControl.py:28" *) 9'h100;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:7" *)
+  assign \$1  = maxn - (* src = "/home/yym/workspace/fpga/GainControl.py:22" *) minn;
+  assign diff = r_data - (* src = "/home/yym/workspace/fpga/GainControl.py:44" *) center;
+  assign \$2  = \$1 [11:0] > (* src = "/home/yym/workspace/fpga/GainControl.py:30" *) 12'hbb8;
+  assign \$3  = \$1 [11:0] > (* src = "/home/yym/workspace/fpga/GainControl.py:32" *) 11'h5dc;
+  assign \$4  = \$1 [11:0] > (* src = "/home/yym/workspace/fpga/GainControl.py:34" *) 10'h2ee;
+  assign \$5  = \$1 [11:0] > (* src = "/home/yym/workspace/fpga/GainControl.py:36" *) 9'h177;
+  assign \$6  = \$1 [11:0] > (* src = "/home/yym/workspace/fpga/GainControl.py:38" *) 8'hbb;
+  assign \$9  = $signed(\$7 ) * (* src = "/home/yym/workspace/fpga/GainControl.py:45" *) $signed({ 1'h0, \$8  });
+  assign \$10  = $signed(9'h0f0) + (* src = "/home/yym/workspace/fpga/GainControl.py:45" *) $signed(\$9 );
+  assign \$11  = out == (* src = "/home/yym/workspace/fpga/GainControl.py:47" *) 1'h1;
+  assign \$12  = out == (* src = "/home/yym/workspace/fpga/GainControl.py:49" *) 2'h2;
+  assign \$14  = gain + (* src = "/home/yym/workspace/fpga/GainControl.py:48" *) \$13 ;
+  assign \$16  = gain - (* src = "/home/yym/workspace/fpga/GainControl.py:50" *) \$15 ;
+  assign \$17  = gain < (* src = "/home/yym/workspace/fpga/GainControl.py:52" *) 3'h4;
+  assign \$18  = gain > (* src = "/home/yym/workspace/fpga/GainControl.py:54" *) 9'h100;
+  (* src = "/home/yym/workspace/fpga/GainControl.py:17" *)
   always @(posedge clk)
-    display_y <= \$13 ;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:14" *)
+    center <= \$19 ;
+  (* src = "/home/yym/workspace/fpga/GainControl.py:18" *)
   always @(posedge clk)
-    gain <= \$14 ;
+    gain <= \$20 ;
+  (* src = "/home/yym/workspace/fpga/GainControl.py:11" *)
+  always @(posedge clk)
+    display_y <= \$21 ;
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$8 ) begin end
-    \$13  = \$4 [11:0];
+    \$19  = center;
+    if (get_period_over) begin
+      \$19  = mid;
+    end
     if (rst) begin
-      \$13  = 12'h000;
+      \$19  = 12'h800;
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$8 ) begin end
-    \$14  = gain;
-    if (\$5 ) begin
-      \$14  = \$8 [11:0];
-    end else if (\$6 ) begin
-      \$14  = \$10 [11:0];
+    \$20  = gain;
+    if (get_period_over) begin
+      (* full_case = 32'd1 *)
+      if (\$2 ) begin
+        \$20  = 12'h008;
+      end else if (\$3 ) begin
+        \$20  = 12'h010;
+      end else if (\$4 ) begin
+        \$20  = 12'h020;
+      end else if (\$5 ) begin
+        \$20  = 12'h040;
+      end else if (\$6 ) begin
+        \$20  = 12'h080;
+      end else begin
+        \$20  = 12'h100;
+      end
     end
     if (\$11 ) begin
-      \$14  = 12'h004;
+      \$20  = \$14 [11:0];
+    end else if (\$12 ) begin
+      \$20  = \$16 [11:0];
     end
-    if (\$12 ) begin
-      \$14  = 12'h100;
+    if (\$17 ) begin
+      \$20  = 12'h004;
+    end
+    if (\$18 ) begin
+      \$20  = 12'h100;
     end
     if (rst) begin
-      \$14  = 12'h010;
+      \$20  = 12'h010;
     end
   end
-  assign \$1  = { diff[12], diff[12], diff[12], diff[12:3] };
-  assign \$2  = { 4'h0, gain[11:4] };
-  assign \$7  = { 2'h0, gain[11:2] };
-  assign \$9  = { 2'h0, gain[11:2] };
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$8 ) begin end
+    \$21  = \$10 [11:0];
+    if (rst) begin
+      \$21  = 12'h000;
+    end
+  end
+  assign amp = \$1 [11:0];
+  assign \$7  = { diff[12], diff[12], diff[12], diff[12:3] };
+  assign \$8  = { 4'h0, gain[11:4] };
+  assign \$13  = { 2'h0, gain[11:2] };
+  assign \$15  = { 2'h0, gain[11:2] };
 endmodule
 
-(* src = "/home/yym/workspace/fpga/PeriodDetector.py:14" *)
+(* src = "/home/yym/workspace/fpga/PeriodDetector.py:17" *)
 (* generator = "Amaranth" *)
-module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, wave_range, period, get_period_over, clk);
+module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, wave_range, period, get_period_over, \maxn$24 , \minn$25 , \mid$26 , clk);
   reg \$auto$verilog_backend.cc:2355:dump_module$9  = 0;
   wire [32:0] \$1 ;
   wire \$10 ;
@@ -3018,6 +3246,9 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, wa
   wire [14:0] \$7 ;
   reg \$70 ;
   reg [31:0] \$71 ;
+  reg [11:0] \$72 ;
+  reg [11:0] \$73 ;
+  reg [11:0] \$74 ;
   wire [14:0] \$8 ;
   wire [14:0] \$9 ;
   (* src = "/home/yym/workspace/fpga/XADCModule.py:14" *)
@@ -3028,7 +3259,7 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, wa
   wire [11:0] adc_ch1_value;
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:8" *)
   reg [31:0] average = 32'd0;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:23" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:26" *)
   reg [31:0] choose_range_timeout = 32'd0;
   (* src = "/home/yym/workspace/fpga/./main.py:68" *)
   input clk;
@@ -3038,25 +3269,34 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, wa
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:10" *)
   output get_period_over;
   reg get_period_over = 1'h0;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:29" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:32" *)
   reg get_period_ready = 1'h0;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:24" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:27" *)
   reg [31:0] get_period_timeout = 32'd0;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:18" *)
-  reg [13:0] maxn = 14'h0000;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:30" *)
-  reg [13:0] maxn2center = 14'h0000;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:20" *)
-  reg [13:0] mid = 14'h0000;
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:21" *)
-  reg [13:0] mid_high = 14'h0000;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:22" *)
-  reg [13:0] mid_low = 14'h0000;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:19" *)
-  reg [13:0] minn = 14'h0fff;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:31" *)
-  reg [13:0] minn2center = 14'h0000;
+  reg [13:0] maxn = 14'h0000;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:12" *)
+  output [11:0] \maxn$24 ;
+  reg [11:0] \maxn$24  = 12'hc00;
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:33" *)
+  reg [13:0] maxn2center = 14'h0000;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:23" *)
+  reg [13:0] mid = 14'h0000;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:14" *)
+  output [11:0] \mid$26 ;
+  reg [11:0] \mid$26  = 12'h800;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:24" *)
+  reg [13:0] mid_high = 14'h0000;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:25" *)
+  reg [13:0] mid_low = 14'h0000;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:22" *)
+  reg [13:0] minn = 14'h0fff;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:13" *)
+  output [11:0] \minn$25 ;
+  reg [11:0] \minn$25  = 12'h400;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:34" *)
+  reg [13:0] minn2center = 14'h0000;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:36" *)
   reg normal_status = 1'h1;
   (* src = "/home/yym/workspace/fpga/ButtonControl.py:6" *)
   input out;
@@ -3064,11 +3304,11 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, wa
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:9" *)
   output [31:0] period;
   reg [31:0] period = 32'd1000000;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:26" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:29" *)
   reg [31:0] period_cnt = 32'd0;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:25" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:28" *)
   reg [31:0] period_sum = 32'd0;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:32" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:35" *)
   reg [13:0] range_up_threshold = 14'h0000;
   (* src = "/home/yym/workspace/fpga/./main.py:68" *)
   input rst;
@@ -3076,20 +3316,22 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, wa
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:11" *)
   output [3:0] wave_range;
   reg [3:0] wave_range = 4'h1;
-  assign \$29  = \$28  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:85" *) maxn;
-  assign \$30  = \$29  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:85" *) minn;
-  assign \$32  = maxn + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:86" *) minn;
-  assign \$33  = \$32  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:86" *) minn;
-  assign \$34  = \$33  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:86" *) minn;
-  assign \$36  = adc_ch1_value < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:94" *) mid_low;
-  assign \$37  = get_period_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:96" *) 30'h3b9aca00;
-  assign \$38  = adc_ch1_value > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:101" *) mid;
-  assign \$39  = period_cnt <= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:103" *) 4'hf;
-  assign \$40  = period_cnt + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:104" *) 1'h1;
-  assign \$41  = get_period_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:108" *) 30'h3b9aca00;
-  assign \$42  = adc_ch1_value > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:113" *) mid_high;
-  assign \$43  = get_period_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:115" *) 30'h3b9aca00;
-  assign \$44  = get_period_timeout < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:119" *) 30'h3b9aca00;
+  assign \$26  = maxn + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:87" *) minn;
+  assign \$28  = maxn + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:88" *) maxn;
+  assign \$29  = \$28  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:88" *) maxn;
+  assign \$30  = \$29  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:88" *) minn;
+  assign \$32  = maxn + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:89" *) minn;
+  assign \$33  = \$32  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:89" *) minn;
+  assign \$34  = \$33  + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:89" *) minn;
+  assign \$36  = adc_ch1_value < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:97" *) mid_low;
+  assign \$37  = get_period_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:99" *) 30'h3b9aca00;
+  assign \$38  = adc_ch1_value > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:104" *) mid;
+  assign \$39  = period_cnt <= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:106" *) 4'hf;
+  assign \$40  = period_cnt + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:107" *) 1'h1;
+  assign \$41  = get_period_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:111" *) 30'h3b9aca00;
+  assign \$42  = adc_ch1_value > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:116" *) mid_high;
+  assign \$43  = get_period_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:118" *) 30'h3b9aca00;
+  assign \$44  = get_period_timeout < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:122" *) 30'h3b9aca00;
   assign \$46  = ! (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) fsm_state;
   assign \$47  = fsm_state == (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) 1'h1;
   assign \$48  = fsm_state == (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) 2'h2;
@@ -3097,52 +3339,52 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, wa
   assign \$50  = fsm_state == (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) 3'h4;
   assign \$51  = fsm_state == (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) 3'h5;
   assign \$52  = fsm_state == (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/site-packages/amaranth/hdl/_dsl.py:486" *) 3'h6;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:25" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:28" *)
   always @(posedge clk)
     period_sum <= \$53 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:30" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:33" *)
   always @(posedge clk)
     maxn2center <= \$54 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:31" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:34" *)
   always @(posedge clk)
     minn2center <= \$55 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:32" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:35" *)
   always @(posedge clk)
     range_up_threshold <= \$56 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:24" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:27" *)
   always @(posedge clk)
     get_period_timeout <= \$57 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:18" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:21" *)
   always @(posedge clk)
     maxn <= \$58 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:19" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:22" *)
   always @(posedge clk)
     minn <= \$59 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:23" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:26" *)
   always @(posedge clk)
     choose_range_timeout <= \$60 ;
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:11" *)
   always @(posedge clk)
     wave_range <= \$61 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:33" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:36" *)
   always @(posedge clk)
     normal_status <= \$62 ;
   (* src = "/home/yym/miniconda3/envs/amaranth/lib/python3.12/contextlib.py:144" *)
   always @(posedge clk)
     fsm_state <= \$63 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:20" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:23" *)
   always @(posedge clk)
     mid <= \$64 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:21" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:24" *)
   always @(posedge clk)
     mid_high <= \$65 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:22" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:25" *)
   always @(posedge clk)
     mid_low <= \$66 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:29" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:32" *)
   always @(posedge clk)
     get_period_ready <= \$67 ;
-  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:26" *)
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:29" *)
   always @(posedge clk)
     period_cnt <= \$68 ;
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:9" *)
@@ -3154,33 +3396,40 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, wa
   (* src = "/home/yym/workspace/fpga/PeriodDetector.py:8" *)
   always @(posedge clk)
     average <= \$71 ;
-  assign \$1  = period_sum + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:38" *) 1'h1;
-  assign \$2  = maxn > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:41" *) 12'h800;
-  assign \$3  = maxn - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:41" *) 12'h800;
-  assign \$4  = 12'h800 - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:41" *) maxn;
-  assign \$5  = \$2  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:41" *) \$3  : \$4 ;
-  assign \$6  = minn < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:42" *) 12'h800;
-  assign \$7  = 12'h800 - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:42" *) minn;
-  assign \$8  = minn - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:42" *) 12'h800;
-  assign \$9  = \$6  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:42" *) \$7  : \$8 ;
-  assign \$10  = wave_range == (* src = "/home/yym/workspace/fpga/PeriodDetector.py:43" *) 1'h1;
-  assign \$11  = \$10  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:43" *) 9'h100 : 9'h080;
-  assign \$12  = ~ (* src = "/home/yym/workspace/fpga/PeriodDetector.py:46" *) normal_status;
-  assign \$13  = get_period_timeout + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:47" *) 1'h1;
-  assign \$14  = adc_ch1_value > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:67" *) maxn;
-  assign \$15  = \$14  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:67" *) { 2'h0, adc_ch1_value } : maxn;
-  assign \$16  = adc_ch1_value < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:68" *) minn;
-  assign \$17  = \$16  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:68" *) { 2'h0, adc_ch1_value } : minn;
-  assign \$18  = choose_range_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:71" *) 26'h2faf080;
-  assign \$19  = wave_range < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:73" *) 3'h4;
-  assign \$20  = maxn2center < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:74" *) range_up_threshold;
-  assign \$21  = \$19  & (* src = "/home/yym/workspace/fpga/PeriodDetector.py:73" *) \$20 ;
-  assign \$22  = minn2center < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:75" *) range_up_threshold;
-  assign \$23  = \$21  & (* src = "/home/yym/workspace/fpga/PeriodDetector.py:73" *) \$22 ;
-  assign \$24  = wave_range + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:76" *) 1'h1;
-  assign \$25  = choose_range_timeout + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:80" *) 1'h1;
-  assign \$26  = maxn + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:84" *) minn;
-  assign \$28  = maxn + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:85" *) maxn;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:12" *)
+  always @(posedge clk)
+    \maxn$24  <= \$72 ;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:13" *)
+  always @(posedge clk)
+    \minn$25  <= \$73 ;
+  (* src = "/home/yym/workspace/fpga/PeriodDetector.py:14" *)
+  always @(posedge clk)
+    \mid$26  <= \$74 ;
+  assign \$1  = period_sum + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:41" *) 1'h1;
+  assign \$2  = maxn > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:44" *) 12'h800;
+  assign \$3  = maxn - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:44" *) 12'h800;
+  assign \$4  = 12'h800 - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:44" *) maxn;
+  assign \$5  = \$2  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:44" *) \$3  : \$4 ;
+  assign \$6  = minn < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:45" *) 12'h800;
+  assign \$7  = 12'h800 - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:45" *) minn;
+  assign \$8  = minn - (* src = "/home/yym/workspace/fpga/PeriodDetector.py:45" *) 12'h800;
+  assign \$9  = \$6  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:45" *) \$7  : \$8 ;
+  assign \$10  = wave_range == (* src = "/home/yym/workspace/fpga/PeriodDetector.py:46" *) 1'h1;
+  assign \$11  = \$10  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:46" *) 9'h100 : 9'h080;
+  assign \$12  = ~ (* src = "/home/yym/workspace/fpga/PeriodDetector.py:49" *) normal_status;
+  assign \$13  = get_period_timeout + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:50" *) 1'h1;
+  assign \$14  = adc_ch1_value > (* src = "/home/yym/workspace/fpga/PeriodDetector.py:70" *) maxn;
+  assign \$15  = \$14  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:70" *) { 2'h0, adc_ch1_value } : maxn;
+  assign \$16  = adc_ch1_value < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:71" *) minn;
+  assign \$17  = \$16  ? (* src = "/home/yym/workspace/fpga/PeriodDetector.py:71" *) { 2'h0, adc_ch1_value } : minn;
+  assign \$18  = choose_range_timeout >= (* src = "/home/yym/workspace/fpga/PeriodDetector.py:74" *) 26'h2faf080;
+  assign \$19  = wave_range < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:76" *) 3'h4;
+  assign \$20  = maxn2center < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:77" *) range_up_threshold;
+  assign \$21  = \$19  & (* src = "/home/yym/workspace/fpga/PeriodDetector.py:76" *) \$20 ;
+  assign \$22  = minn2center < (* src = "/home/yym/workspace/fpga/PeriodDetector.py:78" *) range_up_threshold;
+  assign \$23  = \$21  & (* src = "/home/yym/workspace/fpga/PeriodDetector.py:76" *) \$22 ;
+  assign \$24  = wave_range + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:79" *) 1'h1;
+  assign \$25  = choose_range_timeout + (* src = "/home/yym/workspace/fpga/PeriodDetector.py:83" *) 1'h1;
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
     \$53  = period_sum;
@@ -3566,6 +3815,75 @@ module \top.Channal2.period_detector (rst, adc_ch1_value, adc_ch1_ready, out, wa
     endcase
     if (rst) begin
       \$71  = 32'd0;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    \$72  = \maxn$24 ;
+    casez (fsm_state)
+      3'h0:
+          /* empty */;
+      3'h1:
+          /* empty */;
+      3'h2:
+          /* empty */;
+      3'h3:
+          /* empty */;
+      3'h4:
+          /* empty */;
+      3'h6:
+          /* empty */;
+      3'h5:
+          \$72  = maxn[11:0];
+    endcase
+    if (rst) begin
+      \$72  = 12'hc00;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    \$73  = \minn$25 ;
+    casez (fsm_state)
+      3'h0:
+          /* empty */;
+      3'h1:
+          /* empty */;
+      3'h2:
+          /* empty */;
+      3'h3:
+          /* empty */;
+      3'h4:
+          /* empty */;
+      3'h6:
+          /* empty */;
+      3'h5:
+          \$73  = minn[11:0];
+    endcase
+    if (rst) begin
+      \$73  = 12'h400;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$9 ) begin end
+    \$74  = \mid$26 ;
+    casez (fsm_state)
+      3'h0:
+          /* empty */;
+      3'h1:
+          /* empty */;
+      3'h2:
+          /* empty */;
+      3'h3:
+          /* empty */;
+      3'h4:
+          /* empty */;
+      3'h6:
+          /* empty */;
+      3'h5:
+          \$74  = mid[11:0];
+    endcase
+    if (rst) begin
+      \$74  = 12'h800;
     end
   end
   assign \$27  = { 1'h0, \$26 [14:1] };
@@ -4346,7 +4664,7 @@ endmodule
 
 (* src = "/home/yym/workspace/fpga/KnobControl.py:10" *)
 (* generator = "Amaranth" *)
-module \top.Channal2.sample_period_control_knob (CH2_sample_period_control_knob_A, CH2_sample_period_control_knob_B, rst, out, clk);
+module \top.Channal2.sample_period_control_knob (CH1_sample_period_control_knob_A, CH1_sample_period_control_knob_B, rst, out, clk);
   reg \$auto$verilog_backend.cc:2355:dump_module$11  = 0;
   wire [1:0] \$1 ;
   wire \$10 ;
@@ -4373,12 +4691,12 @@ module \top.Channal2.sample_period_control_knob (CH2_sample_period_control_knob_
   wire \$7 ;
   wire \$8 ;
   wire \$9 ;
-  (* src = "/home/yym/workspace/fpga/./main.py:39" *)
-  input CH2_sample_period_control_knob_A;
-  wire CH2_sample_period_control_knob_A;
-  (* src = "/home/yym/workspace/fpga/./main.py:40" *)
-  input CH2_sample_period_control_knob_B;
-  wire CH2_sample_period_control_knob_B;
+  (* src = "/home/yym/workspace/fpga/./main.py:30" *)
+  input CH1_sample_period_control_knob_A;
+  wire CH1_sample_period_control_knob_A;
+  (* src = "/home/yym/workspace/fpga/./main.py:31" *)
+  input CH1_sample_period_control_knob_B;
+  wire CH1_sample_period_control_knob_B;
   (* src = "/home/yym/workspace/fpga/./main.py:68" *)
   input clk;
   wire clk;
@@ -4402,7 +4720,7 @@ module \top.Channal2.sample_period_control_knob (CH2_sample_period_control_knob_
   reg [1:0] stable_status = 2'h0;
   (* src = "/home/yym/workspace/fpga/KnobControl.py:13" *)
   reg [1:0] status = 2'h0;
-  assign \$2  = \$1  + (* src = "/home/yym/workspace/fpga/KnobControl.py:20" *) CH2_sample_period_control_knob_B;
+  assign \$2  = \$1  + (* src = "/home/yym/workspace/fpga/KnobControl.py:20" *) CH1_sample_period_control_knob_B;
   assign \$3  = status != (* src = "/home/yym/workspace/fpga/KnobControl.py:25" *) last_status;
   assign \$4  = status == (* src = "/home/yym/workspace/fpga/KnobControl.py:29" *) last_status;
   assign \$5  = cnt + (* src = "/home/yym/workspace/fpga/KnobControl.py:30" *) 1'h1;
@@ -4578,7 +4896,7 @@ module \top.Channal2.sample_period_control_knob (CH2_sample_period_control_knob_
       \$25  = 2'h0;
     end
   end
-  assign \$1  = { CH2_sample_period_control_knob_A, 1'h0 };
+  assign \$1  = { CH1_sample_period_control_knob_A, 1'h0 };
   assign \$17  = fsm_state;
 endmodule
 
@@ -4780,7 +5098,7 @@ endmodule
 
 (* src = "/home/yym/workspace/fpga/ButtonControl.py:9" *)
 (* generator = "Amaranth" *)
-module \top.auto_button$42 (auto_button, rst, out, clk);
+module \top.auto_button$40 (auto_button, rst, out, clk);
   reg \$auto$verilog_backend.cc:2355:dump_module$13  = 0;
   wire \$1 ;
   reg \$10 ;
@@ -5035,10 +5353,10 @@ module \top.vga_display (x, y, display_y, \display_y$8 , r, g, b, visible);
   (* src = "/home/yym/workspace/fpga/./main.py:18" *)
   output [3:0] b;
   reg [3:0] b;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:7" *)
+  (* src = "/home/yym/workspace/fpga/GainControl.py:11" *)
   input [11:0] display_y;
   wire [11:0] display_y;
-  (* src = "/home/yym/workspace/fpga/GainControl.py:7" *)
+  (* src = "/home/yym/workspace/fpga/GainControl.py:11" *)
   input [11:0] \display_y$8 ;
   wire [11:0] \display_y$8 ;
   (* src = "/home/yym/workspace/fpga/./main.py:17" *)
@@ -5115,7 +5433,7 @@ endmodule
 
 (* src = "/home/yym/workspace/fpga/XADCModule.py:17" *)
 (* generator = "Amaranth" *)
-module \top.xadc (vauxp1, vauxn1, vauxp2, vauxn2, rst, adc_ch0_value, adc_ch0_ready, adc_ch1_value, adc_ch1_ready, clk);
+module \top.xadc (vauxp10, vauxn10, vauxp2, vauxn2, rst, adc_ch0_value, adc_ch0_ready, adc_ch1_value, adc_ch1_ready, clk);
   reg \$auto$verilog_backend.cc:2355:dump_module$16  = 0;
   wire \$1 ;
   wire \$2 ;
@@ -5146,7 +5464,7 @@ module \top.xadc (vauxp1, vauxn1, vauxp2, vauxn2, rst, adc_ch0_value, adc_ch0_re
   (* src = "/home/yym/workspace/fpga/./main.py:20" *)
   wire \clk$11 ;
   (* src = "/home/yym/workspace/fpga/XADCModule.py:22" *)
-  reg [6:0] daddr = 7'h11;
+  reg [6:0] daddr = 7'h1a;
   (* src = "/home/yym/workspace/fpga/XADCModule.py:20" *)
   wire drdy;
   (* src = "/home/yym/workspace/fpga/XADCModule.py:21" *)
@@ -5155,14 +5473,14 @@ module \top.xadc (vauxp1, vauxn1, vauxp2, vauxn2, rst, adc_ch0_value, adc_ch0_re
   input rst;
   wire rst;
   (* src = "/home/yym/workspace/fpga/./main.py:23" *)
-  input vauxn1;
-  wire vauxn1;
+  input vauxn10;
+  wire vauxn10;
   (* src = "/home/yym/workspace/fpga/./main.py:25" *)
   input vauxn2;
   wire vauxn2;
   (* src = "/home/yym/workspace/fpga/./main.py:22" *)
-  input vauxp1;
-  wire vauxp1;
+  input vauxp10;
+  wire vauxp10;
   (* src = "/home/yym/workspace/fpga/./main.py:24" *)
   input vauxp2;
   wire vauxp2;
@@ -5170,7 +5488,7 @@ module \top.xadc (vauxp1, vauxn1, vauxp2, vauxn2, rst, adc_ch0_value, adc_ch0_re
   wire [15:0] xadc_data;
   assign \$1  = ~ (* src = "/home/yym/workspace/fpga/XADCModule.py:50" *) channel;
   assign \$2  = ~ (* src = "/home/yym/workspace/fpga/XADCModule.py:60" *) channel;
-  assign \$3  = channel ? (* src = "/home/yym/workspace/fpga/XADCModule.py:64" *) 5'h11 : 5'h12;
+  assign \$3  = channel ? (* src = "/home/yym/workspace/fpga/XADCModule.py:64" *) 5'h1a : 5'h12;
   (* src = "/home/yym/workspace/fpga/XADCModule.py:11" *)
   always @(posedge clk)
     adc_ch0_value <= \$4 ;
@@ -5200,9 +5518,9 @@ module \top.xadc (vauxp1, vauxn1, vauxp2, vauxn2, rst, adc_ch0_value, adc_ch0_re
     .dwe_in(1'h0),
     .eoc_out(eoc),
     .reset_in(1'h0),
-    .vauxn1(vauxn1),
+    .vauxn10(vauxn10),
     .vauxn2(vauxn2),
-    .vauxp1(vauxp1),
+    .vauxp10(vauxp10),
     .vauxp2(vauxp2),
     .vn_in(1'h0),
     .vp_in(1'h0)
@@ -5282,7 +5600,7 @@ module \top.xadc (vauxp1, vauxn1, vauxp2, vauxn2, rst, adc_ch0_value, adc_ch0_re
       \$9  = { 2'h0, \$3  };
     end
     if (rst) begin
-      \$9  = 7'h11;
+      \$9  = 7'h1a;
     end
   end
   assign \clk$11  = clk;

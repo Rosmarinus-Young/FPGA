@@ -1,14 +1,14 @@
 from amaranth import *
 
 class XADCModule(Elaboratable):
-    def __init__(self, clk, vauxp1, vauxn1, vauxp2, vauxn2):
+    def __init__(self, clk, vauxp10, vauxn10, vauxp2, vauxn2):
         self.clk = clk
-        self.vauxp1 = vauxp1
-        self.vauxn1 = vauxn1
+        self.vauxp10 = vauxp10
+        self.vauxn10 = vauxn10
         self.vauxp2 = vauxp2
         self.vauxn2 = vauxn2
 
-        self.adc_ch0_value = Signal(12)   # VAUXP1
+        self.adc_ch0_value = Signal(12)   # VAUXP10
         self.adc_ch0_ready = Signal()
         self.adc_ch1_value = Signal(12)   # VAUXP2
         self.adc_ch1_ready = Signal()
@@ -19,7 +19,7 @@ class XADCModule(Elaboratable):
         xadc_data = Signal(16)
         drdy = Signal()
         eoc = Signal()
-        daddr = Signal(7, reset=0x11)
+        daddr = Signal(7, reset=0x1A)
         channel = Signal(reset=0)
 
         m.submodules.u_xadc = Instance(
@@ -32,8 +32,8 @@ class XADCModule(Elaboratable):
             i_dwe_in=Const(0, 1),
             i_reset_in=Const(0, 1),
 
-            i_vauxp1=self.vauxp1,
-            i_vauxn1=self.vauxn1,
+            i_vauxp10=self.vauxp10,
+            i_vauxn10=self.vauxn10,
             i_vauxp2=self.vauxp2,
             i_vauxn2=self.vauxn2,
 
@@ -61,7 +61,7 @@ class XADCModule(Elaboratable):
 
         # eoc 后立即切换 daddr，为下一次转换准备
         with m.If(eoc):
-            m.d.sync += daddr.eq(Mux(channel, 0x11, 0x12))
+            m.d.sync += daddr.eq(Mux(channel, 0x1A, 0x12))
 
         # ready 信号单周期脉冲
         with m.If(self.adc_ch0_ready):

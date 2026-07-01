@@ -34,7 +34,11 @@ class Scope(Elaboratable):
                                                      B = display_gain_control_knob_B)
         
         self.gain_control = GainControl(r_data = self.ram.r_data,
-                                        gain_control_knob = self.display_gain_control_knob.out)
+                                        gain_control_knob = self.display_gain_control_knob.out,
+                                        get_period_over = self.period_detector.get_period_over,
+                                        maxn = self.period_detector.maxn,
+                                        minn = self.period_detector.minn,
+                                        mid = self.period_detector.mid)
 
     def elaborate(self, platform):
         m = Module()

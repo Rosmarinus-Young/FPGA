@@ -9,6 +9,9 @@ class PeriodDetector(Elaboratable):
         self.period = Signal(32, init = 1000000)
         self.get_period_over = Signal(1, init = 0)
         self.wave_range = Signal(4, init = 1)
+        self.maxn = Signal(12, init = 3072)
+        self.minn = Signal(12, init = 1024)
+        self.mid = Signal(12, init = 2048)
         # 档位分别为：1/50, 1/10, 1, 10
     def elaborate(self, platform):
         m = Module()
@@ -125,6 +128,9 @@ class PeriodDetector(Elaboratable):
                     period_cnt.eq(0),
                     self.average.eq(mid),
                     normal_status.eq(1),
+                    self.maxn.eq(maxn),
+                    self.minn.eq(minn),
+                    self.mid.eq(mid)
                 ]
                 m.next = "normal"
 

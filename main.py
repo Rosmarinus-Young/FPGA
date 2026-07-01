@@ -19,8 +19,8 @@ class VGADemo(Elaboratable):
         self.rst = Signal()
         self.clk = Signal()
 
-        self.vauxp1 = Signal()
-        self.vauxn1 = Signal()
+        self.vauxp10 = Signal()
+        self.vauxn10 = Signal()
         self.vauxp2 = Signal()
         self.vauxn2 = Signal()
 
@@ -36,8 +36,8 @@ class VGADemo(Elaboratable):
         self.CH1_KEYA1 = Signal(init = 1)
         self.CH1_KEYA2 = Signal(init = 1)
 
-        self.CH2_sample_period_control_knob_A = Signal()
-        self.CH2_sample_period_control_knob_B = Signal()
+        # self.CH2_sample_period_control_knob_A = Signal()
+        # self.CH2_sample_period_control_knob_B = Signal()
 
         self.CH2_display_gain_control_knob_A = Signal()
         self.CH2_display_gain_control_knob_B = Signal()
@@ -75,7 +75,7 @@ class VGADemo(Elaboratable):
         timing = VGATiming(self.vga_hsync, self.vga_vsync)
         m.submodules.timing = timing
 
-        xadc = XADCModule(clk = self.clk, vauxp1 = self.vauxp1, vauxn1 = self.vauxn1,
+        xadc = XADCModule(clk = self.clk, vauxp10 = self.vauxp10, vauxn10 = self.vauxn10,
                           vauxp2 = self.vauxp2, vauxn2 = self.vauxn2)
         m.submodules.xadc = xadc
 
@@ -95,8 +95,8 @@ class VGADemo(Elaboratable):
         Channal2 = Scope(adc_value = xadc.adc_ch1_value, adc_ready = xadc.adc_ch1_ready,
                          auto_button = auto_button.out, 
                          KEYA1 = self.CH2_KEYA1, KEYA2 = self.CH2_KEYA2,
-                         sample_period_control_knob_A = self.CH2_sample_period_control_knob_A,
-                         sample_period_control_knob_B = self.CH2_sample_period_control_knob_B,
+                         sample_period_control_knob_A = self.CH1_sample_period_control_knob_A, # temp
+                         sample_period_control_knob_B = self.CH1_sample_period_control_knob_B, # temp
                          display_gain_control_knob_A = self.CH2_display_gain_control_knob_A,
                          display_gain_control_knob_B = self.CH2_display_gain_control_knob_B,
                          timing = timing)
@@ -127,8 +127,8 @@ if __name__ == "__main__":
 
             top.auto_button,
 
-            top.vauxp1,
-            top.vauxn1,
+            top.vauxp10,
+            top.vauxn10,
             top.CH1_sample_period_control_knob_A,
             top.CH1_sample_period_control_knob_B,
             top.CH1_display_gain_control_knob_A,
@@ -138,8 +138,8 @@ if __name__ == "__main__":
 
             top.vauxp2,
             top.vauxn2,
-            top.CH2_sample_period_control_knob_A,
-            top.CH2_sample_period_control_knob_B,
+            # top.CH2_sample_period_control_knob_A,
+            # top.CH2_sample_period_control_knob_B,
             top.CH2_display_gain_control_knob_A,
             top.CH2_display_gain_control_knob_B,
             top.CH2_KEYA1,
